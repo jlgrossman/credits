@@ -2,7 +2,6 @@
 session_start();
 $user = array(
   'name' => $_SESSION['user'],
-  'id' => $_SESSION['id']
+  'id' => intval($_SESSION['id'])
 );
-
  ?>
