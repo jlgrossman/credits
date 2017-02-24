@@ -16,7 +16,13 @@
   <header>
     <div class="constraint">
       <div class="logo">Best<span class="tagline"> it's better than Bettr</span></div>
-      <div class="login-credits"><?php echo ($isLoggedIn ? $user['name']  : 'Login'); ?><span class="credit-count"><?php echo getCredits($connection, $user['id']); ?></span></div>
+      <div class="login-credits">
+        <?php if($isLoggedIn) : ?>
+          <?php echo $user['name']; ?><span class="credit-count"><?php echo getCredits($connection, $user['id']); ?></span>
+        <?php else : ?>
+          Login
+        <?php endif; ?>
+      </div>
     </div>
   </header>
   <div class="main-content">
