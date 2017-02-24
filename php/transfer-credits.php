@@ -20,16 +20,17 @@ if($query->fetch()){
 
 $query->close();
 
-$query = $connection->prepare('UPDATE users SET credits = credits + ? WHERE id = ?');
-$query->bind_params('ii', $amount, $to);
-$query->execute();
-$query->close();
-
-$query = $connection->prepare('UPDATE users SET credits = credits - ? WHERE id = ?');
-$query->bind_params('ii', $amount, $from);
+$query = $connection->prepare('
+  UPDATE users SET credits =
+  (CASE
+      WHEN id = ? THEN credits + ?
+      WHEN id = ? THEN credits - ?
+      ELSE credits
+    END)
+');
+$query->bind_params('iiii', $to, $amount, $from, $amount);
 $query->execute();
 $query->close();
 
 echo '{"success":true,"msg":"Credits transferred"}';
-
  ?>
