@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700|Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
   <link rel="stylesheet" href="styles/reset.css" />
   <link rel="stylesheet" href="styles/styles.css" />
+  <script src="scripts/util.js"></script>
+  <script src="scripts/app.js"></script>
 </head>
 <body>
   <header>
