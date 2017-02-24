@@ -1,0 +1,18 @@
+/*
+._breakpoint(@bp-mobile-landscape; {
+  // styles
+});
+*/
+._breakpoint(@min-width, @rules){
+   @media (min-width: @min-width) {
+     @rules();
+   }
+}
+
+// Generate font-sizes for headings
+._generate-headings(@n, @i: 1) when (@i =< @n) {
+  h@{i} {
+    font-size: (3em-.25*@i);
+  }
+  ._generate-headings(@n, (@i + 1));
+}

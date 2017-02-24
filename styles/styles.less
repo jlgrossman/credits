@@ -1,68 +1,14 @@
 // out: styles.css, compress: true
 
-/* Colors */
-@brand: #278EC0;
-@brand-light: @brand + #222;
-@brand-dark: @brand - #222;
-
-@accent: #FFE629;
-@accent-light: @accent + #222;
-@accent-dark: @accent - #222;
-
-/* Font */
-
-@font-content: 'Roboto', Arial, sans-serif;
-@font-heading: 'Oleo Script', cursive;
-
-@font-line-height: 1.4; // I wanna test this out, see if it's useful.
-
-/* Layout */
-
-@width-constraint: 1200px;
-
-@spacing-sm: 20px;
-@spacing-md: 40px;
-@spacing-lg: 60px;
-
-
-/* Functions? */
-
-//Generate font-sizes for headings
-.generate-headings(@n, @i: 1) when (@i =< @n) {
-  h@{i} {
-    font-size: (3em-.25*@i);
-  }
-  .generate-headings(@n, (@i + 1));
-}
-
-/* Breakpoints
-._breakpoint(480px; {
-  // styles
-})
-*/
-
-._breakpoint(@min-width, @rules){
-   @media (min-width: @min-width) {
-     @rules();
-   }
-}
-
-@bp-mobile-landscape: 480px;
-@bp-tablet-portrait: 768px;
-@bp-tablet-landscape: 1024px;
-@bp-desktop: 1200px;
-
-
-
-
-/* Begin Styles */
+@import "mixins.less";
+@import "vars.less";
 
 html {
   font-family: @font-content;
   font-size: 87.5%
 }
 
-.generate-headings(6);
+._generate-headings(6);
 
 .constraint {
   max-width: @width-constraint;
