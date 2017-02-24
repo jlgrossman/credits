@@ -2,7 +2,7 @@
 include_once 'utils.php';
 
 // use session id if no post id is given
-$credits = getCredits($connection, isset($_POST['id']) ? intval($_POST['id']) : $user['id']);
+$credits = getCredits(isset($_POST['id']) ? intval($_POST['id']) : $user['id']);
 
 if($credits >= 0){
   $result = array('success' => true, 'msg' => $credits);

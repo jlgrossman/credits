@@ -7,7 +7,7 @@ $amount = intval($_POST['amount']);
 
 if($fromId < 1 || $toId < 1 || $amount < 1){
   exit('{"success":false,"msg":"Invalid data"}');
-} else if(getCredits($connection, $fromId) < $amount){
+} else if(getCredits($fromId) < $amount){
   exit('{"success":false,"msg":"Insufficient funds"}');
 }
 
