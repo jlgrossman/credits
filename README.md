@@ -23,3 +23,7 @@ Our philosophy can easily be condensed into another elegant acronym which is **S
 Syngergistic SaaS Solutions Should Make My Life The *Best*
 
 We think that one is pretty self explanatory.  Our Chief Visionary came up with that acronym, so thank him for that beauty.
+
+Corporate Jargon
+----------------
+At **Best**, we are committed to corporate jargon.  We believe that jargon is the key to transform a group of passionate engineers into a true organization.  That is why we practice what we preach.  For every word of corporate jargon you donate to ta charity of your choice, we will donate half a word (limited to 10 words per charity).
