@@ -1,3 +1,8 @@
+<?php
+ include_once 'php/user-session.php';
+ // $user['name'] and $user['id'] are now vars referencing logged in user
+ // $isLoggedIn and $isAdmin are now true/false
+?>
 <!DOCTYPE html>
 <head>
   <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700|Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
@@ -9,8 +14,8 @@
 <body>
   <header>
     <div class="constraint">
-      <div class="logo">Best</div>
-      <div class="credit-count">12345</div>
+      <div class="logo">Best<span class="tagline"> it's better than Bettr</span></div>
+      <div class="login-credits"><?php echo ($isLoggedIn ? $user['name']  : 'Login'); ?><span class="credit-count">12345</span></div>
     </div>
   </header>
   <div class="main-content">
@@ -37,7 +42,7 @@
       </div>
       <div class="bets">
         <div class="bet">
-          <h2>What time is Aprille going to arrive at?</h2>
+          <h2>At what time is Aprille going to arrive?</h2>
         </div>
         <div class="bet">
           <h2>How many projects has Josh left unfinished?</h2>
