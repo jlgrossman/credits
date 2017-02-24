@@ -26,4 +26,4 @@ We think that one is pretty self explanatory.  Our Chief Visionary came up with 
 
 Corporate Jargon
 ----------------
-At **Best**, we are committed to corporate jargon.  We believe that jargon is the key to transform a group of passionate engineers into a true organization.  That is why we practice what we preach.  For every word of corporate jargon you donate to ta charity of your choice, we will donate half a word (limited to 10 words per charity).
+At **Best**, we are committed to corporate jargon.  We believe that jargon is the key to transform a group of passionate engineers into a true organization.  That is why we practice what we preach.  For every word of corporate jargon you donate to the charity of your choice, we will donate half a word (limited to 10 words per charity).  No need to thank us :)
