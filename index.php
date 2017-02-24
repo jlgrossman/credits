@@ -1,7 +1,8 @@
 <?php
- include_once 'php/user-session.php';
+ include_once 'php/utils.php';
  // $user['name'] and $user['id'] are now vars referencing logged in user
  // $isLoggedIn and $isAdmin are now true/false
+ // getCredits($connection, $user['id']); returns number of credits or -1 if error
 ?>
 <!DOCTYPE html>
 <head>
@@ -15,7 +16,7 @@
   <header>
     <div class="constraint">
       <div class="logo">Best<span class="tagline"> it's better than Bettr</span></div>
-      <div class="login-credits"><?php echo ($isLoggedIn ? $user['name']  : 'Login'); ?><span class="credit-count">12345</span></div>
+      <div class="login-credits"><?php echo ($isLoggedIn ? $user['name']  : 'Login'); ?><span class="credit-count"><?php echo getCredits($connection, $user['id']); ?></span></div>
     </div>
   </header>
   <div class="main-content">
