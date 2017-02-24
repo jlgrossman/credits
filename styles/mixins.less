@@ -1,3 +1,5 @@
+@import "vars";
+
 /*
 ._breakpoint(@bp-mobile-landscape; {
   // styles
@@ -7,6 +9,14 @@
    @media (min-width: @min-width) {
      @rules();
    }
+}
+
+._clearfix() {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 }
 
 // Generate font-sizes for headings
