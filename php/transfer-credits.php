@@ -11,7 +11,7 @@ if($fromId < 1 || $toId < 1 || $amount < 1){
 }
 
 $query = $connection->prepare('SELECT id FROM users WHERE id = ? AND credits < ?');
-$query->bind_params('ii', $from, $amount);
+$query->bind_param('ii', $fromId, $amount);
 $query->execute();
 
 if($query->fetch()){
@@ -28,7 +28,7 @@ $query = $connection->prepare('
       ELSE credits
     END)
 ');
-$query->bind_params('iiii', $to, $amount, $from, $amount);
+$query->bind_param('iiii', $toId, $amount, $fromId, $amount);
 $query->execute();
 $query->close();
 
