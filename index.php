@@ -49,7 +49,7 @@
       </div>
       <div class="bets">
         <div class="bet">
-          <h2>At what time is Aprille going to arrive?</h2>
+          <h2>When will Josh arrive?</h2>
         </div>
         <div class="bet">
           <h2>How many projects has Josh left unfinished?</h2>
