@@ -2,7 +2,7 @@
 include_once 'php/utils.php';
 // $user['name'] and $user['id'] are now vars referencing logged in user
 // $isLoggedIn and $isAdmin are now true/false
-// getCredits($connection, $user['id']); returns number of credits or -1 if error
+// getCredits($user['id']); returns number of credits or -1 if error
 ?>
 <!DOCTYPE html>
 <head>
@@ -12,6 +12,9 @@ include_once 'php/utils.php';
   <link rel="stylesheet" href="styles/styles.css" />
   <script src="scripts/util.js"></script>
   <script src="scripts/app.js"></script>
+  <?php if($isLoggedIn): ?>
+    <script>var USER_KEY="<?php echo getKey($user['id'], $user['name']);?>"</script>
+  <?php endif; ?>
 </head>
 <body>
   <div class="site-wrap">
