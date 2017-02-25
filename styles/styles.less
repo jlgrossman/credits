@@ -1,7 +1,9 @@
 // out: styles.css, compress: true
 
-@import "mixins";
+
 @import "vars";
+@import "reset";
+@import "mixins";
 
 html {
   font-family: @font-content;
@@ -28,10 +30,9 @@ em {
 ._generate-headings(6);
 
 .site-wrap {
-
+  width: 100%;
   ._breakpoint(@bp-tablet-landscape; {
     display: flex;
-    width: 100%;
   });
 }
 
@@ -52,7 +53,7 @@ em {
     }
   }
   ._breakpoint(@bp-tablet-landscape; {
-    width: 300px;
+    width: @flyout-width;
     border-right: 1px solid @light-grey;
     .logo {
       margin: @spacing-md 0;
@@ -85,6 +86,7 @@ header {
   height: 30px;
   color: @white;
   background-color: @brand;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   .constraint {
     display: flex;
     justify-content: space-between;
@@ -122,9 +124,33 @@ header {
   }
   .login {
     line-height: @credit-con-size;
+    height: @login-btn-size;
+    line-height: @login-btn-size;
+    width: @login-btn-size;
+    position: absolute;
+    right: -20px;
+    top: -20px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #278ec0;
+    border: 2px solid #fff;
+    border-top: none;
+    text-align: center;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+    font-size: 0;
+    &:after {
+      position: absolute;
+      bottom: 20px;
+      font-family: FontAwesome;
+      left: 23px;
+      content: "\f007";
+      font-size: 2rem;
+      line-height: 1;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
   }
   ._breakpoint(@bp-tablet-landscape; {
-    position: static;
+    width: ~"calc(100% - @{flyout-width})";
     .constraint {
       padding: 0 @spacing-md;
     }
@@ -172,7 +198,6 @@ form {
 }
 
 .overlay {
-  display: flex; // just leavin this here so u know it's supposed to be flex;
   display: none;
   position: fixed;
   width: 100%;
@@ -184,11 +209,17 @@ form {
   background: rgba(255,255,255,0.75);
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  transition: opacity .3s ease;
+  &.open {
+    display: flex;
+    opacity: 1;
+  }
   .popup {
     position: relative;
     padding: @spacing-md;
     background: #fff;
-    box-shadow: 0 0 40px rgba(39, 142, 192, .5);
+    box-shadow: 0 0 @spacing-sm rgba(39, 142, 192, .2);
     border: 1px solid rgb(39, 142, 192);
     border-radius: 1px;
     .close {
