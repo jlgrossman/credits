@@ -30,5 +30,8 @@ while($query->fetch()){
   $transactions[] = array('from'=>$from, 'to'=>$to, 'amount'=>$amount, 'msg'=>$msg);
 }
 
+$query->close();
+$connection->close();
+
 echo json_encode(array('success'=>true, 'transactions'=>$transactions));
  ?>

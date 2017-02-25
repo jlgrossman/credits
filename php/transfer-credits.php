@@ -31,6 +31,7 @@ $query = $connection->prepare('INSERT INTO transactions (from_id, to_id, amount,
 $query->bind_param('iiis', $fromId, $toId, $amount, $msg);
 $query->execute();
 $query->close();
+$connection->close();
 
 echo '{"success":true,"msg":"Credits transferred"}';
  ?>

@@ -103,3 +103,4 @@ include_once 'php/utils.php';
     </div>
   </div>
 </body>
+<?php $connection->close(); ?>
