@@ -1,4 +1,4 @@
-declare const USER_KEY : string;
+declare var USER_KEY : string;
 
 function ajax(obj) {
     if (!obj.url) return;
