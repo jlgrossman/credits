@@ -5,73 +5,197 @@
 
 html {
   font-family: @font-content;
-  font-size: 87.5%
+  font-size: 87.5%;
+  display: flex;
+  color: @black + #333;
+}
+
+body {
+  background: #fcfcfc;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
 }
 
 ._generate-headings(6);
 
+.site-wrap {
+
+  ._breakpoint(@bp-tablet-landscape; {
+    display: flex;
+    width: 100%;
+  });
+}
+
+.flyout {
+  .logo {
+    font-family: @font-heading;
+    font-size: 3.5em;
+    text-align: center;
+    margin: @spacing-lg 0 @spacing-md;
+    color: @brand;
+    .tagline {
+      font-size: 1rem;
+      display: block;
+      font-family: @font-content;
+      margin-top: @spacing-sm / 2;
+      letter-spacing: 2px;
+      color: fade(@brand, 55%);
+    }
+  }
+  ._breakpoint(@bp-tablet-landscape; {
+    width: 300px;
+    border-right: 1px solid @light-grey;
+    .logo {
+      margin: @spacing-md 0;
+    }
+  });
+}
+
+.main-wrap {
+
+  ._breakpoint(@bp-tablet-landscape; {
+    flex: 1;
+  });
+}
+
 .constraint {
   max-width: @width-constraint;
   margin: 0 auto;
-  padding: 0 @spacing-md;
+  padding: 0 @spacing-sm;
+  ._breakpoint(@bp-tablet-landscape; {
+    padding: 0 @spacing-md;
+  });
 }
 
 header {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  top:0;
   width: 100%;
-  height: 80px;
-  box-shadow: 0 1px 15px rgba(0,0,0,0.15);
+  height: 30px;
+  color: @white;
+  background-color: @brand;
   .constraint {
-    height: 100%;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    flex: 1;
+    padding: 0 5px;
   }
-  .logo {
-    color: @brand;
-    font-family:  @font-heading;
-    font-size: 3.25em;
-  }
-  .tagline {
-    font-family: @font-content;
-    font-size: 1rem;
-    font-style: italic;
-    letter-spacing: 1px;
-    color: fade(@brand-light, 55%);
-  }
-  .login-credits {
-    @credit-con-size: 30px;
+  .credit-count {
     height: @credit-con-size;
     line-height: @credit-con-size;
-    .credit-count {
-      @currency-size: @credit-con-size - 4;
-      margin-left: @credit-con-size + 30;
-      position: relative;
-      display: inline-block;
-      &:before {
-        display: block;
-        position:absolute;
-        left: -35px;
-        top: 0;
-        content: 'B';
-        text-align: center;
-        line-height: @currency-size;
-        height: @currency-size;
-        width: @currency-size;
-        border-radius: 50%;
-        font-family: @font-heading;
-        color: @accent;
-        background-color: @accent-dark;
-        border: 2px solid @accent;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-        box-shadow: 0 1px 5px rgba(0,0,0,0.15), inset 0 0 2px rgba(0,0,0,0.15);
-      }
+    margin-left: @credit-con-size + 10;
+    position: relative;
+    display: inline-block;
+    font-size: .9em;
+    font-weight: lighter;
+    &:before {
+      display: block;
+      position:absolute;
+      left: -1 * @credit-con-size - 10 ;
+      top: 0;
+      content: 'B';
+      text-align: center;
+      line-height: @currency-size;
+      height: @currency-size;
+      width: @currency-size;
+      border-radius: 50%;
+      font-family: @font-heading;
+      font-weight: normal;
+      font-size: .7rem;
+      color: @accent;
+      background-color: @accent-dark;
+      border: 2px solid @accent;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+      box-shadow: 0 1px 5px rgba(0,0,0,0.15), inset 0 0 2px rgba(0,0,0,0.15);
     }
+  }
+  .login {
+    line-height: @credit-con-size;
+  }
+  ._breakpoint(@bp-tablet-landscape; {
+    position: static;
+    .constraint {
+      padding: 0 @spacing-md;
+    }
+  });
+}
+
+.main-wrap {
+  .main-content {
+    padding: @spacing-md 0;
   }
 }
 
-.main-content {
-  line-height: @font-line-height;
-  .constraint {
-    margin-top: @spacing-md;
+form {
+@form-speed: .15s;
+  input[type="text"], input[type='number'], textarea, input[type="checkbox"], input[type="radio"] {
+    box-shadow: 0;
+
+    transition: border @form-speed ease, box-shadow @form-speed ease;
+    &:focus{
+      outline: none;
+      border: 1px solid @brand;
+      box-shadow: 0 0 5px fade(@brand, 50%);
+    }
+  }
+
+  input[type="text"] {
+    font-size: 1.25em;
+    padding: 10px;
+    border-radius: 1px;
+    border: 1px solid @light-grey;
+    width: 100%;
+    margin-bottom: @spacing-sm / 2;
+  }
+
+  ._breakpoint(@bp-tablet-portrait; {
+    input[type="text"] {
+      float: left;
+      width: 49%;
+      &:nth-child(2n) {
+        margin-left: 2%;
+      }
+    }
+  });
+  ._clearfix();
+}
+
+.overlay {
+  display: flex; // just leavin this here so u know it's supposed to be flex;
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  padding: @spacing-md;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  background: rgba(255,255,255,0.75);
+  justify-content: center;
+  align-items: center;
+  .popup {
+    position: relative;
+    padding: @spacing-md;
+    background: #fff;
+    box-shadow: 0 0 40px rgba(39, 142, 192, .5);
+    border: 1px solid rgb(39, 142, 192);
+    border-radius: 1px;
+    .close {
+      position: absolute;
+      top: @spacing-sm / 2;
+      right: @spacing-sm / 2;
+      cursor: pointer;
+    }
   }
 }
