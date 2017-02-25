@@ -11,7 +11,7 @@ if($id < 1 || strlen($key) < 1){
 }
 
 $query = $connection->prepare('
-  SELECT trans.from_id, trans.to_id,from_user.username, to_user.username, trans.amount
+  SELECT trans.from_id, trans.to_id, from_user.username, to_user.username, trans.amount, trans.message
   FROM transactions AS trans
   INNER JOIN users AS from_user ON trans.from_id = from_user.id
   INNER JOIN users AS to_user ON trans.to_id = to_user.id
@@ -20,14 +20,14 @@ $query = $connection->prepare('
 ');
 $query->bind_param('ii', $id, $id);
 $query->execute();
-$query->bind_result($fromId, $toId, $fromName, $toName, $amount);
+$query->bind_result($fromId, $toId, $fromName, $toName, $amount, $msg);
 
 $transactions = array();
 
 while($query->fetch()){
   $from = array('id'=>$fromId, 'name'=>$fromName);
   $to = array('id'=>$toId, 'name'=>$toName);
-  $transactions[] = array('from'=>$from, 'to'=>$to, 'amount'=>$amount);
+  $transactions[] = array('from'=>$from, 'to'=>$to, 'amount'=>$amount, 'msg'=>$msg);
 }
 
 echo json_encode(array('success'=>true, 'transactions'=>$transactions));
