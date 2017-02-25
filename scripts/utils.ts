@@ -1,3 +1,5 @@
+declare const USER_KEY : string;
+
 function ajax(obj) {
     if (!obj.url) return;
     var params: any = [];
