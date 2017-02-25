@@ -7,7 +7,7 @@ $amount = intval($_POST['amount']);
 $key = $_POST['key'];
 $msg = $connection->real_escape_string($_POST['msg']);
 
-if($fromId < 1 || $toId < 1 || $amount < 1){
+if($fromId < 1 || $toId < 1 || $amount < 1 || strlen($key) < 1){
   exit('{"success":false,"msg":"Invalid data"}');
 } else if($key != getKey($fromId)){
   exit('{"success":false,"msg":"Invalid key"}');
