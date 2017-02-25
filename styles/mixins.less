@@ -22,7 +22,8 @@
 // Generate font-sizes for headings
 ._generate-headings(@n, @i: 1) when (@i =< @n) {
   h@{i} {
-    font-size: (3em-.25*@i);
+    font-size: (2.8em-.2*@i);
+    margin-bottom: 1.4rem;
   }
   ._generate-headings(@n, (@i + 1));
 }
