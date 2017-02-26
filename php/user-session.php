@@ -1,4 +1,4 @@
-<?php
+<?
 session_start();
 $isLoggedIn = isset($_SESSION['id']);
 $user = array(

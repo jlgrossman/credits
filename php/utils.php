@@ -1,4 +1,4 @@
-<?php
+<?
 include_once 'user-session.php';
 include_once 'connection.php';
 

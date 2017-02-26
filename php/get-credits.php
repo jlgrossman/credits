@@ -1,4 +1,4 @@
-<?php
+<?
 include_once 'utils.php';
 
 // use session id if no post id is given

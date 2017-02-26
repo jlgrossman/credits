@@ -1,4 +1,4 @@
-<?php
+<?
 include_once 'php/utils.php';
 // $user['name'] and $user['id'] are now vars referencing logged in user
 // $isLoggedIn and $isAdmin are now true/false
@@ -12,9 +12,9 @@ include_once 'php/utils.php';
   <link rel="stylesheet" href="styles/styles.css" />
   <script src="scripts/utils.js"></script>
   <script src="scripts/app.js"></script>
-  <?php if($isLoggedIn): ?>
-    <script>var USER_KEY="<?php echo getKey($user['id'], $user['name']);?>"</script>
-  <?php endif; ?>
+  <? if($isLoggedIn): ?>
+    <script>var USER_KEY="<?= getKey($user['id'], $user['name'])?>"</script>
+  <? endif; ?>
 </head>
 <body>
   <div class="site-wrap">
@@ -37,16 +37,16 @@ include_once 'php/utils.php';
       <header>
         <div class="constraint">
           <div class="credit-count">
-            <?php if($isLoggedIn) : ?>
-              <?php echo getCredits($user['id']); ?>
-            <?php endif; ?>
+            <? if($isLoggedIn) : ?>
+              <?= getCredits($user['id']) ?>
+            <? endif; ?>
           </div>
           <div class="login">
-            <?php if($isLoggedIn) : ?>
-              Welcome to Bettr, <strong><?php echo $user['name']; ?></strong>
-            <?php else : ?>
+            <? if($isLoggedIn) : ?>
+              Welcome to Bettr, <strong><?= $user['name'] ?></strong>
+            <? else : ?>
               Login
-            <?php endif; ?>
+            <? endif; ?>
           </div>
         </div>
       </header>
@@ -92,7 +92,7 @@ include_once 'php/utils.php';
       </div>
       <footer>
         <div class="constraint">
-          &copy; Best Enterprises <?php echo date("Y"); ?>
+          &copy; Best Enterprises <?= date("Y") ?>
         </div>
       </footer>
     </div>
@@ -105,4 +105,4 @@ include_once 'php/utils.php';
     </div>
   </div>
 </body>
-<?php $connection->close(); ?>
+<? $connection->close(); ?>

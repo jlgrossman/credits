@@ -1,8 +1,9 @@
-<?php
+<?
 include_once 'utils.php';
 
 $id = isset($_POST['id']) ? intval($_POST['id']) : $user['id'];
 $key = $_POST['key'];
+$output = isset($_POST['output']) ? $_POST['output'] : 'json';
 
 if($id < 1 || strlen($key) < 1){
   exit('{"success":false,"msg":"Invalid data"}');
@@ -33,5 +34,10 @@ while($query->fetch()){
 $query->close();
 $connection->close();
 
-echo json_encode(array('success'=>true, 'transactions'=>$transactions));
+if($output == 'json'){
+  echo json_encode(array('success'=>true, 'transactions'=>$transactions));
+} else {
+  include 'components/transactions.php';
+}
+
  ?>

@@ -1,4 +1,4 @@
-<?php
+<?
 include_once 'utils.php';
 
 $fromId = isset($_POST['from']) ? intval($_POST['from']) : $user['id'];
