@@ -21,7 +21,7 @@ type $ = HTMLElement[] & {
   }
 };
 
-function ajax(obj) {
+function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Function, error?:Function}) {
     if (!obj.url) return;
     var params: any = [];
     for (var i in obj.params) params.push(encodeURIComponent(i) + "=" + encodeURIComponent(obj.params[i]));
@@ -47,7 +47,7 @@ function ajax(obj) {
     xhr.send(params);
 }
 
-function $(arg:any) : $ {
+function $(arg:any):$ {
     var a;
     if (arg instanceof Array) a = arg;
     else a = (/<[a-zA-Z0-9]+>/.test(arg)) ? [document.createElement(arg.replace(/<|>/g, ""))] : arg instanceof HTMLElement ? [arg] : document.querySelectorAll(arg);
