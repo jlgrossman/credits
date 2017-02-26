@@ -10,7 +10,7 @@ include_once 'php/utils.php';
   <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700|Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css" />
-  <script src="scripts/util.js"></script>
+  <script src="scripts/utils.js"></script>
   <script src="scripts/app.js"></script>
   <?php if($isLoggedIn): ?>
     <script>var USER_KEY="<?php echo getKey($user['id'], $user['name']);?>"</script>
