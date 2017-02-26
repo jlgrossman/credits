@@ -16,10 +16,14 @@ type $ = HTMLElement[] & {
   text:{
     ():string
     (t:string):$
-  }
+  },
   data: {
     (m:string):string
     (m:string,v:any):$
+  },
+  html: {
+    ():string
+    (d:string):$
   }
 };
 
@@ -129,6 +133,11 @@ function $(arg:any):$ {
     a.data = function(m, v) {
         return !v ? this[0].dataset[m] : this.each(function(n) {
             n.dataset[m] = v;
+        });
+    };
+    a.html = function(d){
+        return !d ? this[0].innerHTML : this.each(function(n) {
+            n.innerHTML = d;
         });
     };
     return a;
