@@ -3,6 +3,7 @@ declare var USER_KEY : string;
 type $ = HTMLElement[] & {
   each:(f:Function)=>$,
   append:(e:HTMLElement|HTMLElement[])=>$,
+  clone:(b?:boolean)=>$,
   find:(s:string)=>$,
   remove:()=>$,
   parent:()=>$,
@@ -62,8 +63,16 @@ function $(arg:any):$ {
     };
     a.append = function(e) {
         return this.each(function(n) {
-            n.appendChild((e instanceof Array) ? e[0] : e);
+            if(!('length' in e)) e = [e];
+            for(var el of e) n.appendChild(el);
         });
+    };
+    a.clone = function(d){
+        var a = [];
+        this.each(function(n){
+            a.push(n.cloneNode(d));
+        });
+        return $(a);
     };
     a.find = function(s) {
         var a = [];
