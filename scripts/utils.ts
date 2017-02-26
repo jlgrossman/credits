@@ -30,7 +30,8 @@ function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Fu
     xhr.open("POST", obj.url, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+          if(xhr.status == 200){
             try {
                 if (obj.success) {
                     obj.success(
@@ -42,6 +43,9 @@ function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Fu
             } catch (e) {
                 if (obj.error) obj.error(e);
             }
+          } else {
+            obj.error(xhr.status);
+          }
         }
     };
     xhr.send(params);
