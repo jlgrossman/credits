@@ -7,6 +7,7 @@ type $ = HTMLElement[] & {
   remove:()=>$,
   parent:()=>$,
   on:(e:string,f:Function)=>$,
+  trigger:(e:string,d?:Object)=>$,
   addClass:(c:string)=>$,
   removeClass:(c:string)=>$,
   toggleClass:(c:string)=>$,
@@ -55,61 +56,67 @@ function $(arg:any):$ {
     var a;
     if (arg instanceof Array) a = arg;
     else a = (/<[a-zA-Z0-9]+>/.test(arg)) ? [document.createElement(arg.replace(/<|>/g, ""))] : arg instanceof HTMLElement ? [arg] : document.querySelectorAll(arg);
-    a['each'] = function(f) {
+    a.each = function(f) {
         for (var i = 0; i < this.length; i++) f(this[i]);
         return this;
     };
-    a['append'] = function(e) {
+    a.append = function(e) {
         return this.each(function(n) {
             n.appendChild((e instanceof Array) ? e[0] : e);
         });
     };
-    a['find'] = function(s) {
+    a.find = function(s) {
         var a = [];
         this.each(function(n) {
             a.push(...n.querySelectorAll(s));
         });
         return $(a);
     };
-    a['remove'] = function() {
+    a.remove = function() {
         return this.each(function(n) {
             n.parentNode.removeChild(n);
         });
     };
-    a['parent'] = function() {
+    a.parent = function() {
         return $(this[0].parentNode);
     };
-    a['on'] = function(e, f) {
+    a.on = function(e, f) {
         return this.each(function(n) {
             n.addEventListener(e, f);
         });
-  };
-    a['addClass'] = function(c) {
+    };
+    a.trigger = function(e,d){
+        var evt = d ? new CustomEvent(e,d) : new Event(e);
+        return this.each(function(n){
+          n.dispatchEvent(evt);
+        });
+    };
+    a.addClass = function(c) {
         return this.each(function(n) {
             n.classList.add(c);
         });
     };
-    a['removeClass'] = function(c) {
+    a.removeClass = function(c) {
         return this.each(function(n) {
             n.classList.remove(c);
         });
     };
-    a['toggleClass'] = function(c) {
+    a.toggleClass = function(c) {
         return this.each(function(n) {
             n.classList.toggle(c);
         });
     };
-    a['hasClass'] = function(c) {
+    a.hasClass = function(c) {
         for (var i = 0; i < this.length; i++)
             if (this[i].classList.contains(c)) return true;
         return false;
     };
-    a['text'] = function(t) {
+    a.text = function(t) {
         return t == undefined ? (this[0].innerText || this[0].value) : this.each(function(n) {
             "value" in n ? n.value = t : n.appendChild(document.createTextNode(t));
         });
     };
-    a['data'] = function(m, v) {
+    a.data = function(m, v) {
         return !v ? this[0].dataset[m] : this.each(function(n) {
             n.dataset[m] = v;
         });
