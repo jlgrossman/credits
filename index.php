@@ -19,16 +19,18 @@ include_once 'php/utils.php';
 <body>
   <div class="site-wrap">
     <div class="flyout">
-      <div class="logo">Bettr<span class="tagline"> the better better</span></div>
-      <div class="side-menu">
-        <ul>
-          <li>Menu Items 1</li>
-          <li>Menu Items 2</li>
-          <li>Menu Items 3</li>
-          <li>Menu Items 4</li>
-          <li>Menu Items 5</li>
-          <li>Menu Items 6</li>
-        </ul>
+      <div class="constraint">
+        <div class="logo">Bettr<span class="tagline"> the better better</span></div>
+        <div class="side-menu">
+          <ul>
+            <li>Menu Items 1</li>
+            <li>Menu Items 2</li>
+            <li>Menu Items 3</li>
+            <li>Menu Items 4</li>
+            <li>Menu Items 5</li>
+            <li>Menu Items 6</li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="main-wrap">

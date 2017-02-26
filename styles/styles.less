@@ -52,6 +52,15 @@ em {
       color: fade(@brand, 55%);
     }
   }
+  .transaction {
+    padding: 8px;
+    border: 1px solid @light-grey;
+    border-radius: 4px;
+
+    & + .transaction {
+      margin-top: 4px;
+    }
+  }
   ._breakpoint(@bp-tablet-landscape; {
     width: @flyout-width;
     border-right: 1px solid @light-grey;
