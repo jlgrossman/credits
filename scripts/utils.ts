@@ -55,7 +55,8 @@ function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Fu
 
 function $(arg:any):$ {
     var a;
-    if (arg instanceof Array) a = arg;
+    if(arg.each) return arg;
+    else if (arg instanceof Array) a = arg;
     else a = (/<[a-zA-Z0-9]+>/.test(arg)) ? [document.createElement(arg.replace(/<|>/g, ""))] : arg instanceof HTMLElement ? [arg] : document.querySelectorAll(arg);
     a.each = function(f) {
         for (var i = 0; i < this.length; i++) f(this[i]);
