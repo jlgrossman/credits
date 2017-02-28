@@ -14,7 +14,7 @@ ready(function(){
   });
 
   // SIDE MENU ///////////////////////////
-  const $sideMenu:$ = $('.side-menu');
+  const $sideMenu:$ = $('.flyout > .constraint');
 
   function loadTransactions(){
     ajax({
