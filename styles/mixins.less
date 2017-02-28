@@ -1,17 +1,6 @@
 // main: styles.less
 @import "vars";
 
-/*
-._breakpoint(@bp-mobile-landscape; {
-  // styles
-});
-*/
-._breakpoint(@min-width, @rules){
-   @media (min-width: @min-width) {
-     @rules();
-   }
-}
-
 ._clearfix() {
   &:after {
     content: "";
@@ -25,10 +14,10 @@
   h@{i} {
     font-size: (2.5em-.2*@i);
     margin-bottom: 1.4rem;
-    ._breakpoint(@bp-tablet-portrait; {
+    @media @tablet-portrait {
       font-size: (2.8em-.2*@i);
       margin-bottom: 1.4rem;
-    });
+    }
   }
   ._generate-headings(@n, (@i + 1));
 }
