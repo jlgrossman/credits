@@ -13,5 +13,4 @@ if($credits >= 0){
 $connection->close();
 
 echo json_encode($result);
-
- ?>
+?>

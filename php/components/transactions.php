@@ -1,6 +1,4 @@
-<?
-// $transaction has amount, from [id, name], to [id, name], msg
-foreach($transactions as $transaction): ?>
+<? foreach($transactions as $transaction): ?>
 <div class="transaction">
   <div class="transaction-details">
     <div class="transaction-user transaction-from" data-user-id="<?=$transaction['from']['id']?>"><?=$transaction['from']['name']?></div>
@@ -8,5 +6,4 @@ foreach($transactions as $transaction): ?>
   </div>
   <div class="transaction-msg"><?= $transaction['msg'] ?></div>
 </div>
-<? endforeach;
- ?>
+<? endforeach; ?>

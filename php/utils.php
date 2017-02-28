@@ -2,6 +2,9 @@
 include_once 'user-session.php';
 include_once 'connection.php';
 
+$MIN_USERNAME_LENGTH = 3;
+$MIN_PASSWORD_LENGTH = 6;
+
 // gets number of credits for a user with a specific id
 function getCredits($id){
   global $connection;
@@ -40,4 +43,18 @@ function getKey($id, $name = NULL){
     return $result;
 }
 
- ?>
+// gets user id from username
+function getId($name){
+  global $connection;
+  if(is_null($name)) return -1;
+
+  $query = $connection->prepare('SELECT id FROM users WHERE username = ?');
+  $query->bind_param('s', $name);
+  $name = $connection->real_escape_string($name);
+  $query->execute();
+  $query->bind_result($id);
+  if($query->fetch()) return $id;
+  else return -1;
+}
+
+?>

@@ -40,4 +40,4 @@ if($output == 'json'){
   include 'components/transactions.php';
 }
 
- ?>
+?>

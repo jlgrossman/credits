@@ -36,8 +36,42 @@ ready(function(){
       }
     });
   }
-
   loadTransactions();
 
+  // TRANSFER CREDITS ////////////////////
+  const $transferUsername : $ = $('.transfer-username');
+  const $transferAmount : $ = $('.transfer-amount');
+
+  var transferInProgress = false;
+
+  function transferCredits(){
+    if(transferInProgress) return;
+    const name : string = $transferUsername.text().trim();
+    const amount : number = parseInt($transferAmount.text());
+
+    if(name.length && !isNaN(amount)){
+      transferInProgress = true;
+      ajax({
+        url: 'php/transfer-credits.php',
+        params: {
+          to: name,
+          amount: amount,
+          key: USER_KEY
+        },
+        success: function(d){
+          $transferAmount.text('');
+          transferInProgress = false;
+        }
+      });
+    }
+  }
+
+  $transferUsername.on('keypress', function(e){
+    if(e.keyCode == 13) $transferAmount[0].focus();
+  });
+
+  $transferAmount.on('keypress', function(e){
+    if(e.keyCode == 13 && $transferUsername.text().trim().length) transferCredits();
+  });
 
 });

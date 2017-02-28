@@ -46,8 +46,8 @@ include_once 'php/utils.php';
             <h1>Welcome to Bettr</h1>
             <h2>Transfer Credits</h2>
             <form action="">
-              <input type="text" placeholder="Payee's Username" name="payee" />
-              <input type="text" placeholder="Credits" name="transfer" />
+              <input class="transfer-username" type="text" placeholder="Payee's Username" name="payee" />
+              <input class="transfer-amount" type="text" placeholder="Credits" name="transfer" />
             </form>
           </div>
         </div>

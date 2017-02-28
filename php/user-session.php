@@ -6,4 +6,4 @@ $user = array(
   'id' => ($isLoggedIn ? intval($_SESSION['id']) : 0),
 );
 $isAdmin = ($user['name'] == 'Admin' || $user['name'] == 'Jarrod');
- ?>
+?>
