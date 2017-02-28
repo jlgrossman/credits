@@ -31,12 +31,14 @@ em {
 
 .site-wrap {
   width: 100%;
-  ._breakpoint(@bp-tablet-landscape; {
+  ._breakpoint(@bp-tablet-landscape {
     display: flex;
   });
 }
 
 .flyout {
+  width: @flyout-width;
+  border-right: 1px solid @light-grey;
   .logo {
     font-family: @font-heading;
     font-size: 3.5em;
@@ -52,23 +54,26 @@ em {
       color: fade(@brand, 55%);
     }
   }
-  .transaction {
-    padding: 8px;
-    border: 1px solid @light-grey;
-    border-radius: 4px;
-
-    & + .transaction {
-      margin-top: 4px;
-    }
-  }
-  ._breakpoint(@bp-tablet-landscape; {
-    width: @flyout-width;
-    border-right: 1px solid @light-grey;
-    .logo {
-      margin: @spacing-md 0;
-    }
-  });
 }
+
+
+.transaction {
+  padding: @spacing-sm / 2;
+  border: 1px solid @light-grey;
+  border-radius: 1px;
+  background: @white;
+
+  & + .transaction {
+    margin-top: 4px;
+  }
+}
+._breakpoint(@bp-tablet-landscape; {
+  width: @flyout-width;
+  border-right: 1px solid @light-grey;
+  .logo {
+    margin: @spacing-md 0;
+  }
+});
 
 .main-wrap {
 

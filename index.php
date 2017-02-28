@@ -21,16 +21,6 @@ include_once 'php/utils.php';
     <div class="flyout">
       <div class="constraint">
         <div class="logo">Bettr<span class="tagline"> the better better</span></div>
-        <div class="side-menu">
-          <ul>
-            <li>Menu Items 1</li>
-            <li>Menu Items 2</li>
-            <li>Menu Items 3</li>
-            <li>Menu Items 4</li>
-            <li>Menu Items 5</li>
-            <li>Menu Items 6</li>
-          </ul>
-        </div>
       </div>
     </div>
     <div class="main-wrap">
@@ -54,39 +44,11 @@ include_once 'php/utils.php';
         <div class="constraint">
           <div class="create">
             <h1>Welcome to Bettr</h1>
-            <h2>Make Your First Bet</h2>
+            <h2>Transfer Credits</h2>
             <form action="">
-              <input type="text" placeholder="Bet Title" name="title" />
-              <input type="text" placeholder="Minimum Bet" name="min" />
+              <input type="text" placeholder="Payee's Username" name="payee" />
+              <input type="text" placeholder="Credits" name="transfer" />
             </form>
-          </div>
-          <div class="tasks">
-            <div class="task">
-              <h2>Task Title</h2>
-              <p>Perform a task to earn a small amount of credits.</p>
-            </div>
-            <div class="task">
-              <h2>Task Title 2</h2>
-              <p>Perform a different type of task to earn a small amount of credits.</p>
-            </div>
-            <div class="task">
-              <h2>Task Title 3</h2>
-              <p>Perform a third type of task to earn a small amount of credits.</p>
-            </div>
-          </div>
-          <div class="bets">
-            <div class="bet">
-              <h2>When will Josh arrive?</h2>
-            </div>
-            <div class="bet">
-              <h2>How many projects has Josh left unfinished?</h2>
-            </div>
-            <div class="bet">
-              <h2>What is his power level?</h2>
-            </div>
-            <div class="bet">
-              <h2>What does the fox say?</h2>
-            </div>
           </div>
         </div>
       </div>
