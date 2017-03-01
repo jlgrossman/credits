@@ -70,6 +70,8 @@ ready(function(){
           transferInProgress = false;
           if(data.success){
             $creditCount.text(parseInt($creditCount.text()) - amount);
+            $transferUsername.val('');
+            $transferMessage.val('');
           }
         }
       });
