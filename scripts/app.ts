@@ -44,7 +44,7 @@ ready(function(){
   const $transferUsername:$ = $('.transfer-username');
   const $transferAmount:$ = $('.transfer-amount');
   const $creditCount:$ = $('.credit-count');
-  var $transferMessage = $('.transfer-message');
+  const $transferMessage:$ = $('.transfer-message');
 
   var transferInProgress = false;
 
