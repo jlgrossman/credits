@@ -146,36 +146,8 @@ em {
       &:last-of-type {
         border-bottom: 1px solid @light-grey;
       }
-      &:before {
-        content: ' ';
-        position: absolute;
-        left: -@spacing-sm;
-        top:0;
-        width: @spacing-sm;
-        height: 100%;
-        background-color: @accent-dark;
-
-        transition: left .15s ease;
-      }
-      &:after {
-        content: ' ';
-        position: absolute;
-        right: -@spacing-sm;
-        top:0;
-        width: @spacing-sm;
-        height: 100%;
-        background-color: @accent-dark;
-
-        transition: right .15s ease;
-      }
       &:hover {
         background-color: @brand-dark;
-        &:before {
-          left: 0;
-        }
-        &:after {
-          right: 0;
-        }
       }
     }
   }
