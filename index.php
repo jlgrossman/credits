@@ -15,9 +15,18 @@ include_once 'php/utils.php';
 </head>
 <body>
   <div class="site-wrap">
+    <? if($isLoggedIn) : ?>
     <div class="flyout">
       <div class="constraint">
         <div class="logo">Bettr<span class="tagline"> the better better</span></div>
+        <div class="side-menu">
+          <ul>
+            <li data-url="transactions.php">Transactions</li>
+            <li data-url="bets.php">Bets</li>
+            <li data-url="games.php">Games</li>
+            <li data-url="shop.php">Shop</li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="main-wrap">
@@ -28,13 +37,9 @@ include_once 'php/utils.php';
               <?= getCredits($user['id']) ?>
             <? endif; ?>
           </div>
-          <div class="login">
-            <? if($isLoggedIn) : ?>
+            <div class="welcome">
               Welcome to Bettr, <strong><?= $user['name'] ?></strong>
-            <? else : ?>
-              Login
-            <? endif; ?>
-          </div>
+            </div>
         </div>
       </header>
       <div class="main-content">
@@ -43,8 +48,9 @@ include_once 'php/utils.php';
             <h1>Welcome to Bettr</h1>
             <h2>Transfer Credits</h2>
             <form action="">
-              <input class="transfer-username" type="text" placeholder="Payee's Username" name="payee" />
+              <input class="transfer-name" type="text" placeholder="Payee's Name" name="payee" />
               <input class="transfer-amount" type="text" placeholder="Credits" name="transfer" />
+              <textarea class="transfer-message" name="message" placeholder="Include a message..." maxlength="140"></textarea>
             </form>
           </div>
         </div>
@@ -55,6 +61,17 @@ include_once 'php/utils.php';
         </div>
       </footer>
     </div>
+  <? else : ?>
+    <div class="login">
+      <form class="login-form" action="">
+        <h1>Welcome to <span>Bettr</span></h1>
+        <h2>Login</h2>
+        <input type="text" name="display-name" class="display-name" placeholder="Display Name" />
+        <input type="text" name="username" class="username" placeholder="Username" />
+        <input type="submit" class="submit" value="Login" />
+      </form>
+    </div>
+  <? endif; ?>
   </div>
   <div class="overlay">
     <div class="popup">
@@ -64,4 +81,5 @@ include_once 'php/utils.php';
     </div>
   </div>
 </body>
+
 <? $connection->close(); ?>
