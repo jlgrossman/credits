@@ -1,18 +1,19 @@
 <?
 include_once 'utils.php';
 
-$fromId = isset($_POST['from']) ? (is_numeric($_POST['from']) ? intval($_POST['from']) : getId($_POST['from'])) : $user['id'];
-$toId = isset($_POST['to']) ? (is_numeric($_POST['to']) ? intval($_POST['to']) : getId($_POST['to'])) : $user['id'];
+if(!$isLoggedIn) {
+  $connection->close();
+  exit('{"success":false,"msg":"Not logged in"}');
+}
+
+$fromId = $user['id'];
+$toId = isset($_POST['to']) ? (is_numeric($_POST['to']) ? intval($_POST['to']) : getId($_POST['to'])) : 0;
 $amount = intval($_POST['amount']);
-$key = $_POST['key'];
 $msg = $connection->real_escape_string($_POST['msg']);
 
-if($fromId < 1 || $toId < 1 || $amount < 1 || strlen($key) < 1 || $toId == $fromId){
+if($fromId < 1 || $toId < 1 || $amount < 1 || $toId == $fromId){
   $connection->close();
   exit('{"success":false,"msg":"Invalid data"}');
-} else if($key != getKey($fromId)){
-  $connection->close();
-  exit('{"success":false,"msg":"Invalid key"}');
 } else if(getCredits($fromId) < $amount){
   $connection->close();
   exit('{"success":false,"msg":"Insufficient funds"}');

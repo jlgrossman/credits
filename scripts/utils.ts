@@ -15,7 +15,7 @@ type $ = HTMLElement[] & {
   hasClass:(s:string)=>boolean,
   text:{
     ():string
-    (t:string):$
+    (t:any):$
   },
   data: {
     (m:string):string
@@ -23,7 +23,7 @@ type $ = HTMLElement[] & {
   },
   html: {
     ():string
-    (d:string):$
+    (d:any):$
   }
 };
 
@@ -126,8 +126,8 @@ function $(arg:any):$ {
         return false;
     };
     a.text = function(t) {
-        return t == undefined ? (this[0].innerText || this[0].value) : this.each(function(n) {
-            "value" in n ? n.value = t : n.appendChild(document.createTextNode(t));
+        return t == undefined ? (this[0].textContent || this[0].value) : this.each(function(n) {
+            "value" in n ? n.value = t : n.textContent = t;
         });
     };
     a.data = function(m, v) {

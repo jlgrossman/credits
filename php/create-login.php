@@ -33,9 +33,8 @@ $id = $connection->insert_id;
 $query->close();
 $connection->close();
 
-$name = $_SESSION["user"] = $postName;
+$_SESSION["user"] = $postName;
 $_SESSION['id'] = $id;
-$key = $_SESSION['key'] = getKey($id, $postName);
 
-echo json_encode(array('success'=>true, 'msg'=>$name, 'key'=>$key));
+echo json_encode(array('success'=>true, 'msg'=>'Account created', 'data'=>array('name'=>$postName, 'id'=>$id)));
 ?>

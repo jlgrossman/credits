@@ -19,7 +19,9 @@ ready(function(){
   function loadTransactions(){
     ajax({
       url: 'php/get-transactions.php',
-      params: {key: USER_KEY},
+      params: {
+        output: 'json'
+      },
       success: function(data){
         if(data.success){
           for(var i in data.transactions){
@@ -39,8 +41,9 @@ ready(function(){
   loadTransactions();
 
   // TRANSFER CREDITS ////////////////////
-  const $transferUsername : $ = $('.transfer-username');
-  const $transferAmount : $ = $('.transfer-amount');
+  const $transferUsername:$ = $('.transfer-username');
+  const $transferAmount:$ = $('.transfer-amount');
+  const $creditCount:$ = $('.credit-count');
 
   var transferInProgress = false;
 
@@ -55,12 +58,14 @@ ready(function(){
         url: 'php/transfer-credits.php',
         params: {
           to: name,
-          amount: amount,
-          key: USER_KEY
+          amount: amount
         },
-        success: function(d){
+        success: function(data){
           $transferAmount.text('');
           transferInProgress = false;
+          if(data.success){
+            $creditCount.text(parseInt($creditCount.text()) - amount);
+          }
         }
       });
     }

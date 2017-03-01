@@ -1,14 +1,12 @@
 <?
 include_once 'utils.php';
 
-$id = isset($_POST['id']) ? intval($_POST['id']) : $user['id'];
-$key = $_POST['key'];
-$output = isset($_POST['output']) ? $_POST['output'] : 'json';
+$id = $user['id'];
+$output = isset($_POST['output']) ? $_POST['output'] : 'html';
 
-if($id < 1 || strlen($key) < 1){
-  exit('{"success":false,"msg":"Invalid data"}');
-} else if($key != getKey($id)){
-  exit('{"success":false,"msg":"Invalid key"}');
+if(!$isLoggedIn){
+  $connection->close();
+  exit('{"success":false,"msg":"Not logged in"}');
 }
 
 $query = $connection->prepare('

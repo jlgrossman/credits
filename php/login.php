@@ -18,10 +18,9 @@ $query->execute();
 $query->bind_result($id);
 
 if($query->fetch()){
-  $name = $_SESSION["user"] = $postName;
+  $_SESSION["user"] = $postName;
   $_SESSION['id'] = $id;
-  $key = $_SESSION['key'] = getKey($id, $postName);
-  $result = json_encode(array('success'=>true, 'msg'=>$name, 'key'=>$key));
+  $result = json_encode(array('success'=>true, 'msg'=>'Logged in', 'data'=>array('name'=>$postName, 'id'=>$id)));
 } else {
   $result = '{"success":false, "msg":"Invalid login"}';
 }

@@ -12,9 +12,6 @@ include_once 'php/utils.php';
   <link rel="stylesheet" href="styles/styles.css" />
   <script src="scripts/utils.js"></script>
   <script src="scripts/app.js"></script>
-  <? if($isLoggedIn): ?>
-    <script>var USER_KEY="<?= getKey($user['id'], $user['name'])?>"</script>
-  <? endif; ?>
 </head>
 <body>
   <div class="site-wrap">
