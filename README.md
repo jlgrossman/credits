@@ -9,4 +9,4 @@ We'll let our reviews do the talking:
 - *"(2.5/10) - how do I even use this?"* ~ Matt Lickei
 - *"(2/10) - this is garbage"* ~ A 3rd user if we had one
 
-So yeah, that's what we're about.
+So yeah, that's what we're about here at [Bettr](http://sjs.atwebpages.com/credits/)
