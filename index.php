@@ -63,11 +63,11 @@ include_once 'php/utils.php';
     </div>
   <? else : ?>
     <div class="login">
-      <form class="login-form" action="">
+      <form class="login-form">
         <h1>Welcome to <span>Bettr</span></h1>
         <h2>Login</h2>
-        <input type="text" name="display-name" class="display-name" placeholder="Display Name" />
-        <input type="text" name="username" class="username" placeholder="Username" />
+        <input type="text" name="name" class="display-name" placeholder="Display Name" />
+        <input type="text" name="pw" class="username" placeholder="Username" />
         <input type="submit" class="submit" value="Login" />
       </form>
     </div>

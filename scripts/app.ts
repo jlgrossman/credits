@@ -41,16 +41,18 @@ ready(function(){
   loadTransactions();
 
   // TRANSFER CREDITS ////////////////////
-  const $transferUsername:$ = $('.transfer-username');
+  const $transferUsername:$ = $('.transfer-name');
   const $transferAmount:$ = $('.transfer-amount');
+  const $transferMessage:$ = $('.transfer-message');
   const $creditCount:$ = $('.credit-count');
 
   var transferInProgress = false;
 
   function transferCredits(){
     if(transferInProgress) return;
-    const name : string = $transferUsername.text().trim();
-    const amount : number = parseInt($transferAmount.text());
+    const name:string = $transferUsername.text().trim();
+    const amount:number = parseInt($transferAmount.text());
+    const msg:string = $transferMessage.text();
 
     if(name.length && !isNaN(amount)){
       transferInProgress = true;
@@ -58,7 +60,8 @@ ready(function(){
         url: 'php/transfer-credits.php',
         params: {
           to: name,
-          amount: amount
+          amount: amount,
+          msg: msg
         },
         success: function(data){
           $transferAmount.text('');
@@ -77,6 +80,34 @@ ready(function(){
 
   $transferAmount.on('keypress', function(e){
     if(e.keyCode == 13 && $transferUsername.text().trim().length) transferCredits();
+  });
+
+  // LOGIN /////////////////////////
+  const $loginForm:$ = $('.login-form');
+  const $loginDisplayName:$ = $loginForm.find('.display-name');
+  const $loginUsername:$ = $loginForm.find('.username');
+  const $loginSubmit:$ = $loginForm.find('.submit');
+
+  $loginSubmit.on('click', function(e){
+    e.stopPropagation();
+    e.preventDefault();
+    const name:string = $loginDisplayName.text();
+    const pw:string = $loginUsername.text();
+    console.log(`${name} ${pw}`)
+    if(name && pw){
+      ajax({
+        url:'php/login.php',
+        params: {
+          name: name,
+          pw: pw
+        },
+        success: function(data){
+          if(data.success){
+            window.location.reload();
+          }
+        }
+      });
+    }
   });
 
 });
