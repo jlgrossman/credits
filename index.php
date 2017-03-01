@@ -47,11 +47,12 @@ include_once 'php/utils.php';
           <div class="create">
             <h1>Welcome to Bettr</h1>
             <h2>Transfer Credits</h2>
-            <form action="">
+            <div class="transfer form">
               <input class="transfer-name" type="text" placeholder="Payee's Name" name="payee" />
               <input class="transfer-amount" type="text" placeholder="Credits" name="transfer" />
               <textarea class="transfer-message" name="message" placeholder="Include a message..." maxlength="140"></textarea>
-            </form>
+              <input type="submit" class="submit" value="Send" />
+            </div>
           </div>
         </div>
       </div>
@@ -63,13 +64,13 @@ include_once 'php/utils.php';
     </div>
   <? else : ?>
     <div class="login">
-      <form class="login-form">
+      <div class="login-form form">
         <h1>Welcome to <span>Bettr</span></h1>
         <h2>Login</h2>
         <input type="text" name="name" class="display-name" placeholder="Display Name" />
         <input type="text" name="pw" class="username" placeholder="Username" />
         <input type="submit" class="submit" value="Login" />
-      </form>
+      </div>
     </div>
   <? endif; ?>
   </div>
