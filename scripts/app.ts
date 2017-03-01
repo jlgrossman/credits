@@ -41,9 +41,11 @@ ready(function(){
   loadTransactions();
 
   // TRANSFER CREDITS ////////////////////
-  const $transferUsername:$ = $('.transfer-name');
-  const $transferAmount:$ = $('.transfer-amount');
-  const $transferMessage:$ = $('.transfer-message');
+  const $transferForm:$ = $('.transfer.form');
+  const $transferUsername:$ = $transferForm.find('.transfer-name');
+  const $transferAmount:$ = $transferForm.find('.transfer-amount');
+  const $transferMessage:$ = $transferForm.find('.transfer-message');
+  const $transferSubmit:$ = $transferForm.find('.submit');
   const $creditCount:$ = $('.credit-count');
 
   var transferInProgress = false;
@@ -79,8 +81,10 @@ ready(function(){
   });
 
   $transferAmount.on('keypress', function(e){
-    if(e.keyCode == 13 && $transferUsername.text().trim().length) transferCredits();
+    if(e.keyCode == 13) $transferMessage[0].focus();
   });
+
+  $transferSubmit.on('click', transferCredits);
 
   // LOGIN /////////////////////////
   const $loginForm:$ = $('.login-form');
@@ -88,26 +92,36 @@ ready(function(){
   const $loginUsername:$ = $loginForm.find('.username');
   const $loginSubmit:$ = $loginForm.find('.submit');
 
-  $loginSubmit.on('click', function(e){
-    e.stopPropagation();
-    e.preventDefault();
-    const name:string = $loginDisplayName.text();
-    const pw:string = $loginUsername.text();
-    console.log(`${name} ${pw}`)
-    if(name && pw){
-      ajax({
-        url:'php/login.php',
-        params: {
-          name: name,
-          pw: pw
-        },
-        success: function(data){
-          if(data.success){
-            window.location.reload();
-          }
-        }
-      });
-    }
+  function login(){
+   const name:string = $loginDisplayName.text();
+   const pw:string = $loginUsername.text();
+   console.log(`${name} ${pw}`)
+   if(name && pw){
+     ajax({
+       url:'php/login.php',
+       params: {
+         name: name,
+         pw: pw
+       },
+       success: function(data){
+         if(data.success){
+           window.location.reload();
+         }
+       }
+     });
+   }
+ }
+
+  $loginSubmit.on('click', login);
+
+  $loginDisplayName.on('keypress', function(e){
+    if(e.keyCode == 13) $loginUsername[0].focus();
   });
+
+  $loginUsername.on('keypress', function(e){
+    if(e.keyCode == 13) login();
+  })
+
+  if($loginForm.length) $loginDisplayName[0].focus();
 
 });
