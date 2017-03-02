@@ -10,12 +10,12 @@ function randomNumber(){
 }
 
 function makeColor($img){
-  $angle1 = randomNumber() * 6.2822;
-  $angle2 = randomNumber() * 6.2822;
+  $angle1 = randomNumber() * 6.2822; // 2pi
+  $angle2 = $angle1 + 1.0472; // pi/3
   $s1 = sin($angle1);
-  $r = floor($s1 * sin($angle2) * 100) + 125;
-  $g = floor($s1 * cos($angle2) * 100) + 125;
-  $b = floor(cos($angle1) * 100) + 125;
+  $b = floor($s1 * sin($angle2) * 100) + 155;
+  $g = floor($s1 * cos($angle2) * 100) + 155;
+  $r = floor(cos($angle1) * 100) + 155;
   return imagecolorallocate($img, $r, $g, $b);
 }
 
