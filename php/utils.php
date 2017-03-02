@@ -32,4 +32,9 @@ function getId($name){
   else return -1;
 }
 
+// gets src of user ImagickPixel
+function getUserImage($id){
+  if($id < 1) $id = 1;
+  return "php/imgs/img$id.png";
+}
 ?>
