@@ -30,6 +30,7 @@ include_once 'php/utils.php';
             <li data-url="shop.php">Shop</li>
           </ul>
         </div>
+        <div class="transactions-container"></div>
       </div>
     </div>
     <div class="main-wrap">

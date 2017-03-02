@@ -14,27 +14,14 @@ ready(function(){
   });
 
   // SIDE MENU ///////////////////////////
-  const $sideMenu:$ = $('.flyout > .constraint');
+  const $transactionsContainer:$ = $('.flyout .transactions-container');
 
   function loadTransactions(){
     ajax({
       url: 'php/get-transactions.php',
-      params: {
-        output: 'json'
-      },
+      responseType: 'text',
       success: function(data){
-        if(data.success){
-          for(var i in data.transactions){
-            var transaction = data.transactions[i];
-            $sideMenu.append(
-              $('<div>').addClass('transaction').text(
-                `${transaction.amount} from ${transaction.from.name} to ${transaction.to.name}`
-              ).append(
-                $('<div>').addClass('transaction-msg').text(transaction.msg)
-              )
-            );
-          }
-        }
+        $transactionsContainer.html(data);
       }
     });
   }
