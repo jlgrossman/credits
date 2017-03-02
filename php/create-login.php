@@ -36,5 +36,7 @@ $connection->close();
 $_SESSION["user"] = $postName;
 $_SESSION['id'] = $id;
 
+include_once 'create-image.php';
+
 echo json_encode(array('success'=>true, 'msg'=>'Account created', 'data'=>array('name'=>$postName, 'id'=>$id)));
 ?>
