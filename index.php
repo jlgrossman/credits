@@ -6,7 +6,7 @@ include_once 'php/utils.php';
 ?>
 <!DOCTYPE html>
 <head>
-  <title>Welcome to Bettr</title>
+  <title>Bettr</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#278EC0">
   <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700|Roboto:300,300i,400,400i,700,700i" rel="stylesheet">

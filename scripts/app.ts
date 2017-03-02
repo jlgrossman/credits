@@ -53,10 +53,11 @@ ready(function(){
           msg: msg
         },
         success: function(data){
-          $transferAmount.text('');
+          $transferAmount.add($transferMessage).add($transferUsername).text('');
           transferInProgress = false;
           if(data.success){
             $creditCount.text(parseInt($creditCount.text()) - amount);
+            loadTransactions();
           }
         }
       });

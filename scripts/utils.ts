@@ -5,6 +5,7 @@ type $ = HTMLElement[] & {
   append:(e:HTMLElement|HTMLElement[])=>$,
   clone:(b?:boolean)=>$,
   find:(s:string)=>$,
+  add:(o:$)=>$,
   remove:()=>$,
   parent:()=>$,
   on:(e:string,f:Function)=>$,
@@ -61,7 +62,7 @@ function $(arg:any):$ {
     var a;
     if(arg.each) return arg;
     else if (arg instanceof Array) a = arg;
-    else a = (/<[a-zA-Z0-9]+>/.test(arg)) ? [document.createElement(arg.replace(/<|>/g, ""))] : arg instanceof HTMLElement ? [arg] : [...document.querySelectorAll(arg)];
+    else a = (/<[a-zA-Z0-9]+>/.test(arg)) ? [document.createElement(arg.replace(/<|>/g, ""))] : arg instanceof HTMLElement ? [arg] : document.querySelectorAll(arg);
     a.each = function(f) {
         for (var i = 0; i < this.length; i++) f(this[i]);
         return this;
@@ -85,6 +86,11 @@ function $(arg:any):$ {
             a.push(...n.querySelectorAll(s));
         });
         return $(a);
+    };
+    a.add = function(o) {
+        var na = [].slice.call(a);
+        na.push(...o);
+        return $(na);
     };
     a.remove = function() {
         return this.each(function(n) {
