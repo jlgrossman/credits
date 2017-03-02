@@ -34,46 +34,57 @@ em {
 
 .site-wrap {
   width: 100%;
+  display: flex;
+  flex-direction: column;
   @media @tablet-portrait {
-    display: flex;
+    flex-direction: row;
+  }
+}
+
+.main-wrap {
+  display: flex;
+  flex-direction: column;
+  padding-top: @header-height;
+  flex: 1;
+  .main-content {
+    flex: 1;
+    padding: @spacing-md 0;
   }
 }
 
 .login {
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: @spacing-sm;
+  text-align: center;
+  .slogan {
+    font-weight: lighter;
+    font-size: 1.5em;
+    margin: @spacing-md auto @spacing-sm;
+  }
+  h1 {
+    font-size: 3.5em;
+    font-family: @font-heading;
+    color: @brand;
+    margin: @spacing-sm auto @spacing-md;
+  }
+  h2 {
+    font-weight: lighter;
+    margin: @spacing-sm 0;
+  }
   .form {
-    max-width: 500px;
+    max-width: 360px;
     border: 1px solid @light-grey;
     border-radius: 3px;
     background: #fff;
     padding: @spacing-sm;
-    margin: @spacing-sm;
-    text-align: center;
-    h1 {
-      font-style: italic;
-      font-size: 2.75em;
-      font-weight: lighter;
-      span {
-        font-size: 1.2em;
-        font-family: @font-heading;
-        color: @brand;
-        font-style: normal;
-      }
-    }
-    h2 {
-      font-weight: lighter;
-      margin: @spacing-sm 0;
-    }
+    margin: @spacing-sm auto;
     input[type="text"], input[type="submit"] {
       text-align: left;
       width: 100%;
       margin: 0;
       & + input {
-        margin: @spacing-sm 0 0;
+        margin: 20px 0 0;
       }
     }
     input[type="submit"] {
@@ -81,17 +92,17 @@ em {
     }
   }
   @media @tablet-portrait {
+    .slogan {
+      font-size: 1.75em;
+    }
+    h1 {
+      font-size: 4em;
+    }
     .form {
       padding: @spacing-md;
-      h1 {
-        font-size: 3.5em;
-      }
-      h2 {
-        margin: @spacing-md 0;
-      }
       input[type="text"], input[type="submit"] {
         & + input {
-          margin: @spacing-md 0 0;
+          margin: 27.5px 0 0;
         }
       }
     }
@@ -187,11 +198,7 @@ em {
   }
 }
 
-.main-wrap {
-  @media @tablet-portrait {
-    flex: 1;
-  }
-}
+
 
 .constraint {
   max-width: @width-constraint;
@@ -261,11 +268,9 @@ header {
   }
 }
 
-.main-wrap {
-  padding-top: @header-height;
-  .main-content {
-    padding: @spacing-md 0;
-  }
+footer {
+  padding: 20px;
+  border-top: 1px solid @light-grey;
 }
 
 .form {
@@ -293,10 +298,14 @@ header {
     color: #fff;
     text-align: center;
     cursor: pointer;
+    border-radius: 2px;
+    border: 1px solid @brand-dark;
+    box-shadow: @shadow;
     text-shadow: @shadow;
-    transition: background-color .15s ease;
+    transition: background-color .15s ease, border .15s ease;
     &:hover {
-      background-color: @brand-light;
+      background-color: @brand-dark;
+      border: 1px solid (@brand-dark - #222);
     }
   }
   textarea {

@@ -6,10 +6,13 @@ include_once 'php/utils.php';
 ?>
 <!DOCTYPE html>
 <head>
+  <title>Welcome to Bettr</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#278EC0">
   <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700|Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="icon" sizes="100x100" href="php/imgs/img<?=$user['id']?>.png">
   <script src="scripts/utils.js"></script>
   <script src="scripts/app.js"></script>
 </head>
@@ -64,9 +67,9 @@ include_once 'php/utils.php';
     </div>
   <? else : ?>
     <div class="login">
+      <div class="slogan">Sign in to experience</div>
+      <h1>Bettr</h1>
       <div class="login-form form">
-        <h1>Welcome to <span>Bettr</span></h1>
-        <h2>Login</h2>
         <input type="text" name="name" class="display-name" placeholder="Display Name" />
         <input type="text" name="pw" class="username" placeholder="Username" />
         <input type="submit" class="submit" value="Login" />
