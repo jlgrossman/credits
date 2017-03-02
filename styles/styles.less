@@ -179,17 +179,48 @@ em {
   }
 }
 
+// TODO: feel free to restyle this stuff
+.transactions-container {
+  .transaction {
+    padding: @spacing-sm / 2;
+    border: 1px solid @light-grey;
+    border-radius: 1px;
+    background: @white;
+    position: relative;
 
-.transaction {
-  padding: @spacing-sm / 2;
-  border: 1px solid @light-grey;
-  border-radius: 1px;
-  background: @white;
+    & + .transaction {
+      margin-top: 8px;
+    }
 
-  & + .transaction {
-    margin-top: 8px;
+    .transaction-amount {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+
+        &:after {
+          content: "B";
+          font-size: 11px;
+        }
+    }
+
+    .transaction-user {
+      margin-bottom: 8px;
+    }
+    .transaction-user-name {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    .transaction-user-img {
+      vertical-align: middle;
+    }
+  }
+
+  @media @tablet-portrait {
+    margin-bottom: 40px;
   }
 }
+
 @media @tablet-portrait {
   width: @flyout-width;
   border-right: 1px solid @light-grey;
