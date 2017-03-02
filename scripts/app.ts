@@ -8,10 +8,30 @@ ready(function(){
   const $popup:$ = $('.overlay');
   const $popupContent:$ = $popup.find('.popup');
   const $closePopup:$ = $popupContent.find('.close');
+  const $popupLogout:$ = $popup.find('.popup-content.logout');
+  const $logoutButton:$ = $popup.find('button.logout');
 
   $closePopup.on('click', function(){
     $popup.removeClass(OPEN);
   });
+
+  const $welcomeUsername:$ = $('.welcome-user-name');
+
+  $welcomeUsername.on('click', function(){
+    $popup.addClass(OPEN);
+    $popupLogout.addClass(OPEN);
+  });
+
+  $logoutButton.on('click', function(){
+    ajax({
+      url: 'php/logout.php',
+      success: function(data){
+        if(data.success){
+          window.location.reload();
+        }
+      }
+    })
+  })
 
   // SIDE MENU ///////////////////////////
   const $transactionsContainer:$ = $('.flyout .transactions-container');

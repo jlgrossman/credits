@@ -42,7 +42,7 @@ include_once 'php/utils.php';
             <? endif; ?>
           </div>
             <div class="welcome">
-              Welcome to Bettr, <strong><?= $user['name'] ?></strong>
+              Welcome to Bettr, <strong class="welcome-user-name"><?= $user['name'] ?></strong>
             </div>
         </div>
       </header>
@@ -81,8 +81,10 @@ include_once 'php/utils.php';
   <div class="overlay">
     <div class="popup">
       <div class="close">X</div>
-      <h2>Popup Heading</h2>
-      <p>This is where the description of a mini game or something would go. I don't know. Text. Put it here.</p>
+      <div class="popup-content logout">
+        <h2>Not <?=$user['name']?>?</h2>
+        <button class="logout">Logout</button>
+      </div>
     </div>
   </div>
 </body>
