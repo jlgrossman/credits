@@ -63,7 +63,7 @@ include_once 'php/utils.php';
       </div>
       <footer>
         <div class="constraint">
-          &copy; Bettr Enterprises <?= date("Y")?> - <i>Jethrow Randlebrot & Jebediah Grizzwald</i> 
+          &copy; Bettr Enterprises <?= date("Y")?><i class="our-names"> - Jethrow Randlebrot & Jebediah Grizzwald</i> 
         </div>
       </footer>
     </div>
