@@ -1,8 +1,8 @@
 <?
 include_once 'utils.php';
 
-$postName = trim($_POST['name']);
-$postPW = trim($_POST['pw']);
+$name = trim($_POST['name']);
+$pw = trim($_POST['pw']);
 
 if(strlen($name) < $MIN_USERNAME_LENGTH) exit '{"success":false, "msg":"Display name is too short"}';
 if(strlen($pw) < $MIN_PASSWORD_LENGTH) exit '{"success":false, "msg":"Username is too short"}';
@@ -10,9 +10,6 @@ if(strlen($pw) < $MIN_PASSWORD_LENGTH) exit '{"success":false, "msg":"Username i
 $query = $connection->prepare('SELECT id FROM users WHERE username = ? OR password = ?');
 
 $query->bind_param("ss", $name, $pw);
-
-$name = $conn->real_escape_string($postName);
-$pw = $conn->real_escape_string($postPW);
 
 $query->execute();
 $query->bind_result($id);
@@ -33,10 +30,10 @@ $id = $connection->insert_id;
 $query->close();
 $connection->close();
 
-$_SESSION["user"] = $postName;
+$_SESSION["user"] = $name;
 $_SESSION['id'] = $id;
 
 include_once 'create-image.php';
 
-echo json_encode(array('success'=>true, 'msg'=>'Account created', 'data'=>array('name'=>$postName, 'id'=>$id)));
+echo json_encode(array('success'=>true, 'msg'=>'Account created', 'data'=>array('name'=>$name, 'id'=>$id)));
 ?>
