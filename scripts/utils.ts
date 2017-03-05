@@ -151,13 +151,15 @@ function ready(f) {
     window.addEventListener('load', f);
 }
 
-function throttle(ms:number, f:Function):Function{
+function throttle(ms:number, func:Function, throttledFunc?:Function):Function{
   var throttled:boolean = false;
   return function(){
     if(!throttled){
-      f.apply(null,arguments);
+      func.apply(null, arguments);
       throttled = true;
       setTimeout(function(){throttled = false;},ms);
+    } else {
+      if(throttledFunc) throttledFunc.apply(null, arguments);
     }
   };
 }
