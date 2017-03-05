@@ -83,7 +83,7 @@ include_once 'php/utils.php';
     <div class="popup">
       <div class="close">X</div>
       <div class="popup-content logout">
-        <h2>Not <?=$user['name']?>?</h2>
+        <h4>Not <?=$user['name']?>?</h4>
         <button class="logout">Logout</button>
       </div>
     </div>
