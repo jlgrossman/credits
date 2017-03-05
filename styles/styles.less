@@ -5,27 +5,6 @@
 @import "reset";
 @import "mixins";
 
-// probably move this to mixins are decide how you want to handle this
-._submit-button(){
-  font-size: 1.25rem;
-  background: #278ec0;
-  border: none;
-  padding: 10px @spacing-md;
-  color: #fff;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 2px;
-  border: 1px solid @brand-dark;
-  box-shadow: @shadow;
-  text-shadow: @shadow;
-  transition: background-color .15s ease, border .15s ease;
-  outline: none;
-  &:hover {
-    background-color: @brand-dark;
-    border: 1px solid (@brand-dark - #222);
-  }
-}
-
 * {
   line-height: @font-line-height;
 }
@@ -237,6 +216,11 @@ em {
       border-radius: 2px;
     }
   }
+}
+
+.refresh-transactions-btn {
+  ._light-button();
+  margin-top: 20px;
 
   @media @tablet-portrait {
     margin-bottom: 40px;

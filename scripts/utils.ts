@@ -1,5 +1,3 @@
-declare var USER_KEY : string;
-
 type $ = HTMLElement[] & {
   each:(f:Function)=>$,
   append:(e:HTMLElement|HTMLElement[])=>$,
@@ -151,4 +149,22 @@ function $(arg:any):$ {
 
 function ready(f) {
     window.addEventListener('load', f);
-};
+}
+
+function throttle(ms:number, f:Function):Function{
+  var throttled:boolean = false;
+  return function(){
+    if(!throttled){
+      f.apply(null,arguments);
+      throttled = true;
+      setTimeout(function(){throttled = false;},ms);
+    }
+  };
+}
+
+function compose(f:Function, g:Function):Function {
+  return function(){
+    f.apply(null, arguments);
+    return g.apply(null, arguments);
+  }
+}

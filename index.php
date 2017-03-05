@@ -31,6 +31,7 @@ include_once 'php/utils.php';
           </ul>
         </div>
         <div class="transactions-container"></div>
+        <div class="refresh-transactions"><button class="refresh-transactions-btn">Refresh</button></div>
       </div>
     </div>
     <div class="main-wrap">

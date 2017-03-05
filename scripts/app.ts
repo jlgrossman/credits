@@ -35,6 +35,7 @@ ready(function(){
 
   // SIDE MENU ///////////////////////////
   const $transactionsContainer:$ = $('.flyout .transactions-container');
+  const $refreshTransactions:$ = $('.flyout .refresh-transactions-btn');
 
   function loadTransactions(){
     ajax({
@@ -47,6 +48,8 @@ ready(function(){
   }
   loadTransactions();
 
+  $refreshTransactions.on('click', throttle(5000, compose(loadTransactions, updateCreditCount)));
+
   // TRANSFER CREDITS ////////////////////
   const $transferForm:$ = $('.transfer.form');
   const $transferUsername:$ = $transferForm.find('.transfer-name');
@@ -55,7 +58,18 @@ ready(function(){
   const $transferSubmit:$ = $transferForm.find('.submit');
   const $creditCount:$ = $('.credit-count');
 
-  var transferInProgress = false;
+  var transferInProgress:boolean = false;
+
+  function updateCreditCount(){
+    ajax({
+      url: 'php/get-credits.php',
+      success: function(data){
+        if(data.success){
+          $creditCount.text(data.msg);
+        }
+      }
+    })
+  }
 
   function transferCredits(){
     if(transferInProgress) return;
