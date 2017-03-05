@@ -42,6 +42,29 @@
     background-color: @brand-dark;
     border: 1px solid (@brand-dark - #222);
   }
+
+  &.loading {
+    position: relative;
+
+    &:after {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 10px;
+      bottom: 10px;
+      content: "";
+      background: @loading-img;
+      background-color: #278ec0;
+      background-size: contain;
+      transition: background-color .15s ease;
+    }
+
+    &:hover:after {
+      background-color: @brand-dark;
+    }
+
+  }
+
 }
 
 ._light-button(){

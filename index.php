@@ -56,14 +56,14 @@ include_once 'php/utils.php';
               <input class="transfer-name" type="text" placeholder="Payee's Name" name="payee" />
               <input class="transfer-amount" type="text" placeholder="Credits" name="transfer" />
               <textarea class="transfer-message" name="message" placeholder="Include a message..." maxlength="140"></textarea>
-              <input type="submit" class="submit" value="Send" />
+              <button class="submit">Send</button>
             </div>
           </div>
         </div>
       </div>
       <footer>
         <div class="constraint">
-          &copy; Bettr Enterprises <?= date("Y")?><i class="our-names"> - Jethrow Randlebrot & Jebediah Grizzwald</i> 
+          &copy; Bettr Enterprises <?= date("Y")?><i class="our-names"> - Jethrow Randlebrot & Jebediah Grizzwald</i>
         </div>
       </footer>
     </div>
@@ -74,7 +74,7 @@ include_once 'php/utils.php';
       <div class="login-form form">
         <input type="text" name="name" class="display-name" placeholder="Display Name" />
         <input type="text" name="pw" class="username" placeholder="Username" />
-        <input type="submit" class="submit" value="Login" />
+        <button class="submit">Login</button>
       </div>
     </div>
   <? endif; ?>

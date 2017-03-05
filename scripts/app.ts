@@ -3,6 +3,7 @@
 ready(function(){
 
   const OPEN:string = 'open';
+  const LOADING:string = 'loading';
 
   // POPUP ////////////////////////////////
   const $popup:$ = $('.overlay');
@@ -23,6 +24,7 @@ ready(function(){
   });
 
   $logoutButton.on('click', function(){
+    $logoutButton.addClass(LOADING);
     ajax({
       url: 'php/logout.php',
       success: function(data){
@@ -78,6 +80,7 @@ ready(function(){
     const msg:string = $transferMessage.text();
 
     if(name.length && !isNaN(amount)){
+      $transferSubmit.addClass(LOADING);
       transferInProgress = true;
       ajax({
         url: 'php/transfer-credits.php',
@@ -90,6 +93,7 @@ ready(function(){
           $transferAmount.add($transferMessage).add($transferUsername).text('');
           transferInProgress = false;
           if(data.success){
+            $transferSubmit.removeClass(LOADING);
             $creditCount.text(parseInt($creditCount.text()) - amount);
             loadTransactions();
           }
@@ -119,6 +123,7 @@ ready(function(){
    const pw:string = $loginUsername.text();
    console.log(`${name} ${pw}`)
    if(name && pw){
+     $loginSubmit.addClass(LOADING);
      ajax({
        url:'php/login.php',
        params: {

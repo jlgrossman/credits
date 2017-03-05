@@ -83,7 +83,7 @@ em {
     background: #fff;
     padding: @spacing-sm;
     margin: @spacing-sm auto;
-    input[type="text"], input[type="submit"] {
+    input[type="text"], button.submit {
       text-align: left;
       width: 100%;
       margin: 0;
@@ -91,7 +91,8 @@ em {
         margin: 20px 0 0;
       }
     }
-    input[type="submit"] {
+    button.submit {
+      margin-top: 20px;
       text-align: center;
     }
   }
@@ -104,7 +105,7 @@ em {
     }
     .form {
       padding: @spacing-md;
-      input[type="text"], input[type="submit"] {
+      input[type="text"], button.submit {
         & + input {
           margin: 27.5px 0 0;
         }
@@ -339,7 +340,7 @@ footer {
       box-shadow: 0 0 5px fade(@brand, 50%);
     }
   }
-  input[type="submit"] {
+  button.submit {
     ._submit-button();
   }
   textarea {
