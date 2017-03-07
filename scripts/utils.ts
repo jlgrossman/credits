@@ -104,7 +104,7 @@ function $(arg:any):$ {
     };
     a.on = function(e, f) {
         return this.each(function(n) {
-            n.addEventListener(e, f);
+            n.addEventListener(e, f.bind(n));
         });
     };
     a.trigger = function(e,d){
