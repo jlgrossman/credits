@@ -155,7 +155,7 @@ function $(arg:any):$ {
         });
     };
     a.delay = function(t,f){
-    	setTimeout(function(){
+    	setTimeout(()=>{
     		this.each(function(n){f.bind(n)})
     	},t)
     	return this;
