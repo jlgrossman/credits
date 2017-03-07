@@ -53,6 +53,7 @@ include_once 'php/utils.php';
             <h1>Welcome to Bettr</h1>
             <h2>Transfer Credits</h2>
             <div class="transfer form">
+              <div class="error-msg"></div>
               <input class="transfer-name" type="text" placeholder="Payee's Name" name="payee" />
               <input class="transfer-amount" type="text" placeholder="Credits" name="transfer" />
               <textarea class="transfer-message" name="message" placeholder="Include a message..." maxlength="140"></textarea>
@@ -72,6 +73,7 @@ include_once 'php/utils.php';
       <div class="slogan">Sign in to experience</div>
       <h1>Bettr</h1>
       <div class="login-form form">
+        <div class="error-msg"></div>
         <input type="text" name="name" class="display-name" placeholder="Display Name" />
         <input type="text" name="pw" class="username" placeholder="Username" />
         <button class="submit">Login</button>

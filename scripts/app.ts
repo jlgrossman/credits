@@ -54,6 +54,7 @@ ready(function(){
 
   // TRANSFER CREDITS ////////////////////
   const $transferForm:$ = $('.transfer.form');
+  const $transferError:$ = $transferForm.find('.error-msg');
   const $transferUsername:$ = $transferForm.find('.transfer-name');
   const $transferAmount:$ = $transferForm.find('.transfer-amount');
   const $transferMessage:$ = $transferForm.find('.transfer-message');
@@ -91,11 +92,13 @@ ready(function(){
         },
         success: function(data){
           $transferAmount.add($transferMessage).add($transferUsername).text('');
+          $transferSubmit.removeClass(LOADING);
           transferInProgress = false;
           if(data.success){
-            $transferSubmit.removeClass(LOADING);
             $creditCount.text(parseInt($creditCount.text()) - amount);
             loadTransactions();
+          } else {
+            $transferError.text(data.msg).addClass(OPEN);
           }
         }
       });
@@ -114,6 +117,7 @@ ready(function(){
 
   // LOGIN /////////////////////////
   const $loginForm:$ = $('.login-form');
+  const $loginError:$ = $loginForm.find('.error-msg');
   const $loginDisplayName:$ = $loginForm.find('.display-name');
   const $loginUsername:$ = $loginForm.find('.username');
   const $loginSubmit:$ = $loginForm.find('.submit');
@@ -121,7 +125,6 @@ ready(function(){
   function login(){
    const name:string = $loginDisplayName.text();
    const pw:string = $loginUsername.text();
-   console.log(`${name} ${pw}`)
    if(name && pw){
      $loginSubmit.addClass(LOADING);
      ajax({
@@ -133,6 +136,9 @@ ready(function(){
        success: function(data){
          if(data.success){
            window.location.reload();
+         } else {
+           $loginSubmit.removeClass(LOADING);
+           $loginError.text(data.msg).addClass(OPEN);
          }
        }
      });
