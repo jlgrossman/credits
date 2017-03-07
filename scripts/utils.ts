@@ -144,6 +144,11 @@ function $(arg:any):$ {
             n.innerHTML = d;
         });
     };
+    a.css = function(s,v){
+        return !v ? this[0].style[s] : this.each(function(n) {
+            n.style[s] = v;
+        });
+    };
     return a;
 }
 
