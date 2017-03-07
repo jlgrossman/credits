@@ -23,6 +23,10 @@ type $ = HTMLElement[] & {
   html: {
     ():string
     (d:any):$
+  },
+  css : {
+    (s:string):string
+    (s:string,v:string):$
   }
 };
 
