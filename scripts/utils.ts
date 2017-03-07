@@ -156,7 +156,7 @@ function $(arg:any):$ {
     };
     a.delay = function(t,f){
     	setTimeout(()=>{
-    		this.each(function(n){f.apply(n))
+    		this.each(function(n){f.apply(n)})
     	},t)
     	return this;
     }
