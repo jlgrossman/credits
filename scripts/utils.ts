@@ -12,6 +12,7 @@ type $ = HTMLElement[] & {
   removeClass:(c:string)=>$,
   toggleClass:(c:string)=>$,
   hasClass:(s:string)=>boolean,
+  delay:(t:number, f:Function)=>$,
   text:{
     ():string
     (t:any):$
@@ -153,6 +154,12 @@ function $(arg:any):$ {
             n.style[s] = v;
         });
     };
+    a.delay = function(t,f){
+    	setTimeout(function(){
+    		this.each(function(n){f.bind(n)})
+    	},t)
+    	return this;
+    }
     return a;
 }
 
