@@ -2,20 +2,20 @@
 
 ready(function() {
 
-  var scoreTotal = 0;
-  const $score = $('.accuracy-game .score span');
+  var scoreTotal:number = 0;
+  const $score:$ = $('.accuracy-game .score span');
+  const $gameBoard:$ = $('.accuracy-game .game-board');
 
-  var missClicks = 0;
-  var misses = 0;
+  var misses:number = 0;
 
-  var creationTime = 750;
-  var targetDuration = 700;
-  var targetCount = 0;
+  var creationTime:number = 750;
+  var targetDuration:number = 700;
+  var targetCount:number = 0;
+  var targetTimeout;
 
-  function addTarget(posX, posY) {
-    const $target = $('<div>').addClass('target').css('left', posX + '%').css('top', posY + '%');
-    $('.accuracy-game .game-board').append($target);
-
+  function addTarget(posX:number, posY:number) {
+    const $target:$ = $('<div>').addClass('target').css('left', posX + '%').css('top', posY + '%');
+    $gameBoard.append($target);
     return $target;
   }
 
@@ -26,18 +26,15 @@ ready(function() {
   function targetClick() {
     $(this).remove();
     scoreTotal += 10;
-    $score.html(scoreTotal);
+    $score.text(scoreTotal);
     console.log(scoreTotal);
   }
 
   function missedTarget() {
+    const $this:$ = $(this);
     $(this).remove();
-    misses++;
-    if (misses > 2) {
-      const $targets = $('.target');
-      $targets.each(function() {
-        $(this).remove();
-      });
+    if (++misses > 2) {
+      $('.target').remove();
     }
   }
 
@@ -45,23 +42,21 @@ ready(function() {
   }
 
   function initAccuracy() {
-      var targetTimeout = setTimeout(function () {
+      targetTimeout = setTimeout(function () {
 
-        targetCount++;
-
-        const newX = newCoordinate();
-        const newY = newCoordinate();
+        const newX:number = newCoordinate();
+        const newY:number = newCoordinate();
         addTarget(newX, newY).delay(10, function (){$(this).addClass('fade')}).on('click', targetClick).delay(7000, missedTarget);
 
-        if (targetCount > 10) {
+        if (++targetCount > 10) {
           creationTime -= 25;
           targetCount = 0;
         }
+
         initAccuracy();
+
       }, creationTime);
   }
-
-
 
   initAccuracy();
 });
