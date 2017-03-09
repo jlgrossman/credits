@@ -157,4 +157,16 @@ ready(function(){
 
   if($loginForm.length) $loginDisplayName[0].focus();
 
+  // EARN CREDITS ////////////////////////////////
+  function earnCredits(){
+    ajax({
+      url: 'php/earn-credits.php',
+      success: function(data){
+        data.success && updateCreditCount();
+      }
+    })
+  }
+
+  var earnCreditsInterval = setInterval(earnCredits, 60000); // 10 min
+
 });

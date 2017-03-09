@@ -18,6 +18,16 @@ function getCredits($id){
   return ($success ? $credits : -1);
 }
 
+// deposit credits into user id account from bank
+function giveCredits($id, $amount){
+  global $connection;
+  $id = intval($id);
+  $amount = intval($amount);
+  $query = $connection->prepare('UPDATE users SET credits = credits + ? WHERE id = ?');
+  $query->bind_param('ii', $amount, $id);
+  return $query->execute();
+}
+
 // gets user id from username
 function getId($name){
   global $connection;
@@ -25,7 +35,6 @@ function getId($name){
 
   $query = $connection->prepare('SELECT id FROM users WHERE username = ?');
   $query->bind_param('s', $name);
-  $name = $connection->real_escape_string($name);
   $query->execute();
   $query->bind_result($id);
   if($query->fetch()) return $id;
@@ -37,4 +46,5 @@ function getUserImage($id){
   if($id < 1) $id = 1;
   return "php/imgs/img$id.png";
 }
+
 ?>
