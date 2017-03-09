@@ -1,33 +1,33 @@
 type $ = HTMLElement[] & {
-  each:(f:Function)=>$,
-  append:(e:HTMLElement|HTMLElement[])=>$,
-  clone:(b?:boolean)=>$,
-  find:(s:string)=>$,
-  add:(o:$)=>$,
+  each:(func:Function)=>$,
+  append:(element:HTMLElement|HTMLElement[])=>$,
+  clone:(deepCopy?:boolean)=>$,
+  find:(selector:string)=>$,
+  add:($:$)=>$,
   remove:()=>$,
   parent:()=>$,
-  on:(e:string,f:Function)=>$,
-  trigger:(e:string,d?:Object)=>$,
-  addClass:(c:string)=>$,
-  removeClass:(c:string)=>$,
-  toggleClass:(c:string)=>$,
-  hasClass:(s:string)=>boolean,
-  delay:(t:number, f:Function)=>$,
+  on:(event:string,handler:Function)=>$,
+  trigger:(event:string,data?:Object)=>$,
+  addClass:(className:string)=>$,
+  removeClass:(className:string)=>$,
+  toggleClass:(className:string)=>$,
+  hasClass:(className:string)=>boolean,
+  delay:(time:number, func:Function)=>$,
   text:{
     ():string
-    (t:any):$
+    (text:any):$
   },
   data: {
-    (m:string):string
-    (m:string,v:any):$
+    (name:string):string
+    (name:string,value:any):$
   },
   html: {
     ():string
-    (d:any):$
+    (html:any):$
   },
   css : {
-    (s:string):string
-    (s:string,v:string):$
+    (property:string):string
+    (property:string,value:string):$
   }
 };
 
@@ -134,6 +134,12 @@ function $(arg:any):$ {
             if (this[i].classList.contains(c)) return true;
         return false;
     };
+    a.delay = function(t,f){
+    	setTimeout(()=>{
+    		this.each(function(n){f.apply(n)})
+    	},t)
+    	return this;
+    };
     a.text = function(t) {
         return t == undefined ? (this[0].textContent || this[0].value) : this.each(function(n) {
             "value" in n ? n.value = t : n.textContent = t;
@@ -154,12 +160,6 @@ function $(arg:any):$ {
             n.style[s] = v;
         });
     };
-    a.delay = function(t,f){
-    	setTimeout(()=>{
-    		this.each(function(n){f.apply(n)})
-    	},t)
-    	return this;
-    }
     return a;
 }
 
