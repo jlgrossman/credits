@@ -32,6 +32,7 @@ $connection->close();
 
 $_SESSION['user'] = $name;
 $_SESSION['id'] = $id;
+$_SESSION['time'] = time();
 
 include_once 'create-image.php';
 

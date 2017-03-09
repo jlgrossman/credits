@@ -167,6 +167,6 @@ ready(function(){
     })
   }
 
-  var earnCreditsInterval = setInterval(earnCredits, 60000); // 10 min
+  var earnCreditsInterval = setInterval(earnCredits, 600000); // 10 min
 
 });

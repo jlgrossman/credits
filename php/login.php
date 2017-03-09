@@ -17,6 +17,7 @@ $query->bind_result($id);
 if($query->fetch()){
   $_SESSION['user'] = $name;
   $_SESSION['id'] = $id;
+  $_SESSION['time'] = time();
   $result = json_encode(array('success'=>true, 'msg'=>'Logged in', 'data'=>array('name'=>$name, 'id'=>$id)));
 } else {
   $result = '{"success":false, "msg":"Invalid login"}';
