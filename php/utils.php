@@ -25,7 +25,9 @@ function giveCredits($id, $amount){
   $amount = intval($amount);
   $query = $connection->prepare('UPDATE users SET credits = credits + ? WHERE id = ?');
   $query->bind_param('ii', $amount, $id);
-  return $query->execute();
+  $success = $query->execute();
+  $query->close();
+  return $success;
 }
 
 // gets user id from username
