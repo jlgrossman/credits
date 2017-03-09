@@ -59,6 +59,7 @@ ready(function(){
   const $transferAmount:$ = $transferForm.find('.transfer-amount');
   const $transferMessage:$ = $transferForm.find('.transfer-message');
   const $transferSubmit:$ = $transferForm.find('.submit');
+  const $transferCharacterCount:$ = $transferForm.find('.transfer-character-count');
   const $creditCount:$ = $('.credit-count');
 
   var transferInProgress:boolean = false;
@@ -72,6 +73,13 @@ ready(function(){
         }
       }
     })
+  }
+
+  function updateTransferCharacterCount(){
+    const left:number = 140 - $transferMessage.text().length;
+    $transferCharacterCount.text(`${left}/140`);
+    if(left < 10) $transferCharacterCount.addClass('few-left');
+    else $transferCharacterCount.removeClass('few-left');
   }
 
   function transferCredits(){
@@ -105,15 +113,12 @@ ready(function(){
     }
   }
 
-  $transferUsername.on('keypress', function(e){
-    if(e.keyCode == 13) $transferAmount[0].focus();
-  });
-
-  $transferAmount.on('keypress', function(e){
-    if(e.keyCode == 13) $transferMessage[0].focus();
-  });
+  $transferUsername.on('keypress', (e) => e.keyCode == 13 && $transferAmount[0].focus());
+  $transferAmount.on('keypress', (e) => e.keyCode == 13 && $transferMessage[0].focus());
 
   $transferSubmit.on('click', transferCredits);
+
+  $transferMessage.on('input', updateTransferCharacterCount);
 
   // LOGIN /////////////////////////
   const $loginForm:$ = $('.login-form');

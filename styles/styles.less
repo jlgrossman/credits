@@ -364,6 +364,22 @@ footer {
   ._clearfix();
 }
 
+.transfer-message-container {
+  position: relative;
+
+  .transfer-character-count {
+    position: absolute;
+    right: 10px;
+    bottom: 20px;
+    color: @grey;
+
+    &.few-left {
+      color: @warning;
+    }
+
+  }
+}
+
 .overlay {
   position: fixed;
   width: 100%;
@@ -395,6 +411,11 @@ footer {
       top: @spacing-sm / 2;
       right: @spacing-sm / 2;
       cursor: pointer;
+    }
+
+    h4 {
+      font-weight: 100;
+      text-align: center;
     }
 
     button {
