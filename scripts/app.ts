@@ -12,9 +12,7 @@ ready(function(){
   const $popupLogout:$ = $popup.find('.popup-content.logout');
   const $logoutButton:$ = $popup.find('button.logout');
 
-  $closePopup.on('click', function(){
-    $popup.removeClass(OPEN);
-  });
+  $closePopup.on('click', () => $popup.removeClass(OPEN));
 
   const $welcomeUsername:$ = $('.welcome-user-name');
 
@@ -27,11 +25,7 @@ ready(function(){
     $logoutButton.addClass(LOADING);
     ajax({
       url: 'php/logout.php',
-      success: function(data){
-        if(data.success){
-          window.location.reload();
-        }
-      }
+      success: (data) => data.success && window.location.reload()
     })
   })
 
@@ -43,9 +37,7 @@ ready(function(){
     ajax({
       url: 'php/get-transactions.php',
       responseType: 'text',
-      success: function(data){
-        $transactionsContainer.html(data);
-      }
+      success: (data) => $transactionsContainer.html(data)
     });
   }
   loadTransactions();
@@ -67,17 +59,13 @@ ready(function(){
   function updateCreditCount(){
     ajax({
       url: 'php/get-credits.php',
-      success: function(data){
-        if(data.success){
-          $creditCount.text(data.msg);
-        }
-      }
+      success: (data) => data.success && $creditCount.text(data.msg)
     })
   }
 
   function updateTransferCharacterCount(){
     const left:number = 140 - $transferMessage.text().length;
-    $transferCharacterCount.text(`${left}/140`);
+    $transferCharacterCount.text(`${left < 0 ? 0 : left}/140`);
     if(left < 10) $transferCharacterCount.addClass('few-left');
     else $transferCharacterCount.removeClass('few-left');
   }
@@ -116,9 +104,7 @@ ready(function(){
 
   $transferUsername.on('keypress', (e) => e.keyCode == 13 && $transferAmount[0].focus());
   $transferAmount.on('keypress', (e) => e.keyCode == 13 && $transferMessage[0].focus());
-
   $transferSubmit.on('click', transferCredits);
-
   $transferMessage.on('input', updateTransferCharacterCount);
 
   // LOGIN /////////////////////////
@@ -152,14 +138,8 @@ ready(function(){
  }
 
   $loginSubmit.on('click', login);
-
-  $loginDisplayName.on('keypress', function(e){
-    if(e.keyCode == 13) $loginUsername[0].focus();
-  });
-
-  $loginUsername.on('keypress', function(e){
-    if(e.keyCode == 13) login();
-  })
+  $loginDisplayName.on('keypress', (e) => e.keyCode == 13 && $loginUsername[0].focus());
+  $loginUsername.on('keypress', (e) => e.keyCode == 13 && login());
 
   if($loginForm.length) $loginDisplayName[0].focus();
 
@@ -168,9 +148,7 @@ ready(function(){
     if(parseInt($creditCount.text()) < 10){
       ajax({
         url: 'php/earn-credits.php',
-        success: function(data){
-          data.success && updateCreditCount();
-        }
+        success: (data) => data.success && updateCreditCount()
       })
     }
   }
