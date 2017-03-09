@@ -159,12 +159,14 @@ ready(function(){
 
   // EARN CREDITS ////////////////////////////////
   function earnCredits(){
-    ajax({
-      url: 'php/earn-credits.php',
-      success: function(data){
-        data.success && updateCreditCount();
-      }
-    })
+    if(parseInt($creditCount.text()) < 10){
+      ajax({
+        url: 'php/earn-credits.php',
+        success: function(data){
+          data.success && updateCreditCount();
+        }
+      })
+    }
   }
 
   var earnCreditsInterval = setInterval(earnCredits, 600000); // 10 min
