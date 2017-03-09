@@ -100,6 +100,7 @@ ready(function(){
         },
         success: function(data){
           $transferAmount.add($transferMessage).add($transferUsername).text('');
+          updateTransferCharacterCount();
           $transferSubmit.removeClass(LOADING);
           transferInProgress = false;
           if(data.success){
