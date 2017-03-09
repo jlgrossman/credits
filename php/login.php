@@ -15,7 +15,7 @@ $query->execute();
 $query->bind_result($id);
 
 if($query->fetch()){
-  $_SESSION["user"] = $name;
+  $_SESSION['user'] = $name;
   $_SESSION['id'] = $id;
   $result = json_encode(array('success'=>true, 'msg'=>'Logged in', 'data'=>array('name'=>$name, 'id'=>$id)));
 } else {

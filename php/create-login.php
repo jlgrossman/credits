@@ -30,7 +30,7 @@ $id = $connection->insert_id;
 $query->close();
 $connection->close();
 
-$_SESSION["user"] = $name;
+$_SESSION['user'] = $name;
 $_SESSION['id'] = $id;
 
 include_once 'create-image.php';
