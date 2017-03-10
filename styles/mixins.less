@@ -9,6 +9,15 @@
   }
 }
 
+._links() {
+  color: @brand;
+  cursor: pointer;
+  transition: .15s color ease;
+  &:hover {
+    color: @brand-dark;
+  }
+}
+
 // Generate font-sizes for headings
 ._generate-headings(@n, @i: 1) when (@i =< @n) {
   h@{i} {
@@ -24,18 +33,20 @@
 }
 
 ._submit-button(){
+  width: 100%;
   font-size: 1.25rem;
   background: #278ec0;
   border: none;
   padding: 10px @spacing-md;
   color: #fff;
   text-align: center;
+  letter-spacing: 0;
   cursor: pointer;
   border-radius: 2px;
   border: 1px solid @brand-dark;
   box-shadow: @shadow;
   text-shadow: @shadow;
-  transition: background-color .15s ease, border .15s ease;
+  transition: background-color .15s ease, border .15s ease, color .15s ease, letter-spacing .15s ease, text-shadow .15s ease;
   outline: none;
 
   &:hover {
@@ -64,7 +75,14 @@
     }
 
   }
-
+  &.change {
+    letter-spacing: 10px;
+    color: fade(@white, 0);
+    text-shadow: none;
+  }
+  @media @tablet-portrait {
+    width: auto;
+  }
 }
 
 ._light-button(){
