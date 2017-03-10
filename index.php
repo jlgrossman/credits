@@ -50,7 +50,6 @@ include_once 'php/utils.php';
       <div class="main-content">
         <div class="constraint">
           <div class="create">
-            <h1>Welcome to Bettr</h1>
             <h2>Transfer Credits</h2>
             <div class="transfer form">
               <div class="error-msg"></div>
@@ -61,6 +60,11 @@ include_once 'php/utils.php';
               <div class="transfer-message-container">
                 <textarea class="transfer-message" name="message" placeholder="Include a message..." maxlength="140"></textarea>
                 <div class="transfer-character-count">140/140</div>
+                <div class="emoji">
+                  😀 😁	😂 😃 😄 😅 😆 😉	😊 😋 😎 😍 😘 😗 😙 😚 ☺ 🙂 🤗 🤔 😐 😑 😶 🙄 😏 😣 😥 😮 🤐 😯 😪 😫 😴
+                  😌 🤓 😛 😜 😝 😒 😓 😔 😕 🙃 🤑 😲 ☹ 🙁 😖 😞 😟 😤 😢 😭 😦 😧 😨 😩 😬 😰 😱 😳 😵 😡 😠 😇 😷
+                  😈 👿 👹 👺 💀 ☠ 👻 👽 👾 🤖 💩 🕵🏿‍ 🎅🏻 💇🏼 💪🏻 💪🏿 👅 🕶 🐶 🐕 🐱 🐈 🐢 🐋 🐬 🍃 🍔 🍟	🍕 🌮 🍙 🍜 🍣 ⚖
+                </div>
               </div>
               <button class="submit">Send</button>
             </div>
@@ -81,7 +85,10 @@ include_once 'php/utils.php';
         <div class="error-msg"></div>
         <input type="text" name="name" class="display-name" placeholder="Display Name" />
         <input type="text" name="pw" class="username" placeholder="Username" />
-        <button class="submit">Login</button>
+        <button class="submit">Log In</button>
+      </div>
+      <div class="register">
+        Not a member? Click here to sign up.
       </div>
     </div>
   <? endif; ?>
