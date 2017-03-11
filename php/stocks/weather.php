@@ -7,7 +7,7 @@ $key = 'd3c36d3019c446ea0dfa6bf2d808e9f4';
 $url = "http://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$key";
 
 $data = json_decode(file_get_contents($url), true);
-$temp = $data['main']['temp'] - 273.15;
+$temp = intval((($data['main']['temp'] - 273.15) * 1.8 + 32)/2);
 $temp = ($temp < 0 ? 0 : $temp) + 1;
 
 $query = $connection->prepare('UPDATE stocks SET value = ? WHERE name = "WTHR"');
