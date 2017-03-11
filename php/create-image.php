@@ -27,7 +27,7 @@ imagefilledrectangle($img, 0, 50, 50, 100, $colors[1]);
 imagefilledrectangle($img, 50, 0, 100, 50, $colors[2]);
 imagefilledrectangle($img, 50, 50, 100, 100, $colors[3]);
 
-$save = 'imgs/img'.getUserID().'.png';
+$save = '../resources/img'.getUserID().'.png';
 imagepng($img, $save);
 chmod($save, 0755);
 ?>
