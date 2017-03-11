@@ -169,4 +169,72 @@ ready(function(){
 
   var earnCreditsInterval = setInterval(earnCredits, 600000); // 10 min
 
+  // STOCK MARKET /////////////////////////////////
+  const $stocksContainer:$ = $('.stocks-container');
+  const $sharesContainer:$ = $('.shares-container');
+  var loadingStockMarket:boolean = false;
+
+  function sellShare(e){
+    if(loadingStockMarket) return;
+    loadingStockMarket = true;
+    const $this:$ = $(this);
+    const stockID:number = parseInt($this.parent().data('stockId'));
+    ajax({
+      url: 'php/sell-share.php',
+      params: {stock: stockID},
+      success: function(data){
+        if(data.success){
+          updateCreditCount();
+          loadShares();
+        }
+      }
+    });
+  }
+
+  function buyShare(e){
+    if(loadingStockMarket) return;
+    loadingStockMarket = true;
+    const $this:$ = $(this);
+    const stockID:number = parseInt($this.parent().data('stockId'));
+    ajax({
+      url: 'php/buy-share.php',
+      params: {stock: stockID},
+      success: function(data){
+        if(data.success){
+          updateCreditCount();
+          loadShares();
+        }
+      }
+    });
+  }
+
+  function loadShares(){
+    ajax({
+      url: 'php/get-shares.php',
+      responseType: 'text',
+      success: function(data){
+        $sharesContainer.html(data);
+        const $buttons:$ = $sharesContainer.find('button');
+        $buttons.on('click', sellShare);
+        loadingStockMarket = false;
+      }
+    });
+  }
+
+  function loadStocks(){
+    ajax({
+      url: 'php/get-stocks.php',
+      responseType: 'text',
+      success: function(data){
+        $stocksContainer.html(data);
+        const $buttons:$ = $stocksContainer.find('button');
+        $buttons.on('click', buyShare);
+        loadingStockMarket = false;
+      }
+    });
+  }
+
+  loadShares();
+  loadStocks();
+
 });

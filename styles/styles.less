@@ -251,7 +251,9 @@ a {
   }
 }
 
-
+.constraint-content + .constraint-content {
+  margin-top: @spacing-md;
+}
 
 .constraint {
   max-width: @width-constraint;
@@ -377,6 +379,16 @@ footer {
     }
   }
   ._clearfix();
+}
+
+.stocks-container, .shares-container {
+  div {
+    margin-bottom: @spacing-sm;
+  }
+  button {
+    ._light-button();
+    margin: initial;
+  }
 }
 
 .error-msg {

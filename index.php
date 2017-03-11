@@ -50,7 +50,7 @@ include_once 'php/utils.php';
       </header>
       <div class="main-content">
         <div class="constraint">
-          <div class="create">
+          <div class="constraint-content">
             <h2>Transfer Credits</h2>
             <div class="transfer form">
               <div class="error-msg"></div>
@@ -69,6 +69,14 @@ include_once 'php/utils.php';
               </div>
               <button class="submit">Send</button>
             </div>
+          </div>
+          <div class="constraint-content">
+            <h2>Stock Market</h2>
+            <div class="stocks-container"></div>
+          </div>
+          <div class="constraint-content">
+            <h2>Shares</h2>
+            <div class="shares-container"></div>
           </div>
         </div>
       </div>

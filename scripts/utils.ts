@@ -151,7 +151,7 @@ function $(arg:any):$ {
         });
     };
     a.html = function(d){
-        return !d ? this[0].innerHTML : this.each(function(n) {
+        return d == undefined ? this[0].innerHTML : this.each(function(n) {
             n.innerHTML = d;
         });
     };
