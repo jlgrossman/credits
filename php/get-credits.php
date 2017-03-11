@@ -2,7 +2,7 @@
 include_once 'utils.php';
 
 // use session id if no post id is given
-$credits = getCredits($user['id']);
+$credits = getCredits(getUserID());
 
 if($credits >= 0){
   $result = array('success' => true, 'msg' => $credits);

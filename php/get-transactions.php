@@ -1,10 +1,10 @@
 <?
 include_once 'utils.php';
 
-$id = $user['id'];
+$id = getUserID();
 $output = isset($_POST['output']) ? $_POST['output'] : 'html';
 
-if(!$isLoggedIn){
+if(!isLoggedIn()){
   $connection->close();
   exit('{"success":false,"msg":"Not logged in"}');
 }

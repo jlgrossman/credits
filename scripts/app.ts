@@ -2,8 +2,10 @@
 
 ready(function(){
 
+  // CSS CLASSES //////////////////////////
   const OPEN:string = 'open';
   const LOADING:string = 'loading';
+  const CHANGE:string = 'change';
 
   // POPUP ////////////////////////////////
   const $popup:$ = $('.overlay');
@@ -107,12 +109,23 @@ ready(function(){
   $transferSubmit.on('click', transferCredits);
   $transferMessage.on('input', updateTransferCharacterCount);
 
-  // LOGIN /////////////////////////
+  // LOGIN/SIGNUP /////////////////////////
   const $loginForm:$ = $('.login-form');
   const $loginError:$ = $loginForm.find('.error-msg');
   const $loginDisplayName:$ = $loginForm.find('.display-name');
   const $loginUsername:$ = $loginForm.find('.username');
   const $loginSubmit:$ = $loginForm.find('.submit');
+  const $register:$ = $('.register');
+  var isSignup:boolean = false;
+
+  function toggleSignup(){
+    $loginSubmit.addClass(CHANGE).delay(250, function(){
+      $(this).html(
+        (isSignup = !isSignup) ?
+        'Sign up' : 'Log in'
+      ).removeClass(CHANGE);
+    });
+  }
 
   function login(){
    const name:string = $loginDisplayName.text();
@@ -120,7 +133,7 @@ ready(function(){
    if(name && pw){
      $loginSubmit.addClass(LOADING);
      ajax({
-       url:'php/login.php',
+       url: isSignup ? 'php/create-login.php' : 'php/login.php',
        params: {
          name: name,
          pw: pw
@@ -140,6 +153,7 @@ ready(function(){
   $loginSubmit.on('click', login);
   $loginDisplayName.on('keypress', (e) => e.keyCode == 13 && $loginUsername[0].focus());
   $loginUsername.on('keypress', (e) => e.keyCode == 13 && login());
+  $register.on('click', throttle(1000,toggleSignup));
 
   if($loginForm.length) $loginDisplayName[0].focus();
 

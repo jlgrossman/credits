@@ -1,8 +1,8 @@
 <?
 include_once 'php/utils.php';
-// $user['name'] and $user['id'] are now vars referencing logged in user
-// $isLoggedIn and $isAdmin are now true/false
-// getCredits($user['id']); returns number of credits or -1 if error
+// getUserName() and getUserID() are now vars referencing logged in user
+// isLoggedIn() and isAdmin() are now true/false
+// getCredits(getUserID()); returns number of credits or -1 if error
 ?>
 <!DOCTYPE html>
 <head>
@@ -12,13 +12,13 @@ include_once 'php/utils.php';
   <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700|Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css" />
-  <link rel="icon" sizes="100x100" href="<?=getUserImage($user['id'])?>">
+  <link rel="icon" sizes="100x100" href="<?=getUserImage(getUserID())?>">
   <script src="scripts/utils.js"></script>
   <script src="scripts/app.js"></script>
 </head>
 <body>
   <div class="site-wrap">
-    <? if($isLoggedIn) : ?>
+    <? if(isLoggedIn()) : ?>
     <div class="flyout">
       <div class="constraint">
         <div class="logo">Bettr<span class="tagline"> the better better</span></div>
@@ -38,12 +38,12 @@ include_once 'php/utils.php';
       <header>
         <div class="constraint">
           <div class="credit-count">
-            <? if($isLoggedIn) : ?>
-              <?= getCredits($user['id']) ?>
+            <? if(isLoggedIn()) : ?>
+              <?= getCredits(getUserID()) ?>
             <? endif; ?>
           </div>
             <div class="welcome">
-              Welcome to Bettr, <strong class="welcome-user-name"><?= $user['name'] ?></strong>
+              Welcome to Bettr, <strong class="welcome-user-name"><?= getUserName() ?></strong>
             </div>
         </div>
       </header>
@@ -97,7 +97,7 @@ include_once 'php/utils.php';
     <div class="popup">
       <div class="close">X</div>
       <div class="popup-content logout">
-        <h4>Not <?=$user['name']?>?</h4>
+        <h4>Not <?=getUserName()?>?</h4>
         <button class="logout">Logout</button>
       </div>
     </div>

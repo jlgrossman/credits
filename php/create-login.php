@@ -4,8 +4,8 @@ include_once 'utils.php';
 $name = trim($_POST['name']);
 $pw = trim($_POST['pw']);
 
-if(strlen($name) < $MIN_USERNAME_LENGTH) exit '{"success":false, "msg":"Display name is too short"}';
-if(strlen($pw) < $MIN_PASSWORD_LENGTH) exit '{"success":false, "msg":"Username is too short"}';
+if(strlen($name) < $MIN_USERNAME_LENGTH) exit('{"success":false, "msg":"Display name is too short"}');
+if(strlen($pw) < $MIN_PASSWORD_LENGTH) exit('{"success":false, "msg":"Username is too short"}');
 
 $query = $connection->prepare('SELECT id FROM users WHERE username = ? OR password = ?');
 
@@ -16,7 +16,7 @@ $query->bind_result($id);
 
 if($query->fetch()){
   $query->close();
-  exit '{"success":false, "msg":"Login already exists"}';
+  exit('{"success":false, "msg":"Login already exists"}');
 }
 
 $query->close();
@@ -30,9 +30,9 @@ $id = $connection->insert_id;
 $query->close();
 $connection->close();
 
-$_SESSION['user'] = $name;
-$_SESSION['id'] = $id;
-$_SESSION['time'] = time();
+setUserName($name);
+setUserID($id);
+setUserTime(time());
 
 include_once 'create-image.php';
 
