@@ -49,4 +49,13 @@ function getUserImage($id){
   return "resources/img$id.png";
 }
 
+// exits if not logged in
+function exitIfNotLoggedIn(){
+  global $connection;
+  if(!isLoggedIn()) {
+    $connection->close();
+    exit('{"success":false,"msg":"Not logged in"}');
+  }
+}
+
 ?>
