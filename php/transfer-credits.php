@@ -1,10 +1,7 @@
 <?
 include_once 'utils.php';
 
-if(!isLoggedIn()) {
-  $connection->close();
-  exit('{"success":false,"msg":"Not logged in"}');
-}
+exitIfNotLoggedIn();
 
 $fromId = getUserID();
 $toId = isset($_POST['to']) ? (is_numeric($_POST['to']) ? intval($_POST['to']) : getId($_POST['to'])) : 0;

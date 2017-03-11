@@ -1,7 +1,8 @@
 <?
 include_once 'utils.php';
 
-// use session id if no post id is given
+exitIfNotLoggedIn();
+
 $credits = getCredits(getUserID());
 
 if($credits >= 0){

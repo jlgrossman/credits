@@ -1,10 +1,7 @@
 <?
 include_once 'utils.php';
 
-if(!isLoggedIn()) {
-  $connection->close();
-  exit('{"success":false,"msg":"Not logged in"}');
-}
+exitIfNotLoggedIn();
 
 $stockID = $_POST['stock'];
 $userID = getUserID();

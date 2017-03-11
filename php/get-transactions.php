@@ -1,13 +1,10 @@
 <?
 include_once 'utils.php';
 
+exitIfNotLoggedIn();
+
 $id = getUserID();
 $output = isset($_POST['output']) ? $_POST['output'] : 'html';
-
-if(!isLoggedIn()){
-  $connection->close();
-  exit('{"success":false,"msg":"Not logged in"}');
-}
 
 $query = $connection->prepare('
   SELECT trans.from_id, trans.to_id, from_user.username, to_user.username, trans.amount, trans.message
