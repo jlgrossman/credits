@@ -363,6 +363,7 @@ footer {
     font-family: @font-content;
   }
   .emoji {
+    display: none;
     position: absolute;
   }
   @media @tablet-portrait {
@@ -396,8 +397,15 @@ footer {
 
 .transfer-details {
   ._clearfix();
+  input + input {
+    margin-top: @spacing-sm;
+  }
   @media @tablet-portrait {
     display: flex;
+
+    input + input {
+      margin-top: 0;
+    }
   }
 }
 
