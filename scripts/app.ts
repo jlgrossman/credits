@@ -171,7 +171,6 @@ ready(function(){
 
   // STOCK MARKET /////////////////////////////////
   const $stocksContainer:$ = $('.stocks-container');
-  const $sharesContainer:$ = $('.shares-container');
   var loadingStockMarket:boolean = false;
 
   function sellShare(e){
@@ -185,7 +184,7 @@ ready(function(){
       success: function(data){
         if(data.success){
           updateCreditCount();
-          loadShares();
+          loadStocks();
         }
       }
     });
@@ -202,21 +201,8 @@ ready(function(){
       success: function(data){
         if(data.success){
           updateCreditCount();
-          loadShares();
+          loadStocks();
         }
-      }
-    });
-  }
-
-  function loadShares(){
-    ajax({
-      url: 'php/get-shares.php',
-      responseType: 'text',
-      success: function(data){
-        $sharesContainer.html(data);
-        const $buttons:$ = $sharesContainer.find('button');
-        $buttons.on('click', sellShare);
-        loadingStockMarket = false;
       }
     });
   }
@@ -227,14 +213,15 @@ ready(function(){
       responseType: 'text',
       success: function(data){
         $stocksContainer.html(data);
-        const $buttons:$ = $stocksContainer.find('button');
-        $buttons.on('click', buyShare);
+        const $buyShares:$ = $stocksContainer.find('.buy-share');
+        const $sellShares:$ = $stocksContainer.find('.sell-share');
+        $buyShares.on('click', buyShare);
+        $sellShares.on('click', sellShare);
         loadingStockMarket = false;
       }
     });
   }
 
-  loadShares();
   loadStocks();
 
 });
