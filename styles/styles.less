@@ -154,7 +154,7 @@ a {
       border-top: 1px solid @light-grey;
       cursor: pointer;
       text-transform:uppercase;
-      transition: background-color .15s ease;
+      transition: background-color @anim-time ease;
       overflow: hidden;
       &:last-of-type {
         border-bottom: 1px solid @light-grey;
@@ -179,13 +179,13 @@ a {
           left: -@spacing-md;
           width: @spacing-md;
 
-          transition: left .15s ease;
+          transition: left @anim-time ease;
         }
         &:after {
           right: -@spacing-md;
           width: @spacing-md;
 
-          transition: right .15s ease;
+          transition: right @anim-time ease;
         }
       }
     }
@@ -338,7 +338,6 @@ footer {
 }
 
 .form {
-@form-speed: .15s;
 > * + * {
   margin-top: @spacing-sm;
 }
@@ -349,7 +348,7 @@ footer {
     border-radius: 1px;
     border: 1px solid @light-grey;
     width: 100%;
-    transition: border @form-speed ease, box-shadow @form-speed ease;
+    transition: border @anim-time ease, box-shadow @anim-time ease;
     &:focus{
       outline: none;
       border: 1px solid @brand;
@@ -357,7 +356,7 @@ footer {
     }
   }
   button.submit {
-    ._submit-button();
+    ._button();
   }
   textarea {
     resize: none;
@@ -382,12 +381,59 @@ footer {
 }
 
 .stocks-container, .shares-container {
-  div {
-    margin-bottom: @spacing-sm;
+  .stock {
+    margin-bottom: @spacing-md;
   }
-  button {
-    ._light-button();
-    margin: initial;
+  .stock-detail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    > div {
+      position:relative;
+      .stock-detail-value {
+        font-size: 2em;
+        font-weight: bold;
+      }
+      + div {
+        padding-bottom: 20px;
+      }
+    }
+  }
+  .stock-detail-label {
+    ._centerElem();
+    bottom: 0;
+  }
+  .stock-name {
+    width: 100%;
+    text-align: center;
+    margin-bottom: @spacing-sm;
+    .stock-detail-label {
+      display: none;
+    }
+    .stock-detail-value {
+      color: @brand;
+    }
+  }
+  .stock-actions {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    button {
+      max-width: 200px;
+      min-width: 115px;
+      flex: 1;
+      margin: @spacing-sm 1% 0;
+    }
+    .buy-share {
+      ._button(45%, @brand, 0px);
+    }
+    .sell-share {
+      ._button(45%, @warning, 0px);
+    }
+    .disabled {
+      ._button(45%, @light-grey, 0px, false);
+      cursor: auto;
+    }
   }
 }
 
@@ -398,7 +444,7 @@ footer {
   margin: 0;
   color: #fff;
   text-align: left;
-  transition: all .15s ease;
+  transition: all @anim-time ease;
   &.open {
     padding: 10px;
     font-size: 1.25em;
@@ -430,7 +476,7 @@ footer {
     bottom: 15px;
     color: @grey;
 
-    transition: color .15s ease, text-shadow .15s ease;
+    transition: color @anim-time ease, text-shadow @anim-time ease;
     &.few-left {
       color: @warning;
       text-shadow: @shadow;
@@ -478,7 +524,7 @@ footer {
     }
 
     button {
-      ._submit-button();
+      ._button();
       display: block;
       margin: 0 auto;
     }

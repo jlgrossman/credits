@@ -12,7 +12,7 @@
 ._links() {
   color: @brand;
   cursor: pointer;
-  transition: .15s color ease;
+  transition: @anim-time color ease;
   &:hover {
     color: @brand-dark;
   }
@@ -32,27 +32,27 @@
   ._generate-headings(@n, (@i + 1));
 }
 
-._submit-button(){
-  width: 100%;
+._button(@width: 100%; @bg-color: @brand; @radius: 2px; @hover: true;) {
+  width: @width;
   font-size: 1.25rem;
-  background: #278ec0;
+  background: @bg-color;
   border: none;
   padding: 10px @spacing-md;
   color: #fff;
   text-align: center;
   letter-spacing: 0;
   cursor: pointer;
-  border-radius: 2px;
-  border: 1px solid @brand-dark;
+  border-radius: @radius;
+  border: 1px solid @bg-color - #222;
   box-shadow: @shadow;
   text-shadow: @shadow;
-  transition: background-color .15s ease, border .15s ease, color .15s ease, letter-spacing .15s ease, text-shadow .15s ease;
+  transition: background-color @anim-time ease, border @anim-time ease, color @anim-time ease, letter-spacing @anim-time ease, text-shadow @anim-time ease;
   outline: none;
 
-  &:hover {
-    background-color: @brand-dark;
-    border: 1px solid (@brand-dark - #222);
-  }
+    &:hover when (@hover = true) {
+      background-color: @bg-color - #222;
+      border: 1px solid (@bg-color - #444);
+    }
 
   &.loading {
     position: relative;
@@ -67,7 +67,7 @@
       background: @loading-img;
       background-color: #278ec0;
       background-size: contain;
-      transition: background-color .15s ease;
+      transition: background-color @anim-time ease;
     }
 
     &:hover:after {
@@ -96,7 +96,7 @@
   text-align: center;
   box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   text-shadow: 0 1px 3px rgba(0,0,0,0.15);
-  transition: background-color .15s ease,border .15s ease;
+  transition: background-color @anim-time ease,border @anim-time ease;
   outline: none;
   display: block;
   margin: 0 auto;
@@ -106,4 +106,10 @@
     border-color: lightgrey;
     color: #999;
   }
+}
+
+._centerElem() {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }

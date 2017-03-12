@@ -28,6 +28,7 @@ include_once 'php/utils.php';
             <li data-url="transactions.php">Transactions</li>
             <li data-url="bets.php">Bets</li>
             <li data-url="games.php">Games</li>
+            <li data-url="stocks.php">Stocks</li>
             <li data-url="shop.php">Shop</li>
           </ul>
         </div>
