@@ -6,8 +6,12 @@
       <div class="stock-quantity shares-owned"><span class="stock-detail-label">Quantity</span><span class="stock-detail-value"><?=$stock['quantity']?></span></div>
     </div>
     <div class="stock-actions">
+      <? if($stock['value'] <= $userCredits): ?>
       <button class="buy-share">Buy</button>
+      <? endif; ?>
+      <? if($stock['quantity'] > 0): ?>
       <button class="sell-share">Sell</button>
+      <? endif; ?>
     </div>
   </div>
 <? endforeach; ?>

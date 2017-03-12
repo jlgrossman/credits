@@ -5,6 +5,7 @@ exitIfNotLoggedIn();
 
 $output = isset($_POST['output']) ? $_POST['output'] : 'html';
 $userID = getUserID();
+$userCredits = getCredits($userID);
 
 $query = $connection->prepare('
   SELECT stock.id, stock.name, stock.value, stock.description, count(share.id)

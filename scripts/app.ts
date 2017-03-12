@@ -177,7 +177,7 @@ ready(function(){
     if(loadingStockMarket) return;
     loadingStockMarket = true;
     const $this:$ = $(this);
-    const stockID:number = parseInt($this.parent().data('stockId'));
+    const stockID:number = parseInt($this.parent().parent().data('stockId'));
     ajax({
       url: 'php/sell-share.php',
       params: {stock: stockID},
@@ -194,7 +194,7 @@ ready(function(){
     if(loadingStockMarket) return;
     loadingStockMarket = true;
     const $this:$ = $(this);
-    const stockID:number = parseInt($this.parent().data('stockId'));
+    const stockID:number = parseInt($this.parent().parent().data('stockId'));
     ajax({
       url: 'php/buy-share.php',
       params: {stock: stockID},
