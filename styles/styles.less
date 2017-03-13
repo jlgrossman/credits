@@ -380,7 +380,7 @@ footer {
   ._clearfix();
 }
 
-.stocks-container, .shares-container {
+.stocks-container {
   .stock {
     margin-bottom: @spacing-md;
   }
@@ -397,6 +397,13 @@ footer {
       + div {
         padding-bottom: 20px;
       }
+    }
+  }
+  .stock-value {
+    .stock-detail-value:after {
+      content: 'B';
+      font-size: 16px;
+      font-weight: normal;
     }
   }
   .stock-detail-label {

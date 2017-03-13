@@ -222,6 +222,20 @@ ready(function(){
     });
   }
 
+  function autoUpdateStocks(){
+    const next:Date = new Date();
+    const mins:number = next.getMinutes();
+    const hours:number = next.getHours();
+    next.setSeconds(30);
+    next.setMinutes(mins < 30 ? 30 : 0);
+    next.setHours(mins < 30 ? hours : hours + 1);
+    setTimeout(function(){
+      loadStocks();
+      setInterval(loadStocks, 1800000);
+    }, next.getTime() - new Date().getTime());
+  }
+
   loadStocks();
+  autoUpdateStocks();
 
 });
