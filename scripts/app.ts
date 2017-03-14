@@ -54,6 +54,8 @@ ready(function(){
   const $transferMessage:$ = $transferForm.find('.transfer-message');
   const $transferSubmit:$ = $transferForm.find('.submit');
   const $transferCharacterCount:$ = $transferForm.find('.transfer-character-count');
+  const $emojiContainer:$ = $transferForm.find('.emoji');
+  const $emojis:$ = $emojiContainer.find('li');
   const $creditCount:$ = $('.credit-count');
 
   var transferInProgress:boolean = false;
@@ -108,6 +110,12 @@ ready(function(){
   $transferAmount.on('keypress', (e) => e.keyCode == 13 && $transferMessage[0].focus());
   $transferSubmit.on('click', transferCredits);
   $transferMessage.on('input', updateTransferCharacterCount);
+
+  $emojis.on('click', function(){
+    const emoji:string = $(this).text();
+    $transferMessage.text($transferMessage.text() + emoji);
+    updateTransferCharacterCount();
+  });
 
   // LOGIN/SIGNUP /////////////////////////
   const $loginForm:$ = $('.login-form');
