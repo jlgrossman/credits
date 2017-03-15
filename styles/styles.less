@@ -388,6 +388,12 @@ footer {
       text-align: center;
       font-size: 20px;
       cursor: pointer;
+      opacity: 1;
+      transition: opacity 100ms;
+
+      &:hover {
+        opacity: 0.8;
+      }
 
       @media @tablet-portrait {
         font-size: 16px;
