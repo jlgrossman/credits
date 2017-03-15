@@ -315,6 +315,12 @@ header {
   .welcome {
     strong {
       cursor: pointer;
+      transition: text-shadow 200ms;
+
+      &:hover {
+        text-shadow: 0 0 4px rgba(255,255,255,0.5);
+      }
+
     }
   }
   @media @tablet-portrait {
