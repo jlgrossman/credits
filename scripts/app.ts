@@ -7,6 +7,9 @@ ready(function(){
   const LOADING:string = 'loading';
   const CHANGE:string = 'change';
 
+  // HTML ELEMENTS /////////////////////////
+  const $body:$ = $('body');
+
   // POPUP ////////////////////////////////
   const $popup:$ = $('.overlay');
   const $popupContent:$ = $popup.find('.popup');
@@ -54,8 +57,6 @@ ready(function(){
   const $transferMessage:$ = $transferForm.find('.transfer-message');
   const $transferSubmit:$ = $transferForm.find('.submit');
   const $transferCharacterCount:$ = $transferForm.find('.transfer-character-count');
-  const $emojiContainer:$ = $transferForm.find('.emoji');
-  const $emojis:$ = $emojiContainer.find('li');
   const $creditCount:$ = $('.credit-count');
 
   var transferInProgress:boolean = false;
@@ -111,10 +112,32 @@ ready(function(){
   $transferSubmit.on('click', transferCredits);
   $transferMessage.on('input', updateTransferCharacterCount);
 
+  const $emojiContainer:$ = $transferForm.find('.emoji-container');
+  const $emojis:$ = $emojiContainer.find('li').addClass('emoji');
+  const $emojiButton:$ = $transferForm.find('.emoji-btn');
+
+  function closeEmojiContainer(e:Event){
+    if(!e || !e.target) return;
+    const $target:$ = $(e.target);
+    if(!($target.hasClass('emoji-container') || $target.parent().hasClass('emoji-container') || $target.parent().parent().hasClass('emoji-container'))){
+      $emojiContainer.removeClass(OPEN);
+      $body.off('click', closeEmojiContainer);
+    }
+  }
+
   $emojis.on('click', function(){
     const emoji:string = $(this).text();
     $transferMessage.text($transferMessage.text() + emoji);
     updateTransferCharacterCount();
+  });
+
+  $emojiButton.on('click', function(e:Event){
+    e.stopPropagation();
+    if($emojiContainer.toggleClass(OPEN).hasClass(OPEN)){
+      $body.on('click', closeEmojiContainer);
+    } else {
+      $body.off('click', closeEmojiContainer);
+    }
   });
 
   // LOGIN/SIGNUP /////////////////////////

@@ -61,8 +61,9 @@ include_once 'php/utils.php';
               </div>
               <div class="transfer-message-container">
                 <textarea class="transfer-message" name="message" placeholder="Include a message..." maxlength="140"></textarea>
+                <div class="emoji-btn">😀</div>
                 <div class="transfer-character-count">140/140</div>
-                <div class="emoji">
+                <div class="emoji-container">
                   <ul>
                   <li>😀</li><li>😁</li><li>😂</li><li>😃</li><li>😄</li><li>😅</li><li>😆</li><li>😉</li><li>😊</li><li>😋</li><li>😎</li><li>😍</li><li>😘</li><li>😗</li><li>😙</li><li>😚</li><li>☺</li><li>🙂</li><li>🤗</li><li>🤔</li><li>😐</li><li>😑</li><li>😶</li><li>🙄</li><li>😏</li><li>😣</li><li>😥</li><li>😮</li><li>🤐</li><li>😯</li><li>😪</li><li>😫</li><li>😴
                  </li><li>😌</li><li>🤓</li><li>😛</li><li>😜</li><li>😝</li><li>😒</li><li>😓</li><li>😔</li><li>😕</li><li>🙃</li><li>🤑</li><li>😲</li><li>☹</li><li>🙁</li><li>😖</li><li>😞</li><li>😟</li><li>😤</li><li>😢</li><li>😭</li><li>😦</li><li>😧</li><li>😨</li><li>😩</li><li>😬</li><li>😰</li><li>😱</li><li>😳</li><li>😵</li><li>😡</li><li>😠</li><li>😇</li><li>😷
