@@ -7,6 +7,7 @@ type $ = HTMLElement[] & {
   remove:()=>$,
   parent:()=>$,
   on:(event:string,handler:Function)=>$,
+  off:(event:string,handler:Function)=>$,
   trigger:(event:string,data?:Object)=>$,
   addClass:(className:string)=>$,
   removeClass:(className:string)=>$,
@@ -108,7 +109,12 @@ function $(arg:any):$ {
             n.addEventListener(e, f.bind(n));
         });
     };
-    a.trigger = function(e,d){
+    a.off = function(e, f) {
+      return this.each(function(n) {
+        n.removeEventListener(e, f);
+      });
+    }
+    a.trigger = function(e,d) {
         var evt = d ? new CustomEvent(e,d) : new Event(e);
         return this.each(function(n){
           n.dispatchEvent(evt);
