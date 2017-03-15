@@ -7,6 +7,7 @@
 
 * {
   line-height: @font-line-height;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0) !important;
 }
 
 html {
@@ -192,7 +193,6 @@ a {
   }
 }
 
-// TODO: feel free to restyle this stuff
 .transactions-container {
   .transaction {
     padding: @spacing-sm / 2;
@@ -278,6 +278,7 @@ header {
   .constraint {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     flex: 1;
     padding: 0 5px;
     position:relative;
@@ -514,6 +515,11 @@ footer {
     filter: grayscale(100%);
     opacity: 0.5;
     cursor: pointer;
+    transition: opacity 250ms;
+
+    &:hover {
+      opacity: 0.3;
+    }
   }
 
   .transfer-character-count {
