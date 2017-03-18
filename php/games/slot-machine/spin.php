@@ -14,13 +14,13 @@ if(getCredits($userID) < $bet){
 
 $rand = (mt_rand() / mt_getrandmax());
 
-if ($rand < 0.4) {
+if ($rand < 0.5) {
   $earned = 0;
   $state = 0;
-} else if ($rand < 0.6) {
+} else if ($rand < 0.7) {
   $earned = round($bet/2);
   $state = 1;
-} else if ($rand < 0.8) {
+} else if ($rand < 0.85) {
   $earned = $bet;
   $state = 2;
 } else if ($rand < 0.9) {
