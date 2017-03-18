@@ -12,20 +12,25 @@ if($stockID < 1) {
 }
 
 $query = $connection->prepare('
-  SELECT stock.value FROM stocks AS stock
+  SELECT stock.value, COUNT(share.id) FROM stocks AS stock
   INNER JOIN users AS user ON
   stock.value <= user.credits
+  INNER JOIN shares AS share ON
+  share.stock_id = stock.id AND share.user_id = user.id
   WHERE stock.id = ? AND user.id = ?
 ');
 $query->bind_param('ii', $stockID, $userID);
 $query->execute();
-$query->bind_result($price);
+$query->bind_result($price, $count);
 $success = $query->fetch();
 $query->close();
 
-if(!$success) {
+if(!$success || is_null($price)) {
   $connection->close();
   exit('{"success":false,"msg":"Insufficient funds"}');
+} else if($count >= 30) {
+  $connection->close();
+  exit('{"success":false,"msg":"Share limit reached"}');
 }
 
 $query = $connection->prepare('INSERT INTO shares (stock_id, user_id) VALUES (?,?)');
