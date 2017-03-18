@@ -105,15 +105,16 @@ function $(arg:any):$ {
         return $(this[0].parentNode);
     };
     a.on = function(e, f) {
-        let fs:string = f.toString();
+        let fs:string = e+f.toString().replace(/function|\W/g,"");
         return this.each(function(n) {
             let fn = f.bind(n);
+            if(n[fs]) return;
             n[fs] = fn;
             n.addEventListener(e, fn);
         });
     };
     a.off = function(e, f) {
-      let fs:string = f.toString();
+      let fs:string = e+f.toString().replace(/function|\W/g,"");
       return this.each(function(n) {
         let fn = n[fs];
         if(!fn) return;
