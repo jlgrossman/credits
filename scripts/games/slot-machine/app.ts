@@ -53,6 +53,7 @@ ready(function(){
   const $input:$ = $game.find('input.bet');
   const $button:$ = $game.find('.spin-btn');
   const $creditCount:$ = $game.find('.credit-count');
+  var spinning:boolean = false;
 
   function creditCount(value?:number){
     const credits:number = parseInt($creditCount.text()) || 0;
@@ -61,6 +62,7 @@ ready(function(){
   }
 
   function isSpinning(){
+    if(spinning) return true;
     for(let slot of slots) if(slot.isSpinning) return true;
     return false;
   }
@@ -69,12 +71,18 @@ ready(function(){
     let finished:number = 0;
     for(let slot of slots){
       slot.destination =  Math.floor(Math.random() * Slot.icons.length);
-      slot.spin(()=>++finished == 4 && creditCount(amount));
+      slot.spin(()=>{
+        if(++finished == 4){
+          creditCount(amount);
+          spinning = false;
+        }
+      });
     }
   }
 
   $button.on('click', ()=>{
     if(isSpinning()) return;
+    spinning = true;
     let bet:number = parseInt($input.text()) || 1;
     if(bet < 1) bet = 1;
     creditCount(-bet);
