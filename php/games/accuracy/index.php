@@ -1,8 +1,8 @@
-<? include_once '../utils.php'; ?>
+<? include_once '../../utils.php'; ?>
 
-<link href="../../styles/games/accuracy.css" rel="stylesheet" />
+<link href="../../styles/games/styles.css" rel="stylesheet" />
 <script src="../../scripts/utils.js"></script>
-<script src="../../scripts/games/accuracy.js"></script>
+<script src="../../scripts/games/app.js"></script>
 
 <section class="accuracy-game game">
   <h1>Accuracy</h1>
