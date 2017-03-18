@@ -1,8 +1,9 @@
 type $ = HTMLElement[] & {
-  each:(func:Function)=>$,
+  each:(func:(element?:HTMLElement, index?:number)=>any)=>$,
   append:(element:HTMLElement|HTMLElement[])=>$,
   clone:(deepCopy?:boolean)=>$,
   find:(selector:string)=>$,
+  get:(index:number)=>$,
   add:($:$)=>$,
   remove:()=>$,
   parent:()=>$,
@@ -68,7 +69,7 @@ function $(arg:any):$ {
     else if (arg instanceof Array) a = arg;
     else a = (/<[a-zA-Z0-9]+>/.test(arg)) ? [document.createElement(arg.replace(/<|>/g, ""))] : arg instanceof HTMLElement ? [arg] : document.querySelectorAll(arg);
     a.each = function(f) {
-        for (var i = 0; i < this.length; i++) f(this[i]);
+        for (var i = 0; i < this.length; i++) f(this[i],i);
         return this;
     };
     a.append = function(e) {
@@ -90,6 +91,9 @@ function $(arg:any):$ {
             a.push(...n.querySelectorAll(s));
         });
         return $(a);
+    };
+    a.get = function(n) {
+      return $(this[n]);
     };
     a.add = function(o) {
         var na = [].slice.call(a);
