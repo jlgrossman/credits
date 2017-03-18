@@ -105,15 +105,22 @@ function $(arg:any):$ {
         return $(this[0].parentNode);
     };
     a.on = function(e, f) {
+        let fs:string = f.toString();
         return this.each(function(n) {
-            n.addEventListener(e, f.bind(n));
+            let fn = f.bind(n);
+            n[fs] = fn;
+            n.addEventListener(e, fn);
         });
     };
     a.off = function(e, f) {
+      let fs:string = f.toString();
       return this.each(function(n) {
-        n.removeEventListener(e, f);
+        let fn = n[fs];
+        if(!fn) return;
+        n.removeEventListener(e, fn);
+        delete n[fs];
       });
-    }
+    };
     a.trigger = function(e,d) {
         var evt = d ? new CustomEvent(e,d) : new Event(e);
         return this.each(function(n){
