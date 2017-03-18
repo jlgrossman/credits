@@ -1,4 +1,4 @@
-/// <reference path="../utils.ts"/>
+/// <reference path="../../utils.ts"/>
 
 ready(function() {
 

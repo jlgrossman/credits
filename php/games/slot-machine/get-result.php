@@ -4,7 +4,7 @@ include_once '../utils.php';
 exitIfNotLoggedIn();
 
 $userID = getUserID();
-$bet = intval($_POST['bet']);
+$bet = isset($_POST['bet']) ? intval($_POST['bet']) : 1;
 
 if(getCredits($userID) < $bet){
   $connection->close();
