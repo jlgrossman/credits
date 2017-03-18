@@ -25,7 +25,7 @@ ready(function(){
     }
 
     set destination(value:number){
-      this._destination = value;
+      this._destination = value % Slot.icons.length;
       this._numSpins = Math.round(Math.random() * 5 + 5);
     }
 
@@ -69,8 +69,10 @@ ready(function(){
 
   function spin(state:number, amount:number){
     let finished:number = 0;
-    for(let slot of slots){
-      slot.destination =  Math.floor(Math.random() * Slot.icons.length);
+    const offset:number =  Math.floor(Math.random() * Slot.icons.length);
+    for(let i = 0; i < slots.length; i++){
+      let slot:Slot = slots[i];
+      slot.destination = offset + i * (7 - state);
       slot.spin(()=>{
         if(++finished == 4){
           creditCount(amount);
