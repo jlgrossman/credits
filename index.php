@@ -13,9 +13,11 @@ include_once 'php/utils.php';
   <link href="https://fonts.googleapis.com/css?family=Oleo+Script:400,700|Roboto:300,300i,400,400i,700,700i" rel="stylesheet">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="styles/games/slot-machine/styles.css" />
   <link rel="icon" sizes="100x100" href="<?=getUserImage(getUserID())?>">
   <script src="scripts/utils.js"></script>
   <script src="scripts/app.js"></script>
+  <script src="scripts/games/slot-machine/app.js"></script>
 </head>
 <body>
   <div class="site-wrap">
@@ -24,12 +26,13 @@ include_once 'php/utils.php';
       <div class="constraint">
         <div class="logo">Bettr<span class="tagline"> the better better</span></div>
         <div class="side-menu">
-          <ul>
-            <li data-url="transactions.php">Transactions</li>
-            <li data-url="bets.php">Bets</li>
-            <li data-url="games.php">Games</li>
-            <li data-url="stocks.php">Stocks</li>
-            <li data-url="shop.php">Shop</li>
+          <div class="notification open">These work now</div>
+          <ul class="tabs">
+            <li class="tab transactions" data-tab="transactions">Transactions</li>
+            <li class="tab bets" data-tab="bets">Bets</li>
+            <li class="tab games" data-tab="games">Games</li>
+            <li class="tab stocks" data-tab="stocks">Stocks</li>
+            <li class="tab shop" data-tab="stocks">Shop</li>
           </ul>
         </div>
         <div class="transactions-container"></div>
@@ -51,7 +54,7 @@ include_once 'php/utils.php';
       </header>
       <div class="main-content">
         <div class="constraint">
-          <div class="constraint-content">
+          <div class="constraint-content tab-content transactions open">
             <h2>Transfer Credits</h2>
             <div class="transfer form">
               <div class="error-msg"></div>
@@ -74,10 +77,11 @@ include_once 'php/utils.php';
               <button class="submit">Send</button>
             </div>
           </div>
-          <div class="constraint-content">
+          <div class="constraint-content tab-content stocks">
             <h2>Stock Market</h2>
             <div class="stocks-container"></div>
           </div>
+          <? include_once 'php/games/slot-machine/index.php'; ?>
         </div>
       </div>
       <footer>

@@ -52,7 +52,7 @@ ready(function(){
   const $game:$ = $('.slot-machine-game');
   const $input:$ = $game.find('input.bet');
   const $button:$ = $game.find('.spin-btn');
-  const $creditCount:$ = $game.find('.credit-count');
+  const $creditCount:$ = $('.credit-count');
   var spinning:boolean = false;
 
   function creditCount(value?:number){

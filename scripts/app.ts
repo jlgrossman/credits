@@ -37,6 +37,8 @@ ready(function(){
   // SIDE MENU ///////////////////////////
   const $transactionsContainer:$ = $('.flyout .transactions-container');
   const $refreshTransactions:$ = $('.flyout .refresh-transactions-btn');
+  const $tabButtons:$ = $('.flyout .tab');
+  const $tabContents:$ = $('.main-content .tab-content');
 
   function loadTransactions(){
     ajax({
@@ -45,9 +47,17 @@ ready(function(){
       success: (data) => $transactionsContainer.html(data)
     });
   }
+
   loadTransactions();
 
   $refreshTransactions.on('click', throttle(5000, compose(loadTransactions, updateCreditCount)));
+
+  $tabButtons.on('click', function(e){
+    $tabContents.removeClass(OPEN);
+    $(`.main-content .tab-content.${$(this).data('tab')}`).addClass(OPEN);
+  });
+
+  $('.side-menu .notification').removeClass(OPEN);
 
   // TRANSFER CREDITS ////////////////////
   const $transferForm:$ = $('.transfer.form');
