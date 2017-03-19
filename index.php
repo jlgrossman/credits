@@ -29,10 +29,8 @@ include_once 'php/utils.php';
           <div class="notification open">These work now</div>
           <ul class="tabs">
             <li class="tab transactions" data-tab="transactions">Transactions</li>
-            <li class="tab bets" data-tab="bets">Bets</li>
-            <li class="tab games" data-tab="games">Games</li>
             <li class="tab stocks" data-tab="stocks">Stocks</li>
-            <li class="tab shop" data-tab="stocks">Shop</li>
+            <li class="tab games" data-tab="games">Games</li>
           </ul>
         </div>
         <div class="transactions-container"></div>
@@ -54,33 +52,8 @@ include_once 'php/utils.php';
       </header>
       <div class="main-content">
         <div class="constraint">
-          <div class="constraint-content tab-content transactions open">
-            <h2>Transfer Credits</h2>
-            <div class="transfer form">
-              <div class="error-msg"></div>
-              <div class="transfer-details">
-                <input class="transfer-name" type="text" placeholder="Payee's Name" name="payee" />
-                <input class="transfer-amount" type="text" placeholder="Credits" name="transfer" />
-              </div>
-              <div class="transfer-message-container">
-                <textarea class="transfer-message" name="message" placeholder="Include a message..." maxlength="140"></textarea>
-                <div class="emoji-btn">😀</div>
-                <div class="transfer-character-count">140/140</div>
-                <div class="emoji-container">
-                  <ul>
-                  <li>😀</li><li>😁</li><li>😂</li><li>😃</li><li>😄</li><li>😅</li><li>😆</li><li>😉</li><li>😊</li><li>😋</li><li>😎</li><li>😍</li><li>😘</li><li>😗</li><li>😙</li><li>😚</li><li>☺</li><li>🙂</li><li>🤗</li><li>🤔</li><li>😐</li><li>😑</li><li>😶</li><li>🙄</li><li>😏</li><li>😣</li><li>😥</li><li>😮</li><li>🤐</li><li>😯</li><li>😪</li><li>😫</li><li>😴
-                 </li><li>😌</li><li>🤓</li><li>😛</li><li>😜</li><li>😝</li><li>😒</li><li>😓</li><li>😔</li><li>😕</li><li>🙃</li><li>🤑</li><li>😲</li><li>☹</li><li>🙁</li><li>😖</li><li>😞</li><li>😟</li><li>😤</li><li>😢</li><li>😭</li><li>😦</li><li>😧</li><li>😨</li><li>😩</li><li>😬</li><li>😰</li><li>😱</li><li>😳</li><li>😵</li><li>😡</li><li>😠</li><li>😇</li><li>😷
-                 </li><li>😈</li><li>👿</li><li>👹</li><li>👺</li><li>💀</li><li>☠</li><li>👻</li><li>👽</li><li>👾</li><li>🤖</li><li>💩</li><li>🕵</li><li>🎅</li><li>💇</li><li>💪</li><li>💪</li><li>👅</li><li>🕶</li><li>🐶</li><li>🐕</li><li>🐱</li><li>🐈</li><li>🐢</li><li>🐋</li><li>🐬</li><li>🍃</li><li>🍔</li><li>🍟</li><li>🍕</li><li>🌮</li><li>🍙</li><li>🍜</li><li>🍣</li><li>⚖</li>
-                  </ul>
-                </div>
-              </div>
-              <button class="submit">Send</button>
-            </div>
-          </div>
-          <div class="constraint-content tab-content stocks">
-            <h2>Stock Market</h2>
-            <div class="stocks-container"></div>
-          </div>
+          <? include_once 'php/contents/transactions.php'; ?>
+          <? include_once 'php/contents/stocks.php'; ?>
           <? include_once 'php/games/slot-machine/index.php'; ?>
         </div>
       </div>
