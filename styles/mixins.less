@@ -32,6 +32,21 @@
   ._generate-headings(@n, (@i + 1));
 }
 
+._input(){
+  box-shadow: none;
+  font-size: 1.25em;
+  padding: 10px;
+  border-radius: 1px;
+  border: 1px solid @light-grey;
+  width: 100%;
+  transition: border @anim-time ease, box-shadow @anim-time ease;
+  &:focus{
+    outline: none;
+    border: 1px solid @brand;
+    box-shadow: 0 0 5px fade(@brand, 50%);
+  }
+}
+
 ._button(@width: 100%; @bg-color: @brand; @radius: 2px; @hover: true;) {
   width: @width;
   font-size: 1.25rem;

@@ -349,18 +349,7 @@ footer {
   margin-top: @spacing-sm;
 }
   input[type="text"], input[type='number'], textarea, input[type="checkbox"], input[type="radio"] {
-    box-shadow: none;
-    font-size: 1.25em;
-    padding: 10px;
-    border-radius: 1px;
-    border: 1px solid @light-grey;
-    width: 100%;
-    transition: border @anim-time ease, box-shadow @anim-time ease;
-    &:focus{
-      outline: none;
-      border: 1px solid @brand;
-      box-shadow: 0 0 5px fade(@brand, 50%);
-    }
+    ._input();
   }
   button.submit {
     ._button();

@@ -1,5 +1,37 @@
 // out: styles.css, compress: true
 
-.slots {
-  display: flex;
+@import "../../vars";
+@import "../../mixins";
+
+.slot-machine-game {
+  max-width: 400px;
+  margin: 0 auto;
+
+  .slots {
+    display: flex;
+    justify-content: space-between;
+
+    .slot {
+      font-size: 2em;
+      border: 1px solid @light-grey;
+
+      .row {
+        padding: 10px;
+        border: 1px solid @light-grey;
+        text-align: center;
+      }
+    }
+  }
+
+  button {
+    display: block;
+    margin: 0 auto;
+    ._button();
+  }
+
+  input {
+    margin: 20px auto;
+    ._input();
+  }
+
 }
