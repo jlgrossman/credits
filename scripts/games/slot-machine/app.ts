@@ -3,7 +3,7 @@
 ready(function(){
 
   class Slot {
-    static icons:string[] = ['😀','❤','💩','🍎','💀','🍆','🍔','💰','🙈'];
+    static icons:string[] = ['💀','💩','🙈','🍆','🍔','🍎','😀','❤','💰'];
 
     offset:number;
     isSpinning:boolean;
@@ -69,10 +69,11 @@ ready(function(){
 
   function spin(state:number, amount:number){
     let finished:number = 0;
-    const offset:number =  Math.floor(Math.random() * Slot.icons.length);
+    const winState:boolean = state > 2;
+    const offset:number = winState ? state + 2 : Math.floor(Math.random() * Slot.icons.length);
     for(let i = 0; i < slots.length; i++){
       let slot:Slot = slots[i];
-      slot.destination = offset + i * (7 - state);
+      slot.destination = offset + (winState ? 0 : i * (7 - state));
       slot.spin(()=>{
         if(++finished == 4){
           creditCount(amount);
