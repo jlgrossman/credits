@@ -26,7 +26,6 @@ include_once 'php/utils.php';
       <div class="constraint">
         <div class="logo">Bettr<span class="tagline"> the better better</span></div>
         <div class="side-menu">
-          <div class="notification open">These work now</div>
           <ul class="tabs">
             <li class="tab transactions" data-tab="transactions">Transactions</li>
             <li class="tab stocks" data-tab="stocks">Stocks</li>
