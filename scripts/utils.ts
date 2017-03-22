@@ -30,7 +30,9 @@ type $ = HTMLElement[] & {
   css : {
     (property:string):string
     (property:string,value:string):$
-  }
+  },
+  bind:(notify?:Function)=>{value:any,notify:Function},
+  unbind:(binding:{value:any,notify:Function})=>$
 };
 
 function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Function, error?:Function}) {
@@ -63,123 +65,160 @@ function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Fu
     xhr.send(params);
 }
 
-function $(arg:any):$ {
-    var a;
-    if(arg.each) return arg;
-    else if (arg instanceof Array) a = arg;
-    else a = (/<[a-zA-Z0-9]+>/.test(arg)) ? [document.createElement(arg.replace(/<|>/g, ""))] : arg instanceof HTMLElement ? [arg] : document.querySelectorAll(arg);
-    a.each = function(f) {
-        for (var i = 0; i < this.length; i++) f(this[i],i);
-        return this;
-    };
-    a.append = function(e) {
-        return this.each(function(n) {
-            if(!('length' in e)) e = [e];
-            for(var el of e) n.appendChild(el);
-        });
-    };
-    a.clone = function(d){
-        var a = [];
-        this.each(function(n){
-            a.push(n.cloneNode(d));
-        });
-        return $(a);
-    };
-    a.find = function(s) {
-        var a = [];
-        this.each(function(n) {
-            a.push(...n.querySelectorAll(s));
-        });
-        return $(a);
-    };
-    a.get = function(n) {
-      return $(this[n]);
-    };
-    a.add = function(o) {
-        var na = [].slice.call(a);
-        na.push(...o);
-        return $(na);
-    };
-    a.remove = function() {
-        return this.each(function(n) {
-            n.parentNode.removeChild(n);
-        });
-    };
-    a.parent = function() {
-        return $(this[0].parentNode);
-    };
-    a.on = function(e, f) {
+const $:(arg:any)=>$ = (function(){
+  class $$ {
+    private _value;
+    constructor(public parents:any[], public notify:Function){
+      this.parents = [].slice.call(this.parents);
+      let first = this.parents[0];
+      this._value = "value" in first ? first.value : first.textContent;
+      for(let parent of this.parents){
+        if(!parent.binds) parent.binds = [];
+        parent.binds.push(this);
+      }
+    }
+
+    get value(){ return this._value; }
+    set value(v){
+      this._value = v;
+      for(let parent of this.parents){
+        "value" in parent ? parent.value = v : parent.textContent = v;
+        for(let bind of parent.binds){
+          if(bind != this) bind.notify(v);
+        }
+      }
+    }
+
+  }
+
+  function $(arg:any):$ {
+      var a;
+      if(arg.each) return arg;
+      else if (arg instanceof Array) a = arg;
+      else a = (/<[a-zA-Z0-9]+>/.test(arg)) ? [document.createElement(arg.replace(/<|>/g, ""))] : arg instanceof HTMLElement ? [arg] : document.querySelectorAll(arg);
+      a.each = function(f) {
+          for (var i = 0; i < this.length; i++) f(this[i],i);
+          return this;
+      };
+      a.append = function(e) {
+          return this.each(function(n) {
+              if(!('length' in e)) e = [e];
+              for(var el of e) n.appendChild(el);
+          });
+      };
+      a.clone = function(d){
+          var a = [];
+          this.each(function(n){
+              a.push(n.cloneNode(d));
+          });
+          return $(a);
+      };
+      a.find = function(s) {
+          var a = [];
+          this.each(function(n) {
+              a.push(...n.querySelectorAll(s));
+          });
+          return $(a);
+      };
+      a.get = function(n) {
+        return $(this[n]);
+      };
+      a.add = function(o) {
+          var na = [].slice.call(a);
+          na.push(...o);
+          return $(na);
+      };
+      a.remove = function() {
+          return this.each(function(n) {
+              n.parentNode.removeChild(n);
+          });
+      };
+      a.parent = function() {
+          return $(this[0].parentNode);
+      };
+      a.on = function(e, f) {
+          let fs:string = e+f.toString().replace(/function|\W/g,"");
+          return this.each(function(n) {
+              let fn = f.bind(n);
+              if(n[fs]) return;
+              n[fs] = fn;
+              n.addEventListener(e, fn);
+          });
+      };
+      a.off = function(e, f) {
         let fs:string = e+f.toString().replace(/function|\W/g,"");
         return this.each(function(n) {
-            let fn = f.bind(n);
-            if(n[fs]) return;
-            n[fs] = fn;
-            n.addEventListener(e, fn);
+          let fn = n[fs];
+          if(!fn) return;
+          n.removeEventListener(e, fn);
+          delete n[fs];
         });
-    };
-    a.off = function(e, f) {
-      let fs:string = e+f.toString().replace(/function|\W/g,"");
-      return this.each(function(n) {
-        let fn = n[fs];
-        if(!fn) return;
-        n.removeEventListener(e, fn);
-        delete n[fs];
-      });
-    };
-    a.trigger = function(e,d) {
-        var evt = d ? new CustomEvent(e,d) : new Event(e);
-        return this.each(function(n){
-          n.dispatchEvent(evt);
-        });
-    };
-    a.addClass = function(c) {
-        return this.each(function(n) {
-            n.classList.add(c);
-        });
-    };
-    a.removeClass = function(c) {
-        return this.each(function(n) {
-            n.classList.remove(c);
-        });
-    };
-    a.toggleClass = function(c) {
-        return this.each(function(n) {
-            n.classList.toggle(c);
-        });
-    };
-    a.hasClass = function(c) {
-        for (var i = 0; i < this.length; i++)
-            if (this[i].classList.contains(c)) return true;
-        return false;
-    };
-    a.delay = function(t,f){
-    	setTimeout(()=>{
-    		this.each(function(n){f.apply(n)})
-    	},t)
-    	return this;
-    };
-    a.text = function(t) {
-        return t == undefined ? (this[0].textContent || this[0].value) : this.each(function(n) {
-            "value" in n ? n.value = t : n.textContent = t;
-        });
-    };
-    a.data = function(m, v) {
-        return !v ? this[0].dataset[m] : this.each(function(n) {
-            n.dataset[m] = v;
-        });
-    };
-    a.html = function(d){
-        return d == undefined ? this[0].innerHTML : this.each(function(n) {
-            n.innerHTML = d;
-        });
-    };
-    a.css = function(s,v){
-        return !v ? this[0].style[s] : this.each(function(n) {
-            n.style[s] = v;
-        });
-    };
-    return a;
-}
+      };
+      a.trigger = function(e,d) {
+          var evt = d ? new CustomEvent(e,d) : new Event(e);
+          return this.each(function(n){
+            n.dispatchEvent(evt);
+          });
+      };
+      a.addClass = function(c) {
+          return this.each(function(n) {
+              n.classList.add(c);
+          });
+      };
+      a.removeClass = function(c) {
+          return this.each(function(n) {
+              n.classList.remove(c);
+          });
+      };
+      a.toggleClass = function(c) {
+          return this.each(function(n) {
+              n.classList.toggle(c);
+          });
+      };
+      a.hasClass = function(c) {
+          for (var i = 0; i < this.length; i++)
+              if (this[i].classList.contains(c)) return true;
+          return false;
+      };
+      a.delay = function(t,f){
+      	setTimeout(()=>{
+      		this.each(function(n){f.apply(n)})
+      	},t)
+      	return this;
+      };
+      a.text = function(t) {
+          return t == undefined ? (this[0].textContent || this[0].value) : this.each(function(n) {
+              "value" in n ? n.value = t : n.textContent = t;
+          });
+      };
+      a.data = function(m, v) {
+          return !v ? this[0].dataset[m] : this.each(function(n) {
+              n.dataset[m] = v;
+          });
+      };
+      a.html = function(d){
+          return d == undefined ? this[0].innerHTML : this.each(function(n) {
+              n.innerHTML = d;
+          });
+      };
+      a.css = function(s,v){
+          return !v ? this[0].style[s] : this.each(function(n) {
+              n.style[s] = v;
+          });
+      };
+      a.bind = function(n){
+          return new $$(this, n ? n.bind(this) : (()=>null));
+      };
+      a.unbind = function(b){
+          return this.each(function(n){
+            if(n.binds) n.binds.splice(n.binds.indexOf(b), 1);
+            b.parents.splice(b.parents.indexOf(n), 1);
+          });
+      };
+      return a;
+  }
+  return $;
+})();
 
 function ready(f) {
     window.addEventListener('load', f);
