@@ -84,7 +84,9 @@ const $:(arg:any)=>$ = (function(){
       for(let parent of this.parents){
         "value" in parent ? parent.value = v : parent.textContent = v;
         for(let bind of parent.binds){
-          if(bind != this) bind.notify(v);
+          if(bind != this && bind.value != v) {
+            bind.value = v;
+          }
         }
       }
     }
