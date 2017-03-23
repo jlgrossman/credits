@@ -44,7 +44,9 @@ ready(function(){
     ajax({
       url: 'php/get-transactions.php',
       responseType: 'text',
-      success: (data) => $transactionsContainer.html(data)
+      success: (data) => $transactionsContainer.html(data).find('.transaction-user-name').on('click', function(){
+        $transferUsername.text($(this).text().trim());
+      })
     });
   }
 
