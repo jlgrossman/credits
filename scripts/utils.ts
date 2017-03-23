@@ -1,38 +1,42 @@
+type $$ = {
+  value: any
+  notify: Function
+};
 type $ = HTMLElement[] & {
-  each:(func:(element?:HTMLElement, index?:number)=>any)=>$,
-  append:(element:HTMLElement|HTMLElement[])=>$,
-  clone:(deepCopy?:boolean)=>$,
-  find:(selector:string)=>$,
-  get:(index:number)=>$,
-  add:($:$)=>$,
-  remove:()=>$,
-  parent:()=>$,
-  on:(event:string,handler:Function)=>$,
-  off:(event:string,handler:Function)=>$,
-  trigger:(event:string,data?:Object)=>$,
-  addClass:(className:string)=>$,
-  removeClass:(className:string)=>$,
-  toggleClass:(className:string)=>$,
-  hasClass:(className:string)=>boolean,
-  delay:(time:number, func:Function)=>$,
+  each:(func:(element?:HTMLElement, index?:number)=>any)=>$
+  append:(element:HTMLElement|HTMLElement[])=>$
+  clone:(deepCopy?:boolean)=>$
+  find:(selector:string)=>$
+  get:(index:number)=>$
+  add:($:$)=>$
+  remove:()=>$
+  parent:()=>$
+  on:(event:string,handler:Function)=>$
+  off:(event:string,handler:Function)=>$
+  trigger:(event:string,data?:Object)=>$
+  addClass:(className:string)=>$
+  removeClass:(className:string)=>$
+  toggleClass:(className:string)=>$
+  hasClass:(className:string)=>boolean
+  delay:(time:number, func:Function)=>$
   text:{
     ():string
     (text:any):$
-  },
+  }
   data: {
     (name:string):string
     (name:string,value:any):$
-  },
+  }
   html: {
     ():string
     (html:any):$
-  },
+  }
   css : {
     (property:string):string
     (property:string,value:string):$
-  },
-  bind:(notify?:Function)=>{value:any,notify:Function},
-  unbind:(binding:{value:any,notify:Function})=>$
+  }
+  bind:(notify?:Function)=>$$
+  unbind:(binding:$$)=>$
 };
 
 function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Function, error?:Function}) {
@@ -68,24 +72,27 @@ function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Fu
 const $:(arg:any)=>$ = (function(){
   class $$ {
     private _value;
-    constructor(public parents:any[], public notify:Function){
+    constructor(public parents:any[], initialValue:any , private typeConversion:(s:string)=>any , public notify:Function){
       this.parents = [].slice.call(this.parents);
       let first = this.parents[0];
-      this._value = "value" in first ? first.value : first.textContent;
+      this._value = initialValue || ("value" in first ? first.value : first.textContent);
       for(let parent of this.parents){
         if(!parent.binds) parent.binds = [];
         parent.binds.push(this);
       }
+      this.value = this._value;
     }
 
     get value(){ return this._value; }
     set value(v){
+      v = this.typeConversion(v);
       this._value = v;
       for(let parent of this.parents){
         "value" in parent ? parent.value = v : parent.textContent = v;
         for(let bind of parent.binds){
           if(bind != this && bind.value != v) {
             bind.value = v;
+            if(bind.notify) bind.notify(v);
           }
         }
       }
@@ -93,7 +100,7 @@ const $:(arg:any)=>$ = (function(){
 
   }
 
-  function $(arg:any):$ {
+  return function $(arg:any):$ {
       var a;
       if(arg.each) return arg;
       else if (arg instanceof Array) a = arg;
@@ -208,8 +215,11 @@ const $:(arg:any)=>$ = (function(){
               n.style[s] = v;
           });
       };
-      a.bind = function(n){
-          return new $$(this, n ? n.bind(this) : (()=>null));
+      a.bind = function(p={value:undefined,notify:()=>null,typeConversion:parseInt}){
+          let initialValue:any = p.value;
+          let notify:Function = p.notify ? p.notify.bind(this) : (()=>null);
+          let typeConversion:(s:string)=>any = p.typeConversion || parseInt;
+          return new $$(this, initialValue, typeConversion, notify);
       };
       a.unbind = function(b){
           return this.each(function(n){
@@ -219,7 +229,6 @@ const $:(arg:any)=>$ = (function(){
       };
       return a;
   }
-  return $;
 })();
 
 function ready(f) {
