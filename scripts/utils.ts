@@ -72,7 +72,7 @@ function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Fu
 const $:(arg:any)=>$ = (function(){
   class $$ {
     private _value;
-    constructor(public parents:any[], initialValue:any , private typeConversion:(s:string)=>any , public notify:Function){
+    constructor(public parents:any[], initialValue:any , private format:(s:string)=>any , public notify:Function){
       this.parents = [].slice.call(this.parents);
       let first = this.parents[0];
       this._value = initialValue || ("value" in first ? first.value : first.textContent);
@@ -85,7 +85,7 @@ const $:(arg:any)=>$ = (function(){
 
     get value(){ return this._value; }
     set value(v){
-      v = this.typeConversion(v);
+      v = this.format(v);
       this._value = v;
       for(let parent of this.parents){
         "value" in parent ? parent.value = v : parent.textContent = v;
@@ -215,11 +215,11 @@ const $:(arg:any)=>$ = (function(){
               n.style[s] = v;
           });
       };
-      a.bind = function(p={value:undefined,notify:()=>null,typeConversion:parseInt}){
+      a.bind = function(p={value:undefined,notify:()=>null,format:parseInt}){
           let initialValue:any = p.value;
           let notify:Function = p.notify ? p.notify.bind(this) : (()=>null);
-          let typeConversion:(s:string)=>any = p.typeConversion || parseInt;
-          return new $$(this, initialValue, typeConversion, notify);
+          let format:(s:string)=>any = p.format || parseInt;
+          return new $$(this, initialValue, format, notify);
       };
       a.unbind = function(b){
           return this.each(function(n){
