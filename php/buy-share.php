@@ -8,7 +8,7 @@ $userID = getUserID();
 
 if($stockID < 1) {
   $connection->close();
-  exit('{"success":false,"msg":"Invalid data"}');
+  exit($errorMessages['invalidData']);
 }
 
 $query = $connection->prepare('
@@ -27,7 +27,7 @@ $query->close();
 
 if(!$success || is_null($price)) {
   $connection->close();
-  exit('{"success":false,"msg":"Insufficient funds"}');
+  exit($errorMessages['insufficentFunds']);
 } else if($count >= 30) {
   $connection->close();
   exit('{"success":false,"msg":"Share limit reached"}');

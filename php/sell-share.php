@@ -8,7 +8,7 @@ $userID = getUserID();
 
 if($stockID < 1) {
   $connection->close();
-  exit('{"success":false,"msg":"Invalid data"}');
+  exit($errorMessages['invalidData']);
 }
 
 $query = $connection->prepare('
