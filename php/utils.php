@@ -58,4 +58,8 @@ function exitIfNotLoggedIn(){
   }
 }
 
+$errorMessages = array(
+  'insufficentFunds' => '{"success":false,"msg":"Insufficient funds"}',
+  'invalidData' => '{"success":false,"msg":"Invalid data"}'
+)
 ?>
