@@ -4,7 +4,7 @@ include_once '../../connection.php';
 $numbers = array(mt_rand()%10, mt_rand()%10, mt_rand()%10);
 
 $query = $connection->prepare('
-  SELECT pot.value, user.name FROM tickets AS ticket
+  SELECT pot.value, user.username FROM tickets AS ticket
   INNER JOIN users AS user ON user.id = ticket.user_id
   INNER JOIN pots AS pot ON pot.name = "lottery"
   WHERE (
