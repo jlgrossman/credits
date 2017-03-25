@@ -28,7 +28,7 @@ $query->close();
 if(!$success || is_null($price)) {
   $connection->close();
   exit($errorMessages['insufficentFunds']);
-} else if($count >= 30) {
+} else if($count >= $MAX_SHARES) {
   $connection->close();
   exit('{"success":false,"msg":"Share limit reached"}');
 }

@@ -4,6 +4,7 @@ include_once 'connection.php';
 
 $MIN_USERNAME_LENGTH = 3;
 $MIN_PASSWORD_LENGTH = 6;
+$MAX_SHARES = 30;
 
 // gets number of credits for a user with a specific id
 function getCredits($id){
