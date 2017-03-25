@@ -79,11 +79,10 @@ a {
     font-weight: lighter;
     font-size: 1.5em;
     margin: @spacing-md auto @spacing-sm;
+    color: fade(@brand, 55%);
   }
   h1 {
-    font-size: 3.5em;
-    font-family: @font-heading;
-    color: @brand;
+    ._logo();
     margin: @spacing-sm auto @spacing-md;
   }
   h2 {
@@ -135,15 +134,13 @@ a {
 .flyout {
   width: 100%;
   .logo {
-    font-family: @font-heading;
-    font-size: 3.5em;
-    text-align: center;
-    margin: @spacing-lg 0 @spacing-md;
-    color: @brand;
+    ._logo();
+
     .tagline {
       font-size: 1rem;
       display: block;
       font-family: @font-content;
+      font-weight: lighter;
       margin-top: @spacing-sm / 2;
       letter-spacing: 2px;
       color: fade(@brand, 55%);
@@ -300,6 +297,7 @@ header {
   color: @white;
   background-color: @brand;
   box-shadow: @shadow;
+  border-bottom: 1px solid darken(@brand, 5%);
   .constraint {
     display: flex;
     justify-content: space-between;
