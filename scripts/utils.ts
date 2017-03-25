@@ -59,10 +59,10 @@ function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Fu
                     );
                 }
             } catch (e) {
-                if (obj.error) obj.error(e);
+                obj.error && obj.error(e);
             }
           } else {
-            obj.error(xhr.status);
+            obj.error && obj.error(xhr.status);
           }
         }
     };
