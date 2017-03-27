@@ -1,6 +1,8 @@
 <?
 include_once '../connection.php';
 
+exitIfNoKey();
+
 $query = $connection->prepare('
   SELECT rand_stock.value, wthr_stock.value
   FROM stocks AS rand_stock

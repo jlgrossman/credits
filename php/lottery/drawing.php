@@ -1,6 +1,8 @@
 <?
 include_once '../connection.php';
 
+exitIfNoKey();
+
 $numbers = array(mt_rand()%10, mt_rand()%10, mt_rand()%10);
 
 $query_select = $connection->prepare('
