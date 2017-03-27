@@ -234,7 +234,7 @@ ready(function(){
     const $this:$ = $(this);
     const stockID:number = parseInt($this.parent().parent().data('stockId'));
     ajax({
-      url: 'php/sell-share.php',
+      url: 'php/stocks/sell-share.php',
       params: {stock: stockID},
       success: function(data){
         if(data.success){
@@ -251,7 +251,7 @@ ready(function(){
     const $this:$ = $(this);
     const stockID:number = parseInt($this.parent().parent().data('stockId'));
     ajax({
-      url: 'php/buy-share.php',
+      url: 'php/stocks/buy-share.php',
       params: {stock: stockID},
       success: function(data){
         if(data.success){
@@ -264,7 +264,7 @@ ready(function(){
 
   function loadStocks(){
     ajax({
-      url: 'php/get-stocks.php',
+      url: 'php/stocks/get-stocks.php',
       responseType: 'text',
       success: function(data){
         $stocksContainer.html(data);
