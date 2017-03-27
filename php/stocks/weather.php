@@ -1,4 +1,8 @@
 <?
+include_once '../connection.php';
+
+exitIfNoKey();
+
 $lat = '40.8257625';
 $lon = '-96.6851982';
 $key = 'd3c36d3019c446ea0dfa6bf2d808e9f4';

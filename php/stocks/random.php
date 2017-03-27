@@ -1,4 +1,8 @@
 <?
+include_once '../connection.php';
+
+exitIfNoKey();
+
 $previousRand = intval($previousRand);
 
 $rand = (mt_rand() / mt_getrandmax()) - 0.5;
