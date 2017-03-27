@@ -50,15 +50,6 @@ function getUserImage($id){
   return "resources/img$id.png";
 }
 
-// exits if not logged in
-function exitIfNotLoggedIn(){
-  global $connection;
-  if(!isLoggedIn()) {
-    $connection->close();
-    exit('{"success":false,"msg":"Not logged in"}');
-  }
-}
-
 $errorMessages = array(
   'insufficentFunds' => '{"success":false,"msg":"Insufficient funds"}',
   'invalidData' => '{"success":false,"msg":"Invalid data"}'
