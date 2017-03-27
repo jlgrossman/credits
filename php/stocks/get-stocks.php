@@ -27,7 +27,7 @@ while($query->fetch()){
 if($output == 'json'){
   echo json_encode(array('success'=>true, 'stocks'=>$stocks));
 } else {
-  include 'components/stocks.php';
+  include '../components/stocks.php';
 }
 
 ?>
