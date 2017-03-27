@@ -1,5 +1,5 @@
 <?
-include_once '../../connection.php';
+include_once '../connection.php';
 
 $numbers = array(mt_rand()%10, mt_rand()%10, mt_rand()%10);
 
