@@ -44,7 +44,7 @@ function getId($name){
   else return -1;
 }
 
-// gets src of user ImagickPixel
+// gets src of user img
 function getUserImage($id){
   if($id < 1) $id = 1;
   return "resources/img$id.png";
