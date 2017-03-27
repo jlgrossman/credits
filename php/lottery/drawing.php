@@ -6,8 +6,7 @@ exitIfNoKey();
 $numbers = array(mt_rand()%10, mt_rand()%10, mt_rand()%10);
 
 $query_select = $connection->prepare('
-  SELECT pot.value, user.id FROM tickets AS ticket
-  INNER JOIN users AS user ON user.id = ticket.user_id
+  SELECT pot.value, ticket.user_id FROM tickets AS ticket
   INNER JOIN pots AS pot ON pot.name = "lottery"
   WHERE (
     ticket.number0 = ? AND
@@ -47,7 +46,7 @@ for($i = 0; $i < $numberOfWinners; $i++){
 
 $query_update->close();
 
-$connection->query('UPDATE pots SET pots.value = pots.value + 100 WHERE pots.name="lottery"');
+$connection->query('UPDATE pots SET pots.value = pots.value + 100 WHERE pots.name="lottery"'); // add 100 to pot
 $connection->query('DELETE FROM tickets WHERE 1'); // delete all tickets
 $connection->close();
 
