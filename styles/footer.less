@@ -1,0 +1,18 @@
+// main: styles.less
+
+@import "vars";
+@import "mixins";
+
+
+footer {
+  padding: 20px;
+  border-top: 1px solid @light-grey;
+
+  .our-names {
+    display: none;
+
+    @media @tablet-portrait {
+      display: inline;
+    }
+  }
+}

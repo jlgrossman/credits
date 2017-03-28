@@ -1,0 +1,50 @@
+// main: styles.less
+
+@import "vars";
+@import "mixins";
+
+.transfer-details {
+  ._clearfix();
+  input + input {
+    margin-top: @spacing-sm;
+  }
+  @media @tablet-portrait {
+    display: flex;
+
+    input + input {
+      margin-top: 0;
+    }
+  }
+}
+
+.transfer-message-container {
+  position: relative;
+
+  .emoji-btn {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    text-align: right;
+    filter: grayscale(100%);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 250ms;
+
+    &:hover {
+      opacity: 0.3;
+    }
+  }
+
+  .transfer-character-count {
+    position: absolute;
+    right: 0;
+    bottom: -15px;
+    color: @grey;
+    transition: color @anim-time ease, text-shadow @anim-time ease;
+
+    &.few-left {
+      color: @warning;
+      text-shadow: @shadow;
+    }
+  }
+}
