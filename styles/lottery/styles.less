@@ -26,30 +26,20 @@
   .buy-ticket.form {
     max-width: 200px;
     margin: @spacing-md auto;
-
-    .lottery-nums {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .lottery-actions {
-      @media @tablet-portrait {
-        margin-top: 0;
-      }
-    }
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 
     input[type="text"] {
       width: 50px;
       text-align: center;
       flex: 0;
-      margin: auto;
+      margin: 0;
       max-width: 30%;
-      + input[type="text"] {
-        margin-left: 5%;
-      }
     }
+
     button {
-      margin: auto;
+      margin: @spacing-sm auto 0;
       &.random {
         ._button(100%, @success);
         padding: 10px 15px;
@@ -58,23 +48,16 @@
           font-family: 'FontAwesome';
         }
       }
-
-      + button {
-        margin-top: @spacing-sm;
-
-        @media @tablet-portrait {
-          margin-top: 0;
-        }
-      }
     }
     @media @tablet-portrait {
-      display: flex;
-      max-width: 400px;
+      justify-content: center;
+      max-width: 100%;
 
       input[type="text"] {
-        + input[type="text"] {
-          margin-left: auto;
-        }
+        margin: auto 5px;
+      }
+      button {
+        margin: auto 5px;
       }
     }
   }
