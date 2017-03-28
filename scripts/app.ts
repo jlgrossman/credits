@@ -293,4 +293,62 @@ ready(function(){
   loadStocks();
   autoUpdateStocks();
 
+  // LOTTERY //////////////////////////////
+  const $lotteryTab:$ = $('.tab-content.lottery');
+  const $ticketContainer:$ = $lotteryTab.find('.ticket-container');
+  const $ticketsOwned:$ = $lotteryTab.find('.owned');
+  const $lotteryPot:$ = $lotteryTab.find('.pot');
+  const $buyTicket:$ = $lotteryTab.find('.submit');
+  const $randomTicket:$ = $lotteryTab.find('.random');
+  const $lotteryNumbers:$ = $lotteryTab.find('.lottery-num');
+
+  function buyTicket(){
+    const numbers:number[] =[];
+    for(let lotteryNumber of $lotteryNumbers){
+      const num:number = parseInt((lotteryNumber as HTMLInputElement).value);
+      if(isNaN(num) || num > 9 || num < 0) return;
+      numbers.push(num);
+    }
+    $lotteryNumbers.text('');
+    ajax({
+      url:'php/lottery/buy-ticket.php',
+      params: {numbers: numbers.join(',') },
+      success: function(data){
+        if(data.success){
+          loadTickets();
+          loadPot();
+          updateCreditCount();
+        }
+      }
+    });
+  }
+
+  function randomTicket(){
+    $lotteryNumbers.each((e) => $(e).text(Math.round(Math.random() * 9)));
+  }
+
+  function loadTickets(){
+    ajax({
+      url: 'php/lottery/get-tickets.php',
+      responseType: 'text',
+      success: function(data){
+        $ticketContainer.html(data);
+        $ticketsOwned.text($ticketContainer.find('li').length);
+      }
+    });
+  }
+
+  function loadPot(){
+    ajax({
+      url: 'php/lottery/get-pot.php',
+      success: (data) => data.success && $lotteryPot.text(data.msg)
+    });
+  }
+
+  $buyTicket.on('click', buyTicket);
+  $randomTicket.on('click', randomTicket);
+
+  loadTickets();
+  loadPot();
+
 });

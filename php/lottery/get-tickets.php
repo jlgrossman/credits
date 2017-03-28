@@ -3,6 +3,7 @@ include_once '../utils.php';
 
 exitIfNotLoggedIn();
 
+$output = isset($_POST['output']) ? $_POST['output'] : 'html';
 $userID = getUserId();
 
 $query = $connection->prepare('SELECT number0, number1, number2 FROM tickets WHERE user_id = ?');
@@ -19,6 +20,10 @@ while($query->fetch()){
 $query->close();
 $connection->close();
 
-echo json_encode(array('success' => true, 'msg' => $tickets));
+if($output == 'json'){
+  echo json_encode(array('success' => true, 'tickets' => $tickets));
+} else {
+  include '../components/tickets.php';
+}
 
 ?>

@@ -32,6 +32,7 @@ include_once 'php/utils.php';
             <li class="tab transactions" data-tab="transactions">Transactions</li>
             <li class="tab stocks" data-tab="stocks">Stocks</li>
             <li class="tab games" data-tab="games">Games</li>
+            <li class="tab lottery" data-tab="lottery">Lottery</li>
           </ul>
         </div>
         <div class="transactions-container"></div>
