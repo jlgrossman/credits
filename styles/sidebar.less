@@ -1,0 +1,167 @@
+// main: styles.less
+
+@import "vars";
+@import "mixins";
+
+.flyout {
+  width: 100%;
+  .logo {
+    ._logo();
+
+    .tagline {
+      font-size: 1rem;
+      display: block;
+      font-family: @font-content;
+      font-weight: lighter;
+      margin-top: @spacing-sm / 2;
+      letter-spacing: 2px;
+      color: fade(@brand, 55%);
+    }
+  }
+  .side-menu {
+    margin: 0 0 @spacing-sm;
+    position: relative;
+
+    .notification {
+      color: @warning;
+      opacity: 0;
+      transition: opacity 10s ease-in;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5em;
+      text-align: center;
+      width: 100%;
+
+      &.open {
+        opacity: 1;
+      }
+    }
+
+    li {
+      position: relative;
+      margin: 0 -@spacing-sm;
+      padding: @spacing-sm;
+      background: @brand;
+      color: @white;
+      box-shadow: @shadow;
+      font-size: 1.25em;
+      font-weight: lighter;
+      text-align: center;
+      border-top: 1px solid @light-grey;
+      cursor: pointer;
+      text-transform:uppercase;
+      transition: background-color @anim-time ease;
+      overflow: hidden;
+      &:last-of-type {
+        border-bottom: 1px solid @light-grey;
+      }
+      &:hover {
+        background-color: @brand-dark;
+      }
+    }
+  }
+  @media @tablet-portrait {
+    width: @flyout-width;
+    border-right: 1px solid @light-grey;
+    .logo {
+      margin: @spacing-md 0;
+    }
+    .side-menu {
+      margin: 0 0 @spacing-md;
+      li {
+        margin: 0 -@spacing-md;
+        padding: @spacing-sm @spacing-md;
+        &:before {
+          left: -@spacing-md;
+          width: @spacing-md;
+
+          transition: left @anim-time ease;
+        }
+        &:after {
+          right: -@spacing-md;
+          width: @spacing-md;
+
+          transition: right @anim-time ease;
+        }
+      }
+    }
+  }
+
+  .transactions-container {
+    .transaction {
+      padding: @spacing-sm / 2;
+      border: 1px solid @light-grey;
+      border-radius: 1px;
+      background: @white;
+      position: relative;
+
+      & + .transaction {
+        margin-top: 8px;
+      }
+
+      .transaction-amount {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+
+        &:after {
+          content: "B";
+          font-size: 11px;
+        }
+      }
+
+      .transaction-user {
+        margin-bottom: 8px;
+      }
+      .transaction-user-name {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 4px;
+        cursor: pointer;
+      }
+      .transaction-user-img {
+        vertical-align: middle;
+        border-radius: 2px;
+      }
+    }
+    .transaction-msg {
+      word-wrap: break-word;
+    }
+  }
+
+  .refresh-transactions-btn {
+    ._light-button();
+    margin-top: 20px;
+
+    @media @tablet-portrait {
+      margin-bottom: 40px;
+    }
+  }
+
+  @media @tablet-portrait {
+    width: @flyout-width;
+    border-right: 1px solid @light-grey;
+    .logo {
+      margin: @spacing-md 0;
+    }
+  }
+}
+
+.constraint {
+  max-width: @width-constraint;
+  margin: 0 auto;
+  padding: 0 @spacing-sm;
+  @media @tablet-portrait {
+    padding: 0 @spacing-md;
+  }
+}
+
+.tab-content {
+  display: none;
+
+  &.open {
+    display: block;
+  }
+}

@@ -1,0 +1,68 @@
+// out: styles.css, compress: true
+
+@import "../vars";
+@import "../mixins";
+
+.stocks-container {
+  .stock {
+    margin-bottom: @spacing-md;
+  }
+  .stock-detail {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    > div {
+      position:relative;
+      .stock-detail-value {
+        font-size: 2em;
+        font-weight: bold;
+      }
+      + div {
+        padding-bottom: 20px;
+      }
+    }
+  }
+  .stock-value {
+    .stock-detail-value:after {
+      content: 'B';
+      font-size: 16px;
+      font-weight: normal;
+    }
+  }
+  .stock-detail-label {
+    ._centerElem();
+    bottom: 0;
+  }
+  .stock-name {
+    width: 100%;
+    text-align: center;
+    margin-bottom: @spacing-sm;
+    .stock-detail-label {
+      display: none;
+    }
+    .stock-detail-value {
+      color: @brand;
+    }
+  }
+  .stock-actions {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    button {
+      max-width: 200px;
+      min-width: 115px;
+      flex: 1;
+      margin: @spacing-sm 1% 0;
+    }
+    .buy-share {
+      ._button(45%, @brand);
+    }
+    .sell-share {
+      ._button(45%, @warning);
+    }
+    .disabled {
+      ._button(45%, @light-grey, 2px, false);
+      cursor: auto;
+    }
+  }
+}
