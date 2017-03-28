@@ -4,7 +4,7 @@ include_once 'utils.php';
 exitIfNotLoggedIn();
 
 $fromId = getUserID();
-$toId = isset($_POST['to']) ? getId($_POST['to'])) : 0;
+$toId = isset($_POST['to']) ? getId($_POST['to']) : 0;
 $amount = intval($_POST['amount']);
 $msg = substr($_POST['msg'],0,140);
 
