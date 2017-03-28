@@ -93,7 +93,7 @@ ready(function(){
     const amount:number = parseInt($transferAmount.text());
     const msg:string = $transferMessage.text();
 
-    if(name.length && !isNaN(amount)){
+    if(name.length && !isNaN(amount)) {
       $transferSubmit.addClass(LOADING);
       transferInProgress = true;
       ajax({
@@ -110,12 +110,21 @@ ready(function(){
           transferInProgress = false;
           if(data.success){
             $creditCount.text(parseInt($creditCount.text()) - amount);
+            $transferError.removeClass(OPEN);
             loadTransactions();
           } else {
             $transferError.text(data.msg).addClass(OPEN);
           }
+        },
+        error: function(data){
+          $transferAmount.add($transferMessage).add($transferUsername).text('');
+          $transferSubmit.removeClass(LOADING);
+          transferInProgress = false;
+          $transferError.text('Transfer failed').addClass(OPEN);
         }
       });
+    } else {
+      $transferError.text('Invalid data').addClass(OPEN);
     }
   }
 
@@ -183,6 +192,7 @@ ready(function(){
        },
        success: function(data){
          if(data.success){
+           $loginError.removeClass(OPEN);
            window.location.reload();
          } else {
            $loginSubmit.removeClass(LOADING);
@@ -190,6 +200,8 @@ ready(function(){
          }
        }
      });
+   } else {
+     $loginError.text('All fields required').addClass(OPEN);
    }
  }
 
@@ -222,7 +234,7 @@ ready(function(){
     const $this:$ = $(this);
     const stockID:number = parseInt($this.parent().parent().data('stockId'));
     ajax({
-      url: 'php/sell-share.php',
+      url: 'php/stocks/sell-share.php',
       params: {stock: stockID},
       success: function(data){
         if(data.success){
@@ -239,7 +251,7 @@ ready(function(){
     const $this:$ = $(this);
     const stockID:number = parseInt($this.parent().parent().data('stockId'));
     ajax({
-      url: 'php/buy-share.php',
+      url: 'php/stocks/buy-share.php',
       params: {stock: stockID},
       success: function(data){
         if(data.success){
@@ -252,7 +264,7 @@ ready(function(){
 
   function loadStocks(){
     ajax({
-      url: 'php/get-stocks.php',
+      url: 'php/stocks/get-stocks.php',
       responseType: 'text',
       success: function(data){
         $stocksContainer.html(data);

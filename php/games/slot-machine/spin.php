@@ -9,7 +9,7 @@ if($bet < 1) $bet = 1;
 
 if(getCredits($userID) < $bet){
   $connection->close();
-  exit('{"success":false,"msg":"Insufficient funds"}');
+  exit($errorMessages['insufficentFunds']);
 }
 
 $rand = (mt_rand() / mt_getrandmax());

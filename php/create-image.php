@@ -1,9 +1,7 @@
 <?
 include_once 'user-session.php';
 
-if(!isLoggedIn()){
-  exit('{"success":false,"msg":"Not logged in"}');
-}
+exitIfNotLoggedIn();
 
 function randomNumber(){
   return (mt_rand() / mt_getrandmax());

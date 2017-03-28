@@ -10,10 +10,10 @@ $msg = substr($_POST['msg'],0,140);
 
 if($fromId < 1 || $toId < 1 || $amount < 1 || $toId == $fromId){
   $connection->close();
-  exit('{"success":false,"msg":"Invalid data"}');
+  exit($errorMessages['invalidData']);
 } else if(getCredits($fromId) < $amount){
   $connection->close();
-  exit('{"success":false,"msg":"Insufficient funds"}');
+  exit($errorMessages['insufficentFunds']);
 }
 
 $query = $connection->prepare('

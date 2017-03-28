@@ -4,6 +4,7 @@ include_once 'connection.php';
 
 $MIN_USERNAME_LENGTH = 3;
 $MIN_PASSWORD_LENGTH = 6;
+$MAX_SHARES = 30;
 
 // gets number of credits for a user with a specific id
 function getCredits($id){
@@ -43,19 +44,14 @@ function getId($name){
   else return -1;
 }
 
-// gets src of user ImagickPixel
+// gets src of user img
 function getUserImage($id){
   if($id < 1) $id = 1;
   return "resources/img$id.png";
 }
 
-// exits if not logged in
-function exitIfNotLoggedIn(){
-  global $connection;
-  if(!isLoggedIn()) {
-    $connection->close();
-    exit('{"success":false,"msg":"Not logged in"}');
-  }
-}
-
+$errorMessages = array(
+  'insufficentFunds' => '{"success":false,"msg":"Insufficient funds"}',
+  'invalidData' => '{"success":false,"msg":"Invalid data"}'
+)
 ?>

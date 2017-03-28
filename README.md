@@ -18,3 +18,7 @@ Change log:
 - Added change log
 - Set max share limit at 30 per user
 - Incremental progress on slot machine
+
+*3/24/2017:*
+- Slot machine finished
+- Reorganized navigation

@@ -3,6 +3,13 @@ session_start();
 function isLoggedIn(){
   return isset($_SESSION['id']);
 }
+function exitIfNotLoggedIn(){
+  global $connection;
+  if(!isLoggedIn()) {
+    $connection->close();
+    exit('{"success":false,"msg":"Not logged in"}');
+  }
+}
 function isAdmin(){
   return ($_SESSION['user'] == 'Admin' || $_SESSION['user'] == 'Jarrod' || $_SESSION['user'] == 'Josh');
 }
