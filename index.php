@@ -15,6 +15,7 @@ include_once 'php/utils.php';
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css" />
   <link rel="stylesheet" href="styles/games/slot-machine/styles.css" />
+  <link rel="stylesheet" href="styles/lottery/styles.css" />
   <link rel="icon" sizes="100x100" href="<?=getUserImage(getUserID())?>">
   <script src="scripts/utils.js"></script>
   <script src="scripts/app.js"></script>
@@ -55,6 +56,7 @@ include_once 'php/utils.php';
           <? include_once 'php/contents/transactions.php'; ?>
           <? include_once 'php/contents/stocks.php'; ?>
           <? include_once 'php/games/slot-machine/index.php'; ?>
+          <? include_once 'php/contents/lottery.php'; ?>
         </div>
       </div>
       <footer>

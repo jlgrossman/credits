@@ -1,0 +1,88 @@
+// out: styles.css, compress: true
+
+@import "../vars";
+@import "../mixins";
+
+
+.lottery {
+  h1 {
+    text-align: left;
+  }
+  text-align: center;
+  .pot {
+    font-size: 2.5em;
+    font-weight: bold;
+    &:after {
+      content: 'B';
+      font-size: 1.5rem;
+      font-weight: normal;
+    }
+  }
+
+  .owned {
+    font-size: 1.25em;
+  }
+
+  .buy-ticket.form {
+    display: flex;
+    max-width: 400px;
+    margin: @spacing-md auto;
+    input[type="text"] {
+      width: 50px;
+      text-align: center;
+      flex: 0;
+      margin: auto;
+      max-width: 30%;
+      + input[type="text"] {
+        margin-left: 5%;
+      }
+    }
+    button {
+      margin: auto;
+      &.random {
+        ._button(100%, @success);
+        padding: 10px 15px;
+        &:before {
+          content: '\f074';
+          font-family: 'FontAwesome';
+        }
+      }
+    }
+    @media @tablet-portrait {
+      input[type="text"] {
+        + input[type="text"] {
+          margin-left: auto;
+        }
+      }
+    }
+  }
+  .tickets {
+    ul {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    li {
+      position: relative;
+      padding: 15px 40px;
+      background: @accent-dark;
+      margin: 10px;
+      border: 1px solid @accent-dark - #111;
+      font-size: 1.5em;
+      text-shadow: @shadow;
+      box-shadow: @shadow;
+      color: @white;
+      &:before {
+        content: ' ';
+        position: absolute;
+        color: @white;
+        top: 4px;
+        left: 4px;
+        width: ~'calc(100% - 14px)';
+        height: ~'calc(100% - 14px)';
+        border: 3px dashed @white;
+      }
+    }
+  }
+}
