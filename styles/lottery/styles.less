@@ -24,9 +24,20 @@
   }
 
   .buy-ticket.form {
-    display: flex;
-    max-width: 400px;
+    max-width: 200px;
     margin: @spacing-md auto;
+
+    .lottery-nums {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .lottery-actions {
+      @media @tablet-portrait {
+        margin-top: 0;
+      }
+    }
+
     input[type="text"] {
       width: 50px;
       text-align: center;
@@ -47,8 +58,19 @@
           font-family: 'FontAwesome';
         }
       }
+
+      + button {
+        margin-top: @spacing-sm;
+
+        @media @tablet-portrait {
+          margin-top: 0;
+        }
+      }
     }
     @media @tablet-portrait {
+      display: flex;
+      max-width: 400px;
+
       input[type="text"] {
         + input[type="text"] {
           margin-left: auto;
