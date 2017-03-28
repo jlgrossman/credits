@@ -1,62 +1,39 @@
 /// <reference path="../../utils.ts"/>
 
 ready(function() {
+  var canvas = ($('#accuracy-board')[0] as HTMLCanvasElement).getContext('2d');
 
-  var scoreTotal:number = 0;
-  const $score:$ = $('.accuracy-game .score span');
-  const $gameBoard:$ = $('.accuracy-game .game-board');
 
-  var misses:number = 0;
+  const canvasWidth = 640;
+  const canvasHeight = 400;
+  const targetRadius = 20;
 
-  var creationTime:number = 750;
-  var targetDuration:number = 700;
-  var targetCount:number = 0;
-  var targetTimeout;
-
-  function addTarget(posX:number, posY:number) {
-    const $target:$ = $('<div>').addClass('target').css('left', posX + '%').css('top', posY + '%');
-    $gameBoard.append($target);
-    return $target;
+  function randomPos(max_x, max_y) {
+    return {
+      x: Math.random() * (max_x - 2 * targetRadius) + targetRadius,
+      y: Math.random() * (max_y - 2 * targetRadius) + targetRadius,
+      radius: targetRadius
+    };
   }
 
-  function newCoordinate() {
-    return Math.random() * 90 + 5;
-  }
+  function drawTarget(circle){
+		canvas.beginPath();
+		canvas.arc(circle.x, circle.y, circle.radius, 0, Math.PI*2);
+		canvas.fillStyle = 'black';
+		canvas.fill();
+	}
 
-  function targetClick() {
-    $(this).remove();
-    scoreTotal += 10;
-    $score.text(scoreTotal);
-    console.log(scoreTotal);
-  }
+  var newTarget = window.setInterval(function() {
+    var target = randomPos(canvasWidth, canvasHeight);
 
-  function missedTarget() {
-    const $this:$ = $(this);
-    $(this).remove();
-    if (++misses > 2) {
-      $('.target').remove();
-    }
-  }
+    function loop(){
+  		canvas.clearRect(0, 0, canvasWidth, canvasHeight);
+  		target.radius -= 0.1;
+  		if(target.radius < 0) target.radius = 0;
+  		else drawTarget(target);
+  		requestAnimationFrame(loop);
+  	}
 
-  function winLose() {
-  }
-
-  function initAccuracy() {
-      targetTimeout = setTimeout(function () {
-
-        const newX:number = newCoordinate();
-        const newY:number = newCoordinate();
-        addTarget(newX, newY).delay(10, function (){$(this).addClass('fade')}).on('click', targetClick).delay(7000, missedTarget);
-
-        if (++targetCount > 10) {
-          creationTime -= 25;
-          targetCount = 0;
-        }
-
-        initAccuracy();
-
-      }, creationTime);
-  }
-
-  initAccuracy();
+  	loop();
+  }, 500);
 });

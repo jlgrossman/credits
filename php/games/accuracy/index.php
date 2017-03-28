@@ -6,10 +6,5 @@ getFiles('accuracy');
 ?>
 <section class="accuracy-game game">
   <h1>Accuracy</h1>
-  <div class="score">
-    Score: <span>0</span>
-  </div>
-  <div class="game-board">
-
-  </div>
+  <canvas id="accuracy-board" class="game-board" width="640" height="400"></canvas>
 </section>
