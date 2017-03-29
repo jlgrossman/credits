@@ -40,6 +40,11 @@ ready(function(){
   const $tabButtons:$ = $('.flyout .tab');
   const $tabContents:$ = $('.main-content .tab-content');
 
+  function openTab(className:string){
+    $tabContents.removeClass(OPEN);
+    $(`.main-content .tab-content.${className}`).addClass(OPEN);
+  }
+
   function loadTransactions(){
     ajax({
       url: 'php/get-transactions.php',
@@ -55,9 +60,13 @@ ready(function(){
   $refreshTransactions.on('click', throttle(5000, compose(loadTransactions, updateCreditCount)));
 
   $tabButtons.on('click', function(e){
-    $tabContents.removeClass(OPEN);
-    $(`.main-content .tab-content.${$(this).data('tab')}`).addClass(OPEN);
+    const data:string = $(this).data('tab');
+    openTab(data);
+    document.cookie = `currentTab=${data}`;
   });
+
+  const currentTab:string = document.cookie.replace(/(?:(?:^|.*;\s*)currentTab\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  if(currentTab) openTab(currentTab);
 
   $('.side-menu .notification').removeClass(OPEN);
 
