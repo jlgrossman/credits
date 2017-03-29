@@ -69,6 +69,11 @@ function ajax(obj:{url:string, params?:Object, responseType?:string, success?:Fu
     xhr.send(params);
 }
 
+function cookie(key:string, value?:string):string {
+  if(value) document.cookie = `${key}=${value}`;
+  return value || document.cookie.replace(new RegExp(`(?:(?:^|.*;\\s*)${key}\\s*\=\\s*([^;]*).*$)|^.*$`), "$1");
+}
+
 const $:(arg:any)=>$ = (function(){
   class $$ {
     private _value;

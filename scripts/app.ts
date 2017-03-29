@@ -40,9 +40,11 @@ ready(function(){
   const $tabButtons:$ = $('.flyout .tab');
   const $tabContents:$ = $('.main-content .tab-content');
 
-  function openTab(className:string){
+  function openTab(tabName?:string){
+    if(!tabName) return;
     $tabContents.removeClass(OPEN);
-    $(`.main-content .tab-content.${className}`).addClass(OPEN);
+    $(`.main-content .tab-content.${tabName}`).addClass(OPEN);
+    cookie('currentTab', tabName);
   }
 
   function loadTransactions(){
@@ -62,13 +64,10 @@ ready(function(){
   $tabButtons.on('click', function(e){
     const data:string = $(this).data('tab');
     openTab(data);
-    document.cookie = `currentTab=${data}`;
   });
 
-  const currentTab:string = document.cookie.replace(/(?:(?:^|.*;\s*)currentTab\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-  if(currentTab) openTab(currentTab);
-
   $('.side-menu .notification').removeClass(OPEN);
+  openTab(cookie('currentTab'));
 
   // TRANSFER CREDITS ////////////////////
   const $transferForm:$ = $('.transfer.form');
