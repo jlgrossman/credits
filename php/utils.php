@@ -52,6 +52,7 @@ function getUserImage($id){
 
 $errorMessages = array(
   'insufficentFunds' => '{"success":false,"msg":"Insufficient funds"}',
-  'invalidData' => '{"success":false,"msg":"Invalid data"}'
+  'invalidData' => '{"success":false,"msg":"Invalid data"}',
+  'limitReached' => '{"success":false,"msg":"Limit reached"}'
 )
 ?>
