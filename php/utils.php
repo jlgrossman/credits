@@ -32,7 +32,7 @@ function giveCredits($id, $amount){
 }
 
 // gets user id from username
-function getId($name){
+function getID($name){
   global $connection;
   if(is_null($name)) return 0;
 
