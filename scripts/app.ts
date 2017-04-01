@@ -2,6 +2,14 @@
 
 ready(function(){
 
+  // TAB ACTIONS //////////////////////////
+  const tabActions:Object = {
+    transactions: ()=>null,
+    stocks: loadStocks,
+    games: ()=>null,
+    lottery: compose(loadTickets, loadPot)
+  };
+
   // CSS CLASSES //////////////////////////
   const OPEN:string = 'open';
   const LOADING:string = 'loading';
@@ -19,9 +27,9 @@ ready(function(){
 
   $closePopup.on('click', () => $popup.removeClass(OPEN));
 
-  const $welcomeUsername:$ = $('.welcome-user-name');
+  const $currentUsername:$ = $('.current-user-name');
 
-  $welcomeUsername.on('click', function(){
+  $currentUsername.on('click', function(){
     $popup.addClass(OPEN);
     $popupLogout.addClass(OPEN);
   });
@@ -32,7 +40,51 @@ ready(function(){
       url: 'php/logout.php',
       success: (data) => data.success && window.location.reload()
     })
-  })
+  });
+
+
+  // MESSAGES ///////////////////////////////
+  const $messages:$ = $('.messages');
+  const $inboxButton:$ = $('.current-user-messages');
+  const $inboxContainer:$ = $messages.find('.inbox');
+  var inboxOutdated = true;
+
+  function loadMessages(){
+
+  }
+
+  function loadInbox(){
+    ajax({
+      url: 'php/messages/get-threads.php',
+      responseType: 'text',
+      success: function(data){
+        $inboxContainer.html(data);
+        inboxOutdated = false;
+        setTimeout(()=>inboxOutdated=true, 60000);
+      }
+    });
+  }
+
+  function loadUnread(){
+    ajax({
+      url: 'php/messages/get-threads.php',
+      params: {
+        output: 'json'
+      },
+      success: function(data){
+        $inboxButton.removeClass('unread');
+        if(data.success && data.unread > 0) $inboxButton.addClass('unread');
+      }
+    });
+  }
+
+  $inboxButton.on('click', function(){
+    $messages.toggleClass(OPEN);
+    if($messages.hasClass(OPEN) && inboxOutdated) loadInbox();
+  });
+
+  var loadUnreadInterval = setInterval(loadUnread, 300000); // refresh every 5 min
+  loadUnread();
 
   // SIDE MENU ///////////////////////////
   const $transactionsContainer:$ = $('.flyout .transactions-container');
@@ -45,6 +97,7 @@ ready(function(){
     $tabContents.removeClass(OPEN);
     $(`.main-content .tab-content.${tabName}`).addClass(OPEN);
     cookie('currentTab', tabName);
+    tabActions[tabName]();
   }
 
   function loadTransactions(){
@@ -57,8 +110,6 @@ ready(function(){
     });
   }
 
-  loadTransactions();
-
   $refreshTransactions.on('click', throttle(5000, compose(loadTransactions, updateCreditCount)));
 
   $tabButtons.on('click', function(e){
@@ -66,6 +117,7 @@ ready(function(){
     openTab(data);
   });
 
+  loadTransactions();
   $('.side-menu .notification').removeClass(OPEN);
   openTab(cookie('currentTab'));
 
@@ -298,7 +350,6 @@ ready(function(){
     }, next.getTime() - new Date().getTime());
   }
 
-  loadStocks();
   autoUpdateStocks();
 
   // LOTTERY //////////////////////////////
@@ -355,8 +406,5 @@ ready(function(){
 
   $buyTicket.on('click', buyTicket);
   $randomTicket.on('click', randomTicket);
-
-  loadTickets();
-  loadPot();
 
 });
