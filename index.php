@@ -48,10 +48,11 @@ include_once 'php/utils.php';
               <?= getCredits(getUserID()) ?>
             <? endif; ?>
           </div>
-            <div class="welcome">
-              Welcome to Bettr, <strong class="welcome-user-name"><?= getUserName() ?></strong>
+            <div class="current-user">
+              <span class="current-user-messages"></span><strong class="current-user-name"><?= getUserName() ?></strong>
             </div>
         </div>
+        <? include_once 'php/contents/messages.php'; ?>
       </header>
       <div class="main-content">
         <div class="constraint">
@@ -85,7 +86,7 @@ include_once 'php/utils.php';
   </div>
   <div class="overlay">
     <div class="popup">
-      <div class="close">X</div>
+      <div class="close">&#xf00d;</div>
       <div class="popup-content logout">
         <h4>Not <?=getUserName()?>?</h4>
         <button class="logout">Logout</button>

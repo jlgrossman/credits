@@ -21,6 +21,8 @@ if($success && $unreadMessages > 30){
   exit($errorMessages['limitReached']);
 }
 
+$query->close();
+
 $query = $connection->prepare('INSERT INTO messages (from_id, to_id, msg, is_read) VALUES (?,?,?,FALSE)');
 $query->bind_param('iis', $fromId, $toId, $msg);
 $query->execute();
