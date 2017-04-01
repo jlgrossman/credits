@@ -53,21 +53,78 @@ header {
       box-shadow: 0 1px 5px rgba(0,0,0,0.15), inset 0 0 2px rgba(0,0,0,0.15);
     }
   }
-  .welcome {
-    strong {
+  .current-user {
+    .current-user-name {
       cursor: pointer;
       transition: text-shadow 200ms;
 
       &:hover {
         text-shadow: 0 0 4px rgba(255,255,255,0.5);
       }
+    }
+    .current-user-messages {
+      cursor: pointer;
+      font-family: @font-awesome;
+      margin-right: 8px;
 
+      &:hover {
+        text-shadow: 0 0 4px rgba(255,255,255,0.5);
+      }
+
+      &:before {
+        content: @font-awesome-message-outline;
+      }
+
+      &.unread:before {
+        color: @accent;
+        content: @font-awesome-message-solid;
+      }
     }
   }
   @media @tablet-portrait {
     width: ~"calc(100% - @{flyout-width})";
     .constraint {
       padding: 0 @spacing-md;
+    }
+  }
+
+  .messages {
+    max-height: 0;
+    transition: max-height 200ms, padding 200ms, box-shadow 200ms;
+    padding: 0 @spacing-md;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    overflow: hidden;
+    background-color: @white;
+    border-bottom: 1px solid @light-grey;
+    box-shadow: none;
+
+    &.open {
+      max-height: 100vh;
+      padding: @spacing-md;
+      box-shadow: 5px 3px 3px rgba(0,0,0,0.15);
+    }
+
+    .compose-message.form {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 200ms;
+      position: relative;
+
+      &.open {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .close {
+        ._close-button();
+      }
+    }
+
+    .inbox {
+      color: @black;
     }
   }
 }
