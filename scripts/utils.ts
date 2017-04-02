@@ -264,3 +264,10 @@ function compose(f:Function, g:Function):Function {
     return g.apply(null, arguments);
   }
 }
+
+function extend(o1:Object, o2:Object):Object {
+  const e = {};
+  for(let i in o1) e[i] = o1[i];
+  for(let i in o2) if(e[i] == undefined) e[i] = o2[i];
+  return e;
+}
