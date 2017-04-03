@@ -34,7 +34,7 @@ class Form extends AjaxProcess {
       fields[$field.data('name')] = $field.text();
     });
 
-    if(!this._submitInProgress && (validationMessage = this.validate(fields))){
+    if(!this._submitInProgress && !(validationMessage = this.validate(fields))){
       this._$submit.addClass(Css.LOADING);
       this._submitInProgress = true;
       ajax({
