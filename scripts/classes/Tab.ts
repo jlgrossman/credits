@@ -1,26 +1,28 @@
 class Tab {
 
-  private static _$tabs:$;
-  private static _$contents:$;
   public static current:Tab;
+  public static all:Tab[];
 
   private $tab:$; // tab button dom element
   private $content:$; // tab content dom element
 
-  public constructor(public readonly name:string, public readonly action:Function){
+  public constructor(public readonly name:string, public readonly onOpen?:Function, public readonly onClose?:Function){
     this.$tab = $(`.tab.${name}`).on('click', this.open);
     this.$content = $(`.tab-content.${name}`);
+    Tab.all.push(this);
   }
 
-  public static get $tabs():$ { return Tab._$tabs || (Tab._$tabs = $('.tab')); }
-  public static get $contents():$ { return Tab._$contents || (Tab._$contents = $('.tab-content')); }
-
   public open(){
-    this.action();
-    Tab.$tabs.add(Tab.$contents).removeClass(Css.OPEN);
-    this.$tab.add(this.$content).addClass(Css.OPEN);
+    Tab.current.close();
     Tab.current = this;
+    this.onOpen && this.onOpen();
+    this.$tab.add(this.$content).addClass(Css.OPEN);
     cookie('currentTab', this.name);
+  }
+
+  public close(){
+    this.onClose && this.onClose();
+    this.$tab.add(this.$content).removeClass(Css.OPEN);
   }
 
 }
