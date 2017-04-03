@@ -47,12 +47,12 @@ class HTMLComponent extends Component {
 
 }
 
-class Syncronized<T extends Component> {
+class Synchronized {
 
   private _timeout:number;
   private _running:boolean;
 
-  public constructor(public readonly component:T, public readonly getTimeout:()=>number, doImmediately:boolean){
+  public constructor(public readonly component:Component, public readonly getTimeout:()=>number, doImmediately:boolean){
     this.update(doImmediately);
   }
 
@@ -64,6 +64,5 @@ class Syncronized<T extends Component> {
   public get isRunning():boolean { return this._running; }
   public start(){ !this._running && (this._running = true) && this.update(false); }
   public stop(){ this._running && (this._running = false) || clearTimeout(this._timeout); }
-
 
 }
