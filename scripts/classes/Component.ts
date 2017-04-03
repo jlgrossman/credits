@@ -52,7 +52,7 @@ class Synchronized {
   private _timeout:number;
   private _running:boolean;
 
-  public constructor(public readonly component:Component, public readonly getTimeout:()=>number, doImmediately:boolean){
+  public constructor(public readonly component:Component, public readonly getTimeout:()=>number, doImmediately?:boolean){
     this.update(doImmediately);
   }
 
