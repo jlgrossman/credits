@@ -12,12 +12,12 @@ class Form extends AjaxProcess {
     this._$errorMessage = this.$form.find('.error-msg');
     this._submitInProgress = false;
 
-    let $previous:$;
+    let $next:$;
     const formProgress:Function = ($next:$) => (e) => e.keyCode == 13 && $next[0].focus();
     for(let i = this._$fields.length - 1; i >= 0; i--){
-      this._$fields.get(i).on('keypress',
-        $previous ?
-        formProgress($previous) :
+      $next = this._$fields.get(i).on('keypress',
+        $next ?
+        formProgress($next) :
         (e) => e.keyCode == 13 && this.submit()
       );
     }
