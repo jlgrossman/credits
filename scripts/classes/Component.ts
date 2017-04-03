@@ -47,22 +47,20 @@ class HTMLComponent extends Component {
 
 }
 
-class Synchronized {
+class SynchronizedComponent {
 
   private _timeout:number;
   private _running:boolean;
 
-  public constructor(public readonly component:Component, public readonly getTimeout:()=>number, doImmediately?:boolean){
-    this.update(doImmediately);
-  }
-
-  private update(updateComponent:boolean){
-    if(updateComponent) this.component.update();
+  public constructor(public readonly component:Component, public readonly getTimeout:()=>number){}
+  
+  private update (onlySetTimeout:boolean){
+    if(!onlySetTimeout) this.component.update();
     this._timeout = setTimeout(this.update, this.getTimeout());
   }
 
   public get isRunning():boolean { return this._running; }
-  public start(){ !this._running && (this._running = true) && this.update(false); }
+  public start(doImmediately?:boolean){ !this._running && (this._running = true) && this.update(!doImmediately); }
   public stop(){ this._running && (this._running = false) || clearTimeout(this._timeout); }
 
 }
