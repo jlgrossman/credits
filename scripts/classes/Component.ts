@@ -61,6 +61,6 @@ class SynchronizedComponent {
 
   public get isRunning():boolean { return this._running; }
   public start(doImmediately?:boolean){ !this._running && (this._running = true) && this.update(!doImmediately); }
-  public stop(){ this._running && (this._running = false) || clearTimeout(this._timeout); }
+  public stop(){ this._running && ((this._running = false) || clearTimeout(this._timeout)); }
 
 }
