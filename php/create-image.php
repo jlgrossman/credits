@@ -3,12 +3,8 @@ include_once 'user-session.php';
 
 exitIfNotLoggedIn();
 
-function randomNumber(){
-  return (mt_rand() / mt_getrandmax());
-}
-
 function makeColor($img){
-  $angle1 = randomNumber() * 6.2822; // 2pi
+  $angle1 = (mt_rand() / mt_getrandmax()) * 6.2822; // 2pi
   $angle2 = $angle1 + 1.0472; // pi/3
   $s1 = sin($angle1);
   $b = floor($s1 * sin($angle2) * 100) + 155;
@@ -19,11 +15,10 @@ function makeColor($img){
 
 header ('Content-Type: image/png');
 $img = imagecreatetruecolor(100,100);
-$colors = [makeColor($img), makeColor($img), makeColor($img), makeColor($img)];
-imagefilledrectangle($img, 0, 0, 50, 50, $colors[0]);
-imagefilledrectangle($img, 0, 50, 50, 100, $colors[1]);
-imagefilledrectangle($img, 50, 0, 100, 50, $colors[2]);
-imagefilledrectangle($img, 50, 50, 100, 100, $colors[3]);
+imagefilledrectangle($img, 0, 0, 50, 50, makeColor($img));
+imagefilledrectangle($img, 0, 50, 50, 100, makeColor($img));
+imagefilledrectangle($img, 50, 0, 100, 50, makeColor($img));
+imagefilledrectangle($img, 50, 50, 100, 100, makeColor($img));
 
 $save = '../resources/img'.getUserID().'.png';
 imagepng($img, $save);
