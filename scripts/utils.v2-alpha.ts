@@ -45,7 +45,7 @@ const joshQuery = (function(){
 
     _.add = function(selectorOrElements:string|joshQuery):joshQuery {
       const sum = [].slice.call(this);
-      sum.push( typeof(selectorOrElements) === 'string' ? _joshQuery(selectorOrElements) : selectorOrElements );
+      sum.push( typeof(selectorOrElements) === 'string' ? (..._joshQuery(selectorOrElements)) : (...selectorOrElements));
       return _joshQuery(sum);
     }
 
