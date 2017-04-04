@@ -1,22 +1,25 @@
 type joshQuery = {
+  [key:number]:Element,
   length:number,
   each:(func:(index?:number) => any) => joshQuery,
-  append:(elements:Node|Node[]) => joshQuery,
+  get:(index:number) => joshQuery,
+  add:(selectorOrElements:string|joshQuery) => joshQuery,
+  append:(elements:Element|joshQuery|string) => joshQuery,
   clone:(deep:boolean) => joshQuery,
   find:(selector:string) => joshQuery,
 };
 
 const joshQuery = (function(){
 
-  function stringToHTML(str:string):Node {
+  function stringToHTML(str:string):Element {
     const temp:HTMLTemplateElement = document.createElement('template');
     temp.innerHTML = str;
-    return temp.content.firstChild;
+    return (temp.content.firstChild) as Element;
   }
 
   function _joshQuery(selectorOrHTML:string):joshQuery;
-  function _joshQuery(element:Node):joshQuery;
-  function _joshQuery(elements:Node[]):joshQuery;
+  function _joshQuery(element:Element):joshQuery;
+  function _joshQuery(elements:Element[]):joshQuery;
   function _joshQuery(func:Function):joshQuery;
   function _joshQuery(val:any):joshQuery {
     if(val instanceof Function) window.addEventListener('load', val);
@@ -26,7 +29,7 @@ const joshQuery = (function(){
       val :
       (typeof(val) == 'string' && val.indexOf('<') >= 0) ?
       [stringToHTML(val)] :
-      val instanceof Node ?
+      val instanceof Element ?
       [val] :
       document.querySelectorAll(val)
     );
@@ -36,23 +39,34 @@ const joshQuery = (function(){
       return this;
     };
 
-    _.append = function(elements:Node|Node[]):joshQuery {
+    _.get = function(index:number):joshQuery {
+      return _joshQuery(this[index]);
+    };
+
+    _.add = function(selectorOrElements:string|joshQuery):joshQuery {
+      const sum = [].slice.call(this);
+      sum.push( typeof(selectorOrElements) === 'string' ? _joshQuery(selectorOrElements) : selectorOrElements );
+      return _joshQuery(sum);
+    }
+
+    _.append = function(elements:Element|joshQuery|string):joshQuery {
+      if(typeof(elements) === 'string') elements = _joshQuery(elements);
       return this.each(function(){
-        if(!(elements instanceof Array)) this.appendChild(elements);
-        else for(let element of elements) this.appendChild(element);
+        if(elements instanceof Element) this.appendChild(elements);
+        else for(let i = 0; i < elements.length; i++) this.appendChild(elements[i]);
       });
     };
 
     _.clone = function(deep:boolean):joshQuery {
-      const clone:Node[] = [];
+      const clone:Element[] = [];
       this.each(function(){
-        clone.push(this.cloneNode(deep));
+        clone.push(this.cloneElement(deep));
       });
       return _joshQuery(clone);
     };
 
     _.find = function(selector:string):joshQuery {
-      const result:Node[] = [];
+      const result:Element[] = [];
       this.each(function(){
         result.push(...this.querySelectorAll(selector));
       });
@@ -64,8 +78,8 @@ const joshQuery = (function(){
 
   const joshQuery = _joshQuery as {
     (selectorOrHTML:string):joshQuery;
-    (element:Node):joshQuery;
-    (elements:Node[]):joshQuery;
+    (element:Element):joshQuery;
+    (elements:Element[]):joshQuery;
     (func:Function):joshQuery;
 
     ajax:(url:string, obj?:{
