@@ -1,15 +1,29 @@
 type joshQuery = {
   [key:number]:Element,
   length:number,
-  each:(func:(index?:number) => any) => joshQuery,
+  each:(func:(element?:Element, index?:number) => any) => joshQuery,
   get:(index:number) => joshQuery,
   add:(selectorOrElements:string|joshQuery) => joshQuery,
   append:(elements:Element|joshQuery|string) => joshQuery,
+  remove:() => joshQuery,
   clone:(deep:boolean) => joshQuery,
   find:(selector:string) => joshQuery,
+  parent:() => joshQuery,
+  addClass:(className:string) => joshQuery,
+  removeClass:(className:string) => joshQuery,
+  toggleClass:(className:string) => joshQuery,
+  hasClass:(className:string) => boolean,
+  text:(value?:string) => joshQuery,
+  html:(value?:string) => joshQuery,
+  data:(key:string, value?:string|number|boolean) => joshQuery,
+  css:(property:string, value?:string) => joshQuery
 };
 
 const joshQuery = (function(){
+
+  class Binding implements Binding {
+
+  }
 
   function stringToHTML(str:string):Element {
     const temp:HTMLTemplateElement = document.createElement('template');
@@ -27,15 +41,15 @@ const joshQuery = (function(){
     const _:joshQuery = (
       (val instanceof Array) ?
       val :
+      (val instanceof Element) ?
+      [val] :
       (typeof(val) == 'string' && val.indexOf('<') >= 0) ?
       [stringToHTML(val)] :
-      val instanceof Element ?
-      [val] :
       document.querySelectorAll(val)
     );
 
-    _.each = function(func:(index?:number) => any):joshQuery {
-      for(let i = 0; i < this.length; i++) func.call(this[i], i);
+    _.each = function(func:(element?:Element, index?:number) => any):joshQuery {
+      for(let i = 0; i < this.length; i++) if(func.call(this[i], i) === false) break;
       return this;
     };
 
@@ -45,7 +59,7 @@ const joshQuery = (function(){
 
     _.add = function(selectorOrElements:string|joshQuery):joshQuery {
       const sum = [].slice.call(this);
-      sum.push( typeof(selectorOrElements) === 'string' ? _joshQuery(selectorOrElements) : selectorOrElements );
+      sum.push( ...<Element[]>(typeof(selectorOrElements) === 'string' ? _joshQuery(selectorOrElements) as any : selectorOrElements) );
       return _joshQuery(sum);
     }
 
@@ -57,21 +71,57 @@ const joshQuery = (function(){
       });
     };
 
+    _.remove = function():joshQuery {
+      return this.each((el) => el.parentNode.removeChild(el));
+    };
+
     _.clone = function(deep:boolean):joshQuery {
       const clone:Element[] = [];
-      this.each(function(){
-        clone.push(this.cloneElement(deep));
-      });
+      this.each((el) => clone.push(el.cloneElement(deep)));
       return _joshQuery(clone);
     };
 
     _.find = function(selector:string):joshQuery {
       const result:Element[] = [];
-      this.each(function(){
-        result.push(...this.querySelectorAll(selector));
-      });
+      this.each((el) => result.push(...el.querySelectorAll(selector)));
       return _joshQuery(result);
     };
+
+    _.parent = function():joshQuery {
+      const parents:Element[] = [];
+      this.each(function(){
+        if(parents.indexOf(this.parentNode) < 0) parents.push(this.parentNode);
+      });
+      return _joshQuery(parents);
+    };
+
+    _.addClass = (className:string) => _.each((el) => el.classList.add(className));
+    _.removeClass = (className:string) => _.each((el) => el.classList.remove(className));
+    _.toggleClass = (className:string) => _.each((el) => el.classList.toggle(className));
+    _.hasClass = function(className:string):boolean {
+      for(let i = 0; i < this.length; i++) if(this[i].classList.contains(className)) return true;
+      return false;
+    };
+
+    _.text = function(value?:string):joshQuery {
+      return value === undefined ? (this[0].textContent || this[0].value)
+      : this.each((n) => n['value' in n ? 'value' : 'textContent'] = value);
+    };
+
+    _.html = function(value?:string):joshQuery {
+      return value === undefined ? this[0].innerHTML
+      : this.each((n) => n.innerHTML = value);
+    };
+
+    _.data = function(key:string, value?:string):joshQuery {
+      return value === undefined ? this[0].dataset[key]
+      : this.each((n) => n.dataset[key] = value);
+    };
+
+    _.css = function(property:string, value?:string):joshQuery {
+      return value === undefined ? this[0].style[property]
+      : this.each((n) => n.style[property] = value);
+    }
 
     return _;
   }
