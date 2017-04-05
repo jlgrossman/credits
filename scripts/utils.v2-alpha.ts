@@ -21,10 +21,6 @@ type joshQuery = {
 
 const joshQuery = (function(){
 
-  class Binding implements Binding {
-
-  }
-
   function stringToHTML(str:string):Element {
     const temp:HTMLTemplateElement = document.createElement('template');
     temp.innerHTML = str;
